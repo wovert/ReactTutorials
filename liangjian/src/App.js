@@ -14,11 +14,16 @@ class App extends React.Component {
       <div>
         <h1>独立团，团长{boss}</h1>
         <Yiying boss='张大彪'></Yiying>
+        <Qibinglian boss="张德奎"></Qibinglian>
       </div>
       //  Adjacent JSX elements must be wrapped in an enclosing tag
       //<h3></h3>
     )
   }
+}
+
+function Qibinglian(props) {
+  return <h3>骑兵连连长{props.boss}, 冲啊!</h3>
 }
 
 class Yiying extends React.Component {
