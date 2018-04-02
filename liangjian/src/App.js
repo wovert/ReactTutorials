@@ -33,11 +33,33 @@ class Yiying extends React.Component {
     this.state = {
       solders: ['虎子', '柱子', '王根生']
     }
+    // onClick={this.addSolder} 解决 this 作用域问题
+    this.addSolder = this.addSolder.bind(this)
   }
+  // 事件函数
+  addSolder(){
+    console.log('add new solder')
+    // 返回新的对象
+    this.setState({
+      solders: [...this.state.solders, '新兵蛋子'+Math.random()]
+    })
+  }
+
+  addSolderOther = () => {
+    console.log('add new solder')
+    // 返回新的对象
+    this.setState({
+      solders: [...this.state.solders, '新兵蛋子'+Math.random()]
+    })
+  }
+
   render() {
     return (
       <div>
         <h1> 一营营长，{this.props.boss}</h1>
+        <button onClick={this.addSolder}>新兵入伍方法1</button>
+        <button onClick={() => this.addSolder() }>新兵入伍方法2</button>
+        <button onClick={this.addSolderOther}>新兵入伍方法3</button>
         <ul>
           {this.state.solders.map(v => {
             return <li key={v}>{v}</li>

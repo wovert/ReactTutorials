@@ -52,6 +52,12 @@ function hello(props) {
 - `Constructor` 设置初始状态，记得执行`super(props)`
 - State 是`不可变得对象·，使用 `this.state` 获取
 
+# 事件
+- onClick 点击事件
+	+ JSX 里，`onClck={this.函数名}`来绑定事件
+	+ this 引用问题，需要在`构造函数里用 bind 绑定 this`
+	+ `this.setState` 修改 state, 记得`返回新的 state`，而`不是修改`
+
 
 # 案例-亮剑
 - Windows OS use Administrator commands
