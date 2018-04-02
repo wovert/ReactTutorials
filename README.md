@@ -45,6 +45,13 @@ function hello(props) {
 - 组件里使用 `this.props` 获取值
 - 如果组件只有 render函数，还可以用函数的形式写组件
 
+# 组件内部 state
+> 组件内部通过 state 管理状态
+
+- JSX 本质就是 js,所以直接`数组.map` 渲染列表
+- `Constructor` 设置初始状态，记得执行`super(props)`
+- State 是`不可变得对象·，使用 `this.state` 获取
+
 
 # 案例-亮剑
 - Windows OS use Administrator commands

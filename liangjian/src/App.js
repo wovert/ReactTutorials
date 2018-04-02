@@ -27,9 +27,23 @@ function Qibinglian(props) {
 }
 
 class Yiying extends React.Component {
+  // 初始化组件
+  constructor(props) {
+    super(props)
+    this.state = {
+      solders: ['虎子', '柱子', '王根生']
+    }
+  }
   render() {
     return (
-      <h1> 一营营长，{this.props.boss}</h1>
+      <div>
+        <h1> 一营营长，{this.props.boss}</h1>
+        <ul>
+          {this.state.solders.map(v => {
+            return <li key={v}>{v}</li>
+          })}
+        </ul>
+      </div>
     )
   }
 }
