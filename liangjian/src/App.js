@@ -13,7 +13,7 @@ class App extends React.Component {
     return (
       <div>
         <h1>独立团，团长{boss}</h1>
-        <Yiying></Yiying>
+        <Yiying boss='张大彪'></Yiying>
       </div>
       //  Adjacent JSX elements must be wrapped in an enclosing tag
       //<h3></h3>
@@ -23,9 +23,8 @@ class App extends React.Component {
 
 class Yiying extends React.Component {
   render() {
-    const boss = '张大彪'
     return (
-      <h1> 一营营长，{boss}</h1>
+      <h1> 一营营长，{this.props.boss}</h1>
     )
   }
 }

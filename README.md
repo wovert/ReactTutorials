@@ -16,12 +16,12 @@
 - class 语法新建组件，render里直接使用
 - render 函数返回值就是输出 JSX 语法，会把 JSX 转换成 JS 执行
 
-- JSX
+## JSX 语法代码
 `function hello(props){
 	return <h1>Hello, {props.老大}</h1>
 }`
 
-- JS
+## JSX 转后的 JS代码
 `"use strict";
 function hello(props) {
 	return React.createElement(
@@ -33,10 +33,17 @@ function hello(props) {
 }`
 
 # JSX 基础语法
-- View 层语法
-	+ js 里直接写 html
-	+ class 写成 className
-	+ 变量用{}包裹即可
+> View 层语法
+- js 里直接写 html
+- class 写成 className
+- 变量用{}包裹即可
+
+# 组件之间传递数据
+> 组件之间用 props 传递数据
+
+- 使用 `<Component data="values">` 的形式传递
+- 组件里使用 `this.props` 获取值
+- 如果组件只有 render函数，还可以用函数的形式写组件
 
 
 # 案例-亮剑
@@ -46,3 +53,4 @@ function hello(props) {
 `# create-react-app liangjian`
 `# cd liangjian && ls -l`
 `# npm start`
+
