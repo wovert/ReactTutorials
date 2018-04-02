@@ -14,7 +14,7 @@ class App extends React.Component {
       <div>
         <h1>独立团，团长{boss}</h1>
         <Yiying boss='张大彪'></Yiying>
-        <Qibinglian boss="张德奎"></Qibinglian>
+        <Qibinglian boss="孙德胜"></Qibinglian>
       </div>
       //  Adjacent JSX elements must be wrapped in an enclosing tag
       //<h3></h3>
