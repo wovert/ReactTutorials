@@ -58,6 +58,23 @@ function hello(props) {
 	+ this 引用问题，需要在`构造函数里用 bind 绑定 this`
 	+ `this.setState` 修改 state, 记得`返回新的 state`，而`不是修改`
 
+# React 生命周期
+> React 组件有若干个钩子函数，在组件不同的状态执行
+
+- 初始化周期
+- 组件重新渲染生命周期
+- 组件卸载声明周期
+											父组件render
+
+Init render						compomentWillReceiveProps()		
+constructor()					shouldComponentUpdate() <- this.setState()
+componentWillMount()	componentWillUpdate() <- this.forceUpdate()
+								render()
+componentDidMount() 	componentDidUpdate()
+								componentWillUnmount()
+
+- 安装 `React Developer Tools`
+
 
 # 案例-亮剑
 - Windows OS use Administrator commands

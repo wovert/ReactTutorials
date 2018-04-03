@@ -4,6 +4,17 @@ import React from 'react'
  * 定义 App 组件
  */
 class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      message: '团部发出的命令'
+    }
+  }
+  newCommand() {
+    this.setState({
+      'message': '团部新的命令'
+    })
+  }
   /**
    * 渲染组件
    */
@@ -13,8 +24,9 @@ class App extends React.Component {
     return (
       <div>
         <h1>独立团，团长{boss}</h1>
-        <Yiying boss='张大彪'></Yiying>
-        <Qibinglian boss="孙德胜"></Qibinglian>
+        <button onClick={() => this.newCommand() }>团部命令</button>
+        <Yiying boss='张大彪' msg={this.state.message}></Yiying>
+        <Qibinglian boss="孙德胜" ></Qibinglian>
       </div>
       //  Adjacent JSX elements must be wrapped in an enclosing tag
       //<h3></h3>
@@ -35,7 +47,34 @@ class Yiying extends React.Component {
     }
     // onClick={this.addSolder} 解决 this 作用域问题
     this.addSolder = this.addSolder.bind(this)
+    console.log('组件初始化：constructor')
   }
+  componentWillMount() {
+    console.log('组件将要挂载：componentWillMount')
+  }
+  componentDidMount() {
+    console.log('组件已经挂载：componnetDidMount')
+  }
+  componentWillReceiveProps(){
+    console.log('组件要接受父组件的值：componentWillReceiveProps');
+  }
+  shouldComponentUpdate(){
+    console.log('判断组件是不是要更新：shouldComponentUpdate');
+    return true
+  }
+  componentWillUpdate(){
+    console.log('马上要更新组件：componentWillUpdate');
+  }
+  omponentDidUpdate(){
+    console.log('组件更新完毕：omponentDidUpdate');
+  }
+  componentDidUpdate(){
+    console.log('组件更新完毕：componentComponentUpdate');
+  }
+  omponentWillUnmount(){
+    console.log('组件卸载了：omponentWillUnmount');
+  }
+
   // 事件函数
   addSolder(){
     console.log('add new solder')
@@ -54,9 +93,11 @@ class Yiying extends React.Component {
   }
 
   render() {
+    console.log('组件正在加载：component is render')
     return (
       <div>
         <h1> 一营营长，{this.props.boss}</h1>
+        <p>{this.props.msg}</p>
         <button onClick={this.addSolder}>新兵入伍方法1</button>
         <button onClick={() => this.addSolder() }>新兵入伍方法2</button>
         <button onClick={this.addSolderOther}>新兵入伍方法3</button>
