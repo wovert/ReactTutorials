@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button } from 'antd-mobile'
-import 'antd-mobile/dist/antd-mobile.css'
+//import 'antd-mobile/dist/antd-mobile.css'
 
 /**
  * 定义 App 组件
