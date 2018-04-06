@@ -1,4 +1,6 @@
 import React from 'react'
+import { Button } from 'antd-mobile'
+import 'antd-mobile/dist/antd-mobile.css'
 
 /**
  * 定义 App 组件
@@ -24,7 +26,7 @@ class App extends React.Component {
     return (
       <div>
         <h1>独立团，团长{boss}</h1>
-        <button onClick={() => this.newCommand() }>团部命令</button>
+        <Button type="primary" onClick={() => this.newCommand() }>团部命令</Button>
         <Yiying boss='张大彪' msg={this.state.message}></Yiying>
         <Qibinglian boss="孙德胜" ></Qibinglian>
       </div>
