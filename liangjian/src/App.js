@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button } from 'antd-mobile'
+import { Button, List } from 'antd-mobile'
 //import 'antd-mobile/dist/antd-mobile.css'
 
 /**
@@ -103,6 +103,11 @@ class Yiying extends React.Component {
         <button onClick={this.addSolder}>新兵入伍方法1</button>
         <button onClick={() => this.addSolder() }>新兵入伍方法2</button>
         <button onClick={this.addSolderOther}>新兵入伍方法3</button>
+        <List renderHeader={()=>'士兵列表'}>
+          {this.state.solders.map(v => {
+            return <List.Item key={v}>{v} </List.Item>
+          })}
+        </List>
         <ul>
           {this.state.solders.map(v => {
             return <li key={v}>{v}</li>
