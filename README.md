@@ -84,3 +84,70 @@ componentDidMount() 	componentDidUpdate()
 `# cd liangjian && ls -l`
 `# npm start`
 
+## antd-mobile 组件
+cnpm i antd-mobile@next --save
+
+### 按需加载
+- 安装按需加载模块
+`cnpm i babel-plugin-import --save`
+- 修改配置文件: package.json
+"babel": {
+	"presets": [
+		"react-app"
+	],
+	"plugins": [
+		["import", { "libraryName": "antd-mobile", "style": "css" }]
+	]
+}
+- 隐藏导入样式文件
+`import 'antd-mobile/dist/antd-mobile.css'`
+
+# Redux
+## Redux 是什么
+> 状态管理库
+
+## Redux 特性
+- 状态管理，和React　解耦
+- 单一状态，单项数据流
+- 核心概念：store, state, action, reducer
+
+## 独立团项目
+- 独立团逐渐发展，老李发现管不过来了
+	+ 人少的时候，无论是兵器还是人员的变更，都是 setState
+	+ 发展为千人大团后，老李决定，军事生活分开
+	+ 所有状态归赵政委(redux)管理，自己只打仗（view显示）
+
+
+- 老赵主要功能
+	+ 老赵有一个保险箱(store)所有人的状态，在那里都有记录(state)
+	+ 需要改变的时候，需要告诉专员(dispatch)要干什么（action）
+	+ 处理变化的人（reducer）拿到 state 和 action ,生成新的记录（state）
+
+- 走马上任
+	+ 首先通过 reducer 新建 store, 随时通过 store.getState 获取状态
+	+ 需要状态变更，store.dispatch(action) 来修改状态
+	+ Reducer 函数接受state和action，返回新的state, 可以用 store.subscribe 监听每次修改
+
+## 安装 redux
+`cnpm install redux -S`
+
+- src/index.js
+
+import { createStore } from 'redux';
+
+
+// 根据老的state 和 action 生成新的state
+function counter($state=0, action) {
+	switch(action.type) {
+		case '加机关枪':
+			return state + 1;
+		case '减机关枪':
+			return state - 1;
+    return 10;
+  }
+}
+// 新建 store
+const store = createStore(counter);
+const init = store.getState();
+console.log(init);
+
