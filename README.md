@@ -151,3 +151,8 @@ const store = createStore(counter);
 const init = store.getState();
 console.log(init);
 
+## Redux 如何和 React 一起用
+- 手动连接，老赵怎么管理独立团
+	+ 把 store.dispath 方法传递给组件，内部可以调用修改状态
+	+ Subscribe 订阅 render 函数，每次修改都重新渲染
+	+ Redux 相关内容，移到单独的文件 index.redux.js 单独管理
