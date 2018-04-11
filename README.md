@@ -156,3 +156,20 @@ console.log(init);
 	+ 把 store.dispath 方法传递给组件，内部可以调用修改状态
 	+ Subscribe 订阅 render 函数，每次修改都重新渲染
 	+ Redux 相关内容，移到单独的文件 index.redux.js 单独管理
+
+## 处理异步、调试工具、更优雅的和 React 结合
+- Redux 处理异步，需要 `redux-thunk` 插件
+- `npm install redux-devtools-extension` 并且开启
+- 使用 react-redux 优雅的链接 react 和 redux
+
+### redux-thunk
+`cnpm i redux-thunk -S`
+`cnpm i redux-logger -S`
+- 使用 applyMiddleware 开启thunk中间件
+- Action 可以返回函数，使用 dispatch 提交 action
+import { createStore, applyMiddleware} from 'redux'
+const store = createStore(counter, applyMiddleware)
+
+`cnpm i redux-devtools-extension -S`
+`cnpm i redux-chunk -S`
+
