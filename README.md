@@ -186,3 +186,8 @@ const store = createStore(counter, applyMiddleware)
 
 ### code
 import { Provider } from 'react-redux';
+
+- 使用装饰器优化 connect 代码
+`npm run ejet 弹出个性化配置`
+
+
