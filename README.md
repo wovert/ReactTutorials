@@ -173,3 +173,16 @@ const store = createStore(counter, applyMiddleware)
 `cnpm i redux-devtools-extension -S`
 `cnpm i redux-chunk -S`
 
+## 使用 react-redux
+- 老赵能力用起来很麻烦，为了方便管理，使用魏和尚来负责链接
+- `cnpm i react-redux -S`
+- 忘记 subscribe，记住reducer，action和dispatch 即可
+- React-redux 提供 Provider 和 connect 两个接口来链接
+
+- react-redux 具体使用
+	+ Provider 组件在应用最外层，传入store即可，只用一次
+	+ Connect 负责从外部获取组件需要的参数
+	+ Connect 可以用装饰器的方式来写
+
+### code
+import { Provider } from 'react-redux';
