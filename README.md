@@ -190,4 +190,5 @@ import { Provider } from 'react-redux';
 - 使用装饰器优化 connect 代码
 `npm run ejet 弹出个性化配置`
 
-
+- npm i babel-plugin-transform-decorators-legacy 插件
+- Package.json 里babel 加上 plugins 配置
