@@ -192,3 +192,50 @@ import { Provider } from 'react-redux';
 
 - npm i babel-plugin-transform-decorators-legacy 插件
 - Package.json 里babel 加上 plugins 配置
+
+# Redux-router4
+- React 官方推荐路由库，4是最新版本
+	+ 4 是最新的版本，和之前版本不兼容，浏览器和RN均兼容
+	+ React 开发单页应用必备，碱性路由即组件的该概念
+	+ 核心概念：动态路由、Route、Link、Switch
+
+## 安装 react-router
+- `cnpm i react-router-dom -S`
+- Router4 使用 react-router-dom 作为浏览器的路由
+
+## 组件
+- BrowerRouter 包括整个应用
+- Router 路由对应渲染的组件，可嵌套
+- Link 跳转专用
+
+- 代码
+// 多页应用
+import { BrowerRouter, Route, Link } from 'react-router-dom';
+
+ReactDOM.render(
+  (<Provider store={store}>
+    <BrowerRouter>
+      <div>
+        <ul>
+            <li>
+              <Link to="/">一营</Link>
+            </li>
+            <li>
+              <Link to="/erying">二营</Link>
+            </li>
+            <li>
+              <Link to="/qibinglian">骑兵连</Link>
+            </li>                    
+        </ul>
+        <Route path="/" exact component={App}></Route>
+        <Route path="/erying" component={Erying}></Route>
+        <Route path="/qibinglian" component={Qibinglian}></Route>
+      </div>
+    </BrowerRouter>
+  </Provider>),
+  document.getElementById('root')
+);
+
+
+
+
