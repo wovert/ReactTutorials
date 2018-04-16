@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';  
 import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
@@ -33,6 +33,18 @@ function Qibinglian() {
   return <h2>骑兵连</h2>
 }
 
+class Test extends Component {
+  constructor(props){
+    super(props);
+  }
+  render() {
+    console.log(this.props);
+    return (
+      <h2>测试组件{this.props.match.params.location}</h2>
+    );
+  }
+}
+
 ReactDOM.render(
   (<Provider store={store}>
     <BrowserRouter>
@@ -51,6 +63,7 @@ ReactDOM.render(
         <Route path="/" exact component={App}></Route>
         <Route path="/erying" component={Erying}></Route>
         <Route path="/qibinglian" component={Qibinglian}></Route>
+        <Route path="/:location" component={Test}></Route>
       </div>
     </BrowserRouter>
   </Provider>),
