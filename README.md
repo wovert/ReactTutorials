@@ -240,7 +240,10 @@ ReactDOM.render(
 ## 其他组件
 - url 参数，Router 组件参数可用冒号标识参数
 - Redirect 组件跳转
+	+ <Redirect to="/"></Redirect>
 - Switch 只渲染一个子 Route 组件
+
+
 
 
 

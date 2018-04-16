@@ -6,7 +6,12 @@ import logger from 'redux-logger';
 import { Provider } from 'react-redux';
 
 // 多页应用
-import { BrowserRouter, Route, Link } from 'react-router-dom';
+import { 
+  BrowserRouter, 
+  Route, 
+  Link, 
+  Redirect,
+  Switch } from 'react-router-dom';
 
 
 import App from './App';
@@ -63,7 +68,7 @@ ReactDOM.render(
         <Route path="/" exact component={App}></Route>
         <Route path="/erying" component={Erying}></Route>
         <Route path="/qibinglian" component={Qibinglian}></Route>
-        <Route path="/:location" component={Test}></Route>
+        <Redirect to="/"></Redirect>
       </div>
     </BrowserRouter>
   </Provider>),
