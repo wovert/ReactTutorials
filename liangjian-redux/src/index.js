@@ -45,7 +45,7 @@ class Test extends Component {
   render() {
     console.log(this.props);
     return (
-      <h2>测试组件{this.props.match.params.location}</h2>
+      <h2>没有找到{this.props.match.params.location}页面</h2>
     );
   }
 }
@@ -65,10 +65,13 @@ ReactDOM.render(
               <Link to="/qibinglian">骑兵连</Link>
             </li>                    
         </ul>
-        <Route path="/" exact component={App}></Route>
-        <Route path="/erying" component={Erying}></Route>
-        <Route path="/qibinglian" component={Qibinglian}></Route>
-        <Redirect to="/"></Redirect>
+        <Switch>
+          {/*只渲染命中的第一个 Route*/}
+          <Route path="/" exact component={App}></Route>
+          <Route path="/erying" component={Erying}></Route>
+          <Route path="/qibinglian" component={Qibinglian}></Route>
+          <Route path="/:location" component={Test}></Route>
+        </Switch>
       </div>
     </BrowserRouter>
   </Provider>),
