@@ -247,3 +247,54 @@ ReactDOM.render(
 
 
 
+
+# jspm
+> Package Manager
+
+- 语言包
+	+ npm, github
+
+- Traceur
+- Babel
+- 发布应用：bundle
+
+- SystemJS 加载 js 模块
+	+ AMD
+	+ CommonJS
+	+ ES6
+
+## setup
+- 全局安装：`cnpm install jspm -g`
+- 创建项目：`mkdir frontend && cd frontend`
+- 初始化项目：`npm init`
+- 安装 jspm : `cnpm i jspm --save-dev`
+- 配置 jspm : `jspm init`
+	+ config.js 是jspm 配置文件
+	+ jspm_packages jspm安装的包目录
+
+- jspm会 动态的载入 babel 工具
+
+## jspm install package
+- 修改报名位jquery components 是仓库拥有者， jquery 仓库的名字
+`jspm install jquery=github:components/jquery`
+- config.js
+
+## jspm uninstall package
+`jspm uninstall jquery`
+
+
+- https://github.com/jspm/registry 的package.json 有jquery， 通过一下方式安装
+jspm install jquery 安装最新的版本
+jspm install jquery@^2.1.0
+jspm install jquery@~2.1.0
+
+
+## 使用ES6模块, BrowserSync 使用
+ 1. `npm install -g browser-sync` 安装 Node 后，通过npm安装BrowserSync(自动刷新)
+ 2. 使用BrowserSync： `browser-sync start --server` 开启服务
+browser-sync start --server --no-notify --files 'index.html, app/**/*.js' 
+
+## 打包bundle 功能
+`jspm bundle app/main app/build.js`  将app文件夹下的main.js里面的js都打包到build.js中
+
+`jspm bundle app/main app/build.js --inject` 这样不用在html 引入build.js文件
