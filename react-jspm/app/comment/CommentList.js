@@ -8,10 +8,17 @@ class CommentList extends React.Component {
     super(props);
   }
   render() {
+    let commentNodes = this.props.data.map(comment => {
+      return (
+        <Comment author={comment.author} date={comment.date}>
+          {comment.text}
+        </Comment>
+      );
+    });
+
     return (
       <div>
-          <Comment author="张三" date="5 分钟前">天气不错呀!</Comment>
-          <Comment author="李四" date="2 分钟前">出去玩呀</Comment>
+          {commentNodes}
       </div>
     );
   }
