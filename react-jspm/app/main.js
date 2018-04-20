@@ -19,6 +19,6 @@ var comments = [
 ];
 
 ReactDOM.render(
-  <CommentBox data={comments} />,
+  <CommentBox url="app/comments.json" />,
   document.getElementById('app')
 );

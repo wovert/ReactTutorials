@@ -18,6 +18,7 @@ System.config({
     "babel-runtime": "npm:babel-runtime@5.8.38",
     "core-js": "npm:core-js@1.2.7",
     "css": "github:systemjs/plugin-css@0.1.37",
+    "jquery": "npm:jquery@3.3.1",
     "react": "npm:react@16.3.2",
     "react-dom": "npm:react-dom@16.3.2",
     "semantic-ui": "github:Semantic-Org/Semantic-UI@2.3.1",
