@@ -1,9 +1,60 @@
 # React 是什么
-> 构建 UI 库
+> 一个用于创建**可复用，可聚合** web 组件 UI 库
+> 只提供前端 MVC 框架中的 V 层，并不是完整的 MVC 框架
+
 - Facebook 出品，专注 View 层
 - 一切皆组件
 - 全部使用 ES6 语法
 - 最新版本: React 16
+
+# Why use React
+1. 组件化：而不是写一大堆 HTML 模板
+2. JSX：JS 逻辑与 HTMl 标签紧密相连并且极易理解. XML 语法扩展
+3. 单向数据流：数据一旦更新，就直接重新渲染整个 app
+4. 虚拟 DOM 树
+- JavaScript 快
+- DOM 操作慢
+
+- 虚拟 DOM
+	+ React 重建 DOM 树
+	+ 找到与上个版本的 DOM 的差异
+	+ 计算出最新的 DOM 更新操作
+	+ 从操作队伍中批量地执行 DOM 更新操作
+
+- 在 Node.js服务器端运行
+	+ 服务器与客户端共用逻辑（lsomorphic javascript）
+	+ SEO 友好，便于生成缓存的单面应用
+	+ 直接渲染特定的页面而不用渲染整个 app
+
+
+- 管理 UI 状态并不简单
+	+ 修改 DOM 树
+	+ 修改数据
+	+ 接收用户的输入
+	+ 异步 API 数据请求
+
+## 渲染方式
+- 传统方式
+	+ 浏览器请求页面
+	+ 服务器请求数据库
+	+ 将数据传给模板
+	+ 模板渲染页面
+- React 的渲染方式
+	+ 用户输入
+	+ 从 API 获取数据
+	+ 将数据传给顶层组件
+	+ React 将每个组件渲染出来
+
+## React 是如何使用 JSX
+`<p className="hello">
+	Hello {this.props.name}
+</p>`
+
+- 将编译成 React 构造器的方法
+`React.createElement("p", {className: "hello", "hello ", this.props.name})`
+
+
+
 
 # 入门实例
 - 默认使用版本 15， 手动更新为 16
@@ -298,3 +349,16 @@ browser-sync start --server --no-notify --files 'index.html, app/**/*.js'
 `jspm bundle app/main app/build.js`  将app文件夹下的main.js里面的js都打包到build.js中
 
 `jspm bundle app/main app/build.js --inject` 这样不用在html 引入build.js文件
+
+
+# jspm 安装 react
+`jspm install react`
+`jspm install react@0.14.0-rc1`
+
+`jspm install react-dom`
+`jspm install semantic-ui`
+`jspm install css`
+
+- 监视服务器文件的变化
+`browser-sync start --server --no-notify --files 'index.html, app/**/*.js'`
+
