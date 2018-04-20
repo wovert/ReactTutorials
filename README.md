@@ -362,3 +362,6 @@ browser-sync start --server --no-notify --files 'index.html, app/**/*.js'
 - 监视服务器文件的变化
 `browser-sync start --server --no-notify --files 'index.html, app/**/*.js'`
 
+# 事件
+- onClick
+- onSubmit
