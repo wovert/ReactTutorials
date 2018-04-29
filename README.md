@@ -217,13 +217,63 @@ function hello(props) {
 											父组件render
 
 Init render						compomentWillReceiveProps()		
-constructor()					shouldComponentUpdate() <- this.setState()
-componentWillMount()	componentWillUpdate() <- this.forceUpdate()
+		|													|
+		V													V
+constructor()					shouldComponentUpdate() 		<—— this.setState()
+		|													|
+		V													V
+componentWillMount()	componentWillUpdate() 			<—— this.forceUpdate()
+								|				|
+								V				V
 								render()
+										|
+										V
 componentDidMount() 	componentDidUpdate()
+									|		|
+									V		V
 								componentWillUnmount()
 
-- 安装 `React Developer Tools`
+![父组件下达命令](./images/lifecycle-flow.png)
+
+![父组件下达命令](./images/lifecycle-parent.png)
+- 父组件: 输入命令并下达作战命令, `refs 属性`可以轻易获取　DOM　属性值
+
+![子组件接受命令](./images/lifecycle-child1.png)
+![子组件接受命令](./images/lifecycle-child2.png)
+---------------------------------------
+![父组件下达命令](./images/lifecycle-yiying.png)
+- 未下达命令之前：声明周期流程
+
+![父组件下达命令](./images/lifecycle-yiying-result.png)
+- 下达攻击平安县城命令之后：声明周期流程
+
+![组件声明周期各种状态](./images/lifecycle-status.png)
+
+# 安装 `React Developer Tools`
+
+
+# antd-mobile 组件
+`# cnpm i antd-mobile@next --save`
+
+### 按需加载
+- 安装按需加载模块
+`cnpm i babel-plugin-import --save`
+
+- 修改配置文件: package.json
+```
+"babel": {
+	"presets": [
+		"react-app"
+	],
+	"plugins": [
+		["import", { "libraryName": "antd-mobile", "style": "css" }]
+	]
+}
+```
+- 隐藏导入样式文件
+`import 'antd-mobile/dist/antd-mobile.css'`
+
+
 
 
 # 案例-亮剑
@@ -234,23 +284,7 @@ componentDidMount() 	componentDidUpdate()
 `# cd liangjian && ls -l`
 `# npm start`a
 
-## antd-mobile 组件
-cnpm i antd-mobile@next --save
 
-### 按需加载
-- 安装按需加载模块
-`cnpm i babel-plugin-import --save`
-- 修改配置文件: package.json
-"babel": {
-	"presets": [
-		"react-app"
-	],
-	"plugins": [
-		["import", { "libraryName": "antd-mobile", "style": "css" }]
-	]
-}
-- 隐藏导入样式文件
-`import 'antd-mobile/dist/antd-mobile.css'`
 
 # Redux
 ## Redux 是什么
