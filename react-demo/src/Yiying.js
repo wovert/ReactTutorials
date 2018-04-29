@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Button } from 'antd-mobile';
+import { Button, List } from 'antd-mobile';
 
 // 问题：加载所有样式文件
-import 'antd-mobile/dist/antd-mobile.css';
+// import 'antd-mobile/dist/antd-mobile.css';
 
 export default class Yiying extends Component {
   constructor(props) {
@@ -29,11 +29,14 @@ export default class Yiying extends Component {
         <Button type="primary" onClick={this.addSolder}>添加士兵方法1</Button><br />
         <Button type="warning" onClick={()=> { this.addSolder() }}>添加士兵方法2</Button><br />
         <Button type="ghost" onClick={this.addSolder2}>添加士兵方法2</Button><br />  
-        <ul>
+        <List renderHeader={()=>'士兵列表'}>
           {this.state.solders.map((v)=>{
-            return <li key={v}>{v} | 作战命令： {this.props.message}</li>
+            return (
+              <List.Item key={v}>
+                {v} | 作战命令： {this.props.message}
+              </List.Item>);
           })}
-        </ul>
+        </List>
       </section>
     );
   }
