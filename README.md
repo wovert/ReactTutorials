@@ -184,14 +184,19 @@ function hello(props) {
 ![子组件接受传递的数据](./images/import-sub-component.png)
 ![子组件接受传递的数据渲染结果](./images/component-by-value.png)
 
+- 函数也可以作为组件
+
+![自定义函数组件](./images/import-qibinglian.png)
+![自定义函数组件结果](./images/import-qibinglian-result.png)
+
 ## 组件内部 state
 > 组件内部通过 state 管理状态
 - JSX 本质就是 js,所以直接`数组.map` 渲染列表
 - `Constructor` 设置初始状态，记得执行`super(props)`
 - State 是`不可变得对象·，使用 `this.state` 获取
 
-
-
+![组件内部](./images/state.png)
+![组件内部结果](./images/state-result.png)
 
 ## 事件
 - onClick 点击事件
@@ -199,7 +204,11 @@ function hello(props) {
 	+ this 引用问题，需要在`构造函数里用 bind 绑定 this`
 	+ `this.setState` 修改 state, 记得`返回新的 state`，而`不是修改`
 
-# React 生命周期
+![修改组件状态](./images/event.png)
+![修改组件状态结果](./images/event-result.png)
+
+
+## React 生命周期
 > React 组件有若干个钩子函数，在组件不同的状态执行
 
 - 初始化周期
