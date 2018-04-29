@@ -8,11 +8,14 @@ import { Button, List } from 'antd-mobile'
 class App extends React.Component {
   constructor(props) {
     super(props)
+
+    // 当前组件状态
     this.state = {
       message: '团部发出的命令'
     }
   }
   newCommand() {
+    // 修改当前组件状态
     this.setState({
       'message': '团部新的命令'
     })
@@ -55,7 +58,7 @@ class Yiying extends React.Component {
     console.log('组件将要挂载：componentWillMount')
   }
   componentDidMount() {
-    console.log('组件已经挂载：componnetDidMount')
+    console.log('组件已经挂载：componentDidMount')
   }
   componentWillReceiveProps(){
     console.log('组件要接受父组件的值：componentWillReceiveProps');
@@ -67,14 +70,11 @@ class Yiying extends React.Component {
   componentWillUpdate(){
     console.log('马上要更新组件：componentWillUpdate');
   }
-  omponentDidUpdate(){
-    console.log('组件更新完毕：omponentDidUpdate');
-  }
   componentDidUpdate(){
-    console.log('组件更新完毕：componentComponentUpdate');
+    console.log('组件更新完毕：componentDidUpdate');
   }
   omponentWillUnmount(){
-    console.log('组件卸载了：omponentWillUnmount');
+    console.log('组件卸载了：componentWillUnmount');
   }
 
   // 事件函数
