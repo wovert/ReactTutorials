@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
-class Yiying extends Component {
+import { Button } from 'antd-mobile';
+
+// 问题：加载所有样式文件
+import 'antd-mobile/dist/antd-mobile.css';
+
+export default class Yiying extends Component {
   constructor(props) {
     console.log('constructor:一营组件初始化');
     super(props);
@@ -21,11 +26,9 @@ class Yiying extends Component {
       <section>
         <h2>一营营长, {this.props.boss} </h2>
         <blockquote>团部命令：{this.props.message}</blockquote>
-        <button onClick={this.addSolder}>添加士兵方法1</button><br />
-        {/* 解决this作用域问题 */}
-        <button onClick={()=> { this.addSolder() }}>添加士兵方法2</button><br />
-        {/* 解决this作用域问题 */}
-        <button onClick={this.addSolder2}>添加士兵方法2</button><br />  
+        <Button type="primary" onClick={this.addSolder}>添加士兵方法1</Button><br />
+        <Button type="warning" onClick={()=> { this.addSolder() }}>添加士兵方法2</Button><br />
+        <Button type="ghost" onClick={this.addSolder2}>添加士兵方法2</Button><br />  
         <ul>
           {this.state.solders.map((v)=>{
             return <li key={v}>{v} | 作战命令： {this.props.message}</li>
@@ -55,4 +58,3 @@ class Yiying extends Component {
     console.log('componentDidUnmount: 一营组件卸载了');
   }
 }
-export default Yiying;

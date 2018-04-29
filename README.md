@@ -271,9 +271,9 @@ componentDidMount() 	componentDidUpdate()
 }
 ```
 - 隐藏导入样式文件
-`import 'antd-mobile/dist/antd-mobile.css'`
-
-
+```
+import 'antd-mobile/dist/antd-mobile.css'
+```
 
 
 # 案例-亮剑

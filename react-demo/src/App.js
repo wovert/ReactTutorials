@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+
 import Yiying from './Yiying';
 import Qibinglian from './Qibinglian';
+
 
 class App extends Component {
   constructor(props) {
