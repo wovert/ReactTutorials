@@ -1,4 +1,4 @@
-# React 是什么
+# What React
 > 一个用于创建**可复用，可聚合** web 组件 UI 库
 > 只提供前端 MVC 框架中的 V 层，并不是完整的 MVC 框架
 
@@ -7,15 +7,83 @@
 - 全部使用 ES6 语法
 - 最新版本: React 16
 
-# Why use React
-1. 组件化：而不是写一大堆 HTML 模板
-2. JSX：JS 逻辑与 HTMl 标签紧密相连并且极易理解. XML 语法扩展
-3. 单向数据流：数据一旦更新，就直接重新渲染整个 app
-4. 虚拟 DOM 树
-- JavaScript 快
-- DOM 操作慢
+## React History
+- 2013-6, Facebook 官方发布 React
+- 2014-9, React 热度开始上涨
+- 2015-3，React Native 发布
 
-- 虚拟 DOM
+## Why use React
+- Facebook 解决的问题：构建数据不断变化的大型应用
+	+ **数据**变换
+		* 大量 **DOM** 操作
+		* **逻辑**极其复杂
+
+- React
+	+ 自动 DOM 操作
+	+ 状态对应内容（状态<=>数据）
+
+## 前段框架对比
+### MVC
+> Model View Controller
+- Model(模型)：数据保存 
+- View(视图)：用户界面
+- Controller(控制器)：业务逻辑
+
+![MVC 通信方式](./images/mvc.png)
+
+1. View 传送指令到 Controller
+2. Controller 完成业务逻辑后，要求 Model 改变状态
+3. Model 将新的数据发送到 View, 用户得到反馈
+- 注意以上通信都是**单向的**
+
+#### 互动模式
+1. View 接受指令，传递给 Controller
+![MVC 通信方式](./images/mvc-type.png)
+
+
+2. Controller 接受指令，传递给 Model保存，并在 View 层展现
+![MVC 通信方式](./images/mvc-type2.png)
+
+
+- Backbne.js 实例
+![Backbone MVC 通信方式](./images/mvc-backbone.png) 
+1. 用户可以向 View 发送指令（DOM 事件），再由 View 直接要求 Model 改变状态。
+
+2. 用户也可以直接向 Controller 发送指令（改变 URL 触发 hashChange 事件），再由 Controller 发送给 View。
+
+3. Controller 非常薄，只起到路由的作用，而 View 非常厚，业务逻辑都部署在 View。所以，Backbone 索性取消了 Controller，只保留一个 Router（路由器） 。
+
+
+### MVP
+> MVP 模式将 Controller 改名为 Presenter，同时改变了通信方向。
+![MVP 通信方式](./images/mvp.png) 
+
+1. 各部分之间的通信，都是双向的。
+
+2. View 与 Model 不发生联系，都通过 Presenter 传递
+
+3. View 非常薄，不部署任何业务逻辑，称为"被动视图"（Passive View），即没有任何主动性，而 Presenter非常厚，所有逻辑都部署在那里。
+
+### MVVM 
+> Model View ViewModel
+![MVVM 通信方式](./images/mvvm.png) 
+- MVVM 模式将 Presenter 改名为 ViewModel，基本上与 MVP 模式完全一致。
+- 唯一的区别是，它采用双向绑定（data-binding）：View的变动，自动反映在 ViewModel，反之亦然。Angular 和 Ember 都采用这种模式。
+
+## React features
+### 组件化
+>  提高代码**复用率、降低测试难度和代码复杂度**
+- 提高代码复用率：组件将**数据和逻辑封装**，类似面向对象中的类
+- 降低测试难度：组件**高内聚低耦合**，很容易对单个组件进行测试
+- 降低代码复杂度：直观的语法可以解答提高可读性
+
+### JSX
+> JS 逻辑与 HTMl 标签紧密相连并且极易理解. XML 语法扩展
+
+### 单向数据流
+> 数据一旦更新，就直接重新渲染整个 app
+
+### 虚拟 DOM 树
 	+ React 重建 DOM 树
 	+ 找到与上个版本的 DOM 的差异
 	+ 计算出最新的 DOM 更新操作
@@ -25,7 +93,6 @@
 	+ 服务器与客户端共用逻辑（lsomorphic javascript）
 	+ SEO 友好，便于生成缓存的单面应用
 	+ 直接渲染特定的页面而不用渲染整个 app
-
 
 - 管理 UI 状态并不简单
 	+ 修改 DOM 树
@@ -45,6 +112,20 @@
 	+ 将数据传给顶层组件
 	+ React 将每个组件渲染出来
 
+## React 开发环境搭建
+- Sublime
+	+ Preferences -> Pakcage Control -> install package
+	+ Ctrl + Shift + p
+- 安装插件
+	+ emmet (html/css 编写)
+	+ HTML-CSS-JS Prettyfy
+		* 配置 NodeJS 安装路径
+		* 格式化：右键选择 -> Prettify Code
+	+ Spacegray 模板
+
+## React 兼容性
+- IE8
+
 ## React 是如何使用 JSX
 `<p className="hello">
 	Hello {this.props.name}
@@ -52,9 +133,6 @@
 
 - 将编译成 React 构造器的方法
 `React.createElement("p", {className: "hello", "hello ", this.props.name})`
-
-
-
 
 # 入门实例
 - 默认使用版本 15， 手动更新为 16
@@ -68,12 +146,14 @@
 - render 函数返回值就是输出 JSX 语法，会把 JSX 转换成 JS 执行
 
 ## JSX 语法代码
-`function hello(props){
+```
+function hello(props){
 	return <h1>Hello, {props.老大}</h1>
-}`
-
+}
+```
 ## JSX 转后的 JS代码
-`"use strict";
+```
+"use strict";
 function hello(props) {
 	return React.createElement(
 		"h1",
@@ -81,29 +161,39 @@ function hello(props) {
 		"hello, ",
 		props.老大
 	)
-}`
+}
+```
 
-# JSX 基础语法
+## JSX 基础语法
 > View 层语法
+
 - js 里直接写 html
 - class 写成 className
 - 变量用{}包裹即可
 
-# 组件之间传递数据
-> 组件之间用 props 传递数据
+![组件渲染](./images/react-component.png)
+![组件渲染效果](./images/react-component-inbroswer.png)
 
+## 组件之间传递数据
+> 组件之间用 props 传递数据
 - 使用 `<Component data="values">` 的形式传递
 - 组件里使用 `this.props` 获取值
 - 如果组件只有 render函数，还可以用函数的形式写组件
 
-# 组件内部 state
-> 组件内部通过 state 管理状态
+![自定义组件间出传递数据](./images/sub-component.png)
+![子组件接受传递的数据](./images/import-sub-component.png)
+![子组件接受传递的数据渲染结果](./images/component-by-value.png)
 
+## 组件内部 state
+> 组件内部通过 state 管理状态
 - JSX 本质就是 js,所以直接`数组.map` 渲染列表
 - `Constructor` 设置初始状态，记得执行`super(props)`
 - State 是`不可变得对象·，使用 `this.state` 获取
 
-# 事件
+
+
+
+## 事件
 - onClick 点击事件
 	+ JSX 里，`onClck={this.函数名}`来绑定事件
 	+ this 引用问题，需要在`构造函数里用 bind 绑定 this`
@@ -133,7 +223,7 @@ componentDidMount() 	componentDidUpdate()
 `# create-react-app -v`
 `# create-react-app liangjian`
 `# cd liangjian && ls -l`
-`# npm start`
+`# npm start`a
 
 ## antd-mobile 组件
 cnpm i antd-mobile@next --save
@@ -365,3 +455,11 @@ browser-sync start --server --no-notify --files 'index.html, app/**/*.js'
 # 事件
 - onClick
 - onSubmit
+
+
+# bower 包管理
+- `cnpm install -g bower`
+
+- `bower install react`
+- `vim index.html`
+
