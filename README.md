@@ -384,8 +384,17 @@ const store = createStore(counter, applyMiddleware)
 ![redux-thunk-result](./images/thunk-result.png)
 
 
-
-
+### 调试工具 redux-devtools-extension 配置
+- 新建 store 的时候判断 window.devToolsExtension
+- 使用 compose 结合 thunk 和 window.devToolsExtension
+- 调试窗的 redux 选项卡，实时看到 state
+```
+import { createStore, applyMiddleware, compose } from 'redux';
+const store = createStore(counter, compose(
+	applyMiddleware(thunk),
+	window.devToolsExtension ? window.devToolsExtension():f=>f;
+))
+```
 
 ## 使用 react-redux
 - 老赵能力用起来很麻烦，为了方便管理，使用魏和尚来负责链接
