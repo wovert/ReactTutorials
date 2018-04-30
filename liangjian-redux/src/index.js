@@ -1,79 +1,25 @@
-import React, {Component} from 'react';  
-import ReactDOM from 'react-dom';
-import { createStore, applyMiddleware, compose } from 'redux';
-import thunk from 'redux-thunk';
-import logger from 'redux-logger';
-import { Provider } from 'react-redux';
-
-// 多页应用
-import { 
-  BrowserRouter, 
-  Route, 
-  Link, 
-  Redirect,
-  Switch } from 'react-router-dom';
-
-
-import App from './App';
-// import { counter, addGun, removeGun, addGunAsync } from './index.redux';
-import { counter } from './index.redux';
-const reduxDevtools = window.devToolsExtension?window.devToolsExtension():f=>f;
-const store = createStore(counter, compose(
-  applyMiddleware(thunk, logger),
-  reduxDevtools
-));
-
-// function render() {
-//   ReactDOM.render(<App store={store} addGun={addGun} removeGun={removeGun} addGunAsync={addGunAsync} />, document.getElementById('root'));
-// }
-// render();
-
-// // 状态变换时渲染
-// store.subscribe(render);
-
-function Erying() {
-  return <h2>二营</h2>
-}
-function Qibinglian() {
-  return <h2>骑兵连</h2>
-}
-
-class Test extends Component {
-  constructor(props){
-    super(props);
-  }
-  render() {
-    console.log(this.props);
-    return (
-      <h2>没有找到{this.props.match.params.location}页面</h2>
-    );
+import { createStore } from 'redux';
+// 2. 根据老的state 和 action 生成新的state
+function counter(state = 0, action) {
+	switch(action.type) {
+		case '加机关枪':
+			return state + 1;
+		case '减机关枪':
+			return state - 1;
+    default:
+			return 10;
   }
 }
+// 1. 新建 store
+const store = createStore(counter);
+function listener() {
+	const current = store.getState();
+	console.log(`现在有机枪${current}`);
+}
+// 4. 订阅 listener - 每次dispatch都会触发listener
+store.subscribe(listener);
 
-ReactDOM.render(
-  (<Provider store={store}>
-    <BrowserRouter>
-      <div>
-        <ul>
-            <li>
-              <Link to="/">一营</Link>
-            </li>
-            <li>
-              <Link to="/erying">二营</Link>
-            </li>
-            <li>
-              <Link to="/qibinglian">骑兵连</Link>
-            </li>                    
-        </ul>
-        <Switch>
-          {/*只渲染命中的第一个 Route*/}
-          <Route path="/" exact component={App}></Route>
-          <Route path="/erying" component={Erying}></Route>
-          <Route path="/qibinglian" component={Qibinglian}></Route>
-          <Route path="/:location" component={Test}></Route>
-        </Switch>
-      </div>
-    </BrowserRouter>
-  </Provider>),
-  document.getElementById('root')
-);
+// 5. 派发事件,传递 action
+store.dispatch({type: '加机关枪'});
+store.dispatch({type: '加机关枪'});
+store.dispatch({type: '减机关枪'});
