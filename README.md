@@ -403,20 +403,49 @@ const store = createStore(counter, compose(
 - React-redux 提供 Provider 和 connect 两个接口来链接
 
 - react-redux 具体使用
-	+ Provider 组件在应用最外层，传入store即可，只用一次
+	+ Provider 组件在应用最外层，传入 store 即可，只用一次
 	+ Connect 负责从外部获取组件需要的参数
 	+ Connect 可以用装饰器的方式来写
+		* 使用装饰器优化 connect 代码 `npm run eject` 弹出个性化配置
 
-### code
+1. 安装 `npm i babel-plugin-transform-decorators-legacy` 插件
+2. Package.json 里babel 加上 plugins 配置
 ```
-import { Provider } from 'react-redux';
+"babel": {
+	"presets": [
+		"react-app"
+	],
+	"plugins": [
+		"transform-decorators-legacy"
+	]
+}
+```	
+3. 修改 connect
+```
+const mapStateProps = (state) => {
+  return { num: state };
+}
+const actionCreator = { addGun, removeGun, addGunAsync };
+// app 组件接受外部参数
+App = connect(mapStateProps, actionCreator)(App);
+```
+修改为
+```
+@connect(
+	// 要 state 什么属性放到 props
+	state => { num: state },
+	// 要什么方法，放到 props里，自动dispatch
+	{ addGun, removeGun, addGunAsync }
+)
+class App extends React.Component {...}
+
 ```
 
-- 使用装饰器优化 connect 代码
-`npm run eject 弹出个性化配置`
+![redux-thunk-result](./images/react-redux-index.png)
+![redux-thunk-result](./images/react-redux-app.png)
+![redux-thunk-result](./images/react-redux-app2.png)
 
-- `npm i babel-plugin-transform-decorators-legacy` 插件
-- Package.json 里babel 加上 plugins 配置
+
 
 # Redux-router4
 - React 官方推荐路由库，4是最新版本
