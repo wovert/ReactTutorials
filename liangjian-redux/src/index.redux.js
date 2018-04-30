@@ -1,8 +1,7 @@
 const ADD_GUN = '加机关枪';
 const REMOVE_GUN = '减机关枪';
 
-// reducer 
-export function counter(state=0, action) {
+export default function counter(state=0, action) {
 	switch(action.type) {
 		case ADD_GUN:
 			return state + 1;
@@ -12,18 +11,16 @@ export function counter(state=0, action) {
       return 10;
   }
 }
-// action creator
+
 export function addGun() {
   return {type:ADD_GUN};
 }
 export function removeGun() {
   return {type:REMOVE_GUN};
 }
-// 异步处理 action, 使用 thunk 中间件
+
 export function addGunAsync() {
   return dispatch => {
-    setTimeout(()=>{
-      dispatch(addGun());
-    }, 2000);
+    setTimeout(()=>{ dispatch(addGun())}, 2000);
   }
 }
