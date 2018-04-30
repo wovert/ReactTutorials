@@ -354,6 +354,12 @@ store.dispatch({type: '减机关枪'});
 	+ Subscribe 订阅 render 函数，每次修改都重新渲染
 	+ Redux 相关内容，移到单独的文件 index.redux.js 单独管理
 
+![redux.index.js](./images/redux-index.png)
+![index.js](./images/app-index.png)
+![app.js](./images/app-app.png)
+
+
+
 ## 处理异步、调试工具、更优雅的和 React 结合
 - Redux 处理异步，需要 `redux-thunk` 插件
 - `npm install redux-devtools-extension` 并且开启

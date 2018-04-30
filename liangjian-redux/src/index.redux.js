@@ -12,14 +12,19 @@ export function counter(state=0, action) {
       return 10;
   }
 }
-
-// action create
+// action creator
 export function addGun() {
   return {type:ADD_GUN};
 }
 export function removeGun() {
   return {type:REMOVE_GUN};
 }
+
+
+
+
+
+
 
 export function addGunAsync() {
   return dispatch => {
