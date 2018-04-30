@@ -19,13 +19,7 @@ export function addGun() {
 export function removeGun() {
   return {type:REMOVE_GUN};
 }
-
-
-
-
-
-
-
+// 异步处理 action, 使用 thunk 中间件
 export function addGunAsync() {
   return dispatch => {
     setTimeout(()=>{

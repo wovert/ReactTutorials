@@ -358,23 +358,34 @@ store.dispatch({type: '减机关枪'});
 ![index.js](./images/app-index.png)
 ![app.js](./images/app-app.png)
 
-
-
 ## 处理异步、调试工具、更优雅的和 React 结合
 - Redux 处理异步，需要 `redux-thunk` 插件
-- `npm install redux-devtools-extension` 并且开启
-- 使用 react-redux 优雅的链接 react 和 redux
+- 安装调试工具 `npm install redux-devtools-extension` 并且开启
+- 使用 `react-redux` 优雅的链接 react 和 redux
 
-### redux-thunk
-`cnpm i redux-thunk -S`
-`cnpm i redux-logger -S`
+### redux-thunk 插件处理异步
+`# cnpm i redux-thunk -S`
+`# cnpm i redux-logger -S`
 - 使用 applyMiddleware 开启thunk中间件
-- Action 可以返回函数，使用 dispatch 提交 action
+- **Action 可以返回函数，使用 dispatch 提交 action**
+
+- `cnpm i redux-devtools-extension -S`
+- `cnpm i redux-chunk -S`
+
+- index.js (applyMiddleware 处理中间件)
+```
 import { createStore, applyMiddleware} from 'redux'
 const store = createStore(counter, applyMiddleware)
+```
 
-`cnpm i redux-devtools-extension -S`
-`cnpm i redux-chunk -S`
+![redux-thunk-index](./images/thunk-index.png)
+![redux-thunk-redux](./images/thunk-index-redux.png)
+![redux-thunk-app](./images/thunk-index-app.png)
+![redux-thunk-result](./images/thunk-result.png)
+
+
+
+
 
 ## 使用 react-redux
 - 老赵能力用起来很麻烦，为了方便管理，使用魏和尚来负责链接
@@ -388,12 +399,14 @@ const store = createStore(counter, applyMiddleware)
 	+ Connect 可以用装饰器的方式来写
 
 ### code
+```
 import { Provider } from 'react-redux';
+```
 
 - 使用装饰器优化 connect 代码
 `npm run eject 弹出个性化配置`
 
-- npm i babel-plugin-transform-decorators-legacy 插件
+- `npm i babel-plugin-transform-decorators-legacy` 插件
 - Package.json 里babel 加上 plugins 配置
 
 # Redux-router4
