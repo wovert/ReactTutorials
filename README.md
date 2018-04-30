@@ -433,7 +433,7 @@ App = connect(mapStateProps, actionCreator)(App);
 ```
 @connect(
 	// 要 state 什么属性放到 props
-	state => { num: state },
+	state => ({ num: state }),
 	// 要什么方法，放到 props里，自动dispatch
 	{ addGun, removeGun, addGunAsync }
 )
@@ -445,51 +445,64 @@ class App extends React.Component {...}
 ![redux-thunk-result](./images/react-redux-app.png)
 ![redux-thunk-result](./images/react-redux-app2.png)
 
-
-
 # Redux-router4
 - React 官方推荐路由库，4是最新版本
-	+ 4 是最新的版本，和之前版本不兼容，浏览器和RN均兼容
+	+ Redux-router4 是最新的版本，和之前版本不兼容，浏览器和 RN 均兼容
 	+ React 开发单页应用必备，碱性路由即组件的该概念
-	+ 核心概念：动态路由、Route、Link、Switch
+	+ 核心概念：
+		+ 动态路由
+		+ BrowserRouter: 浏览器路由
+		+ Route: 路由匹配组件渲染
+		+ Link: 指定页面跳转地址 to="地址"
+		+ Switch: 只渲染第一个Route
+		+ Redirect: 页面跳转到指定位置
 
-## 安装 react-router
+## 安装 [react-router](https://reacttraining.com/react-router/)
 - `cnpm i react-router-dom -S`
 - Router4 使用 react-router-dom 作为浏览器的路由
+- 忘记 Router2  的内容，拥抱最新的 Router4
 
 ## 组件
-- BrowerRouter 包括整个应用
+- BrowserRouter 包括整个应用
 - Router 路由对应渲染的组件，可嵌套
 - Link 跳转专用
 
-- 代码
+```
 // 多页应用
-import { BrowerRouter, Route, Link } from 'react-router-dom';
-
+import { BrowserRouter, Route, Link, Redirect, Switch } from 'react-router-dom';
+import App from './App';
+import Yiying from './Yiying';
+import Qibinglian from './Qibinglian';
+import Test from './Test';
 ReactDOM.render(
   (<Provider store={store}>
-    <BrowerRouter>
-      <div>
+    <BrowserRouter>
+      <nav>
         <ul>
-            <li>
-              <Link to="/">一营</Link>
-            </li>
-            <li>
-              <Link to="/erying">二营</Link>
-            </li>
-            <li>
-              <Link to="/qibinglian">骑兵连</Link>
-            </li>                    
+          <li><Link to="/">团部</Link></li>
+          <li><Link to="/yiying">一营</Link></li>
+          <li><Link to="/qibinglian">骑兵连</Link></li>
         </ul>
-        <Route path="/" exact component={App}></Route>
-        <Route path="/erying" component={Erying}></Route>
-        <Route path="/qibinglian" component={Qibinglian}></Route>
-      </div>
-    </BrowerRouter>
-  </Provider>),
+        <Switch>
+          {/*Switch: 只渲染第一个Route*/}
+          <Route path="/" exact component={App}></Route>
+          <Route path="/yiying" component={Yiying} boss="张大喵"></Route>
+          <Route path="/qibinglian" component={Qibinglian} boss="孙德胜"></Route>
+          <Route path="/:location" component={Test}></Route>
+          {/*不管访问什么页面都会跳转到首页*/}
+          {/* <Redirect to='/'></Redirect> */}
+        </Switch>
+      </nav>
+    </BrowserRouter> 
+  </Provider>), 
   document.getElementById('root')
 );
+```
 
+- 跳转到 /
+```
+this.props.history.push('/');
+```
 
 ## 其他组件
 - url 参数，Router 组件参数可用冒号标识参数
@@ -497,9 +510,8 @@ ReactDOM.render(
 	+ <Redirect to="/"></Redirect>
 - Switch 只渲染一个子 Route 组件
 
-
-
-
+![redux-router-index](./images/react-router-index.png)
+![redux-thunk-test](./images/react-router-test.png)
 
 
 # jspm
