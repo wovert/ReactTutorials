@@ -514,6 +514,47 @@ this.props.history.push('/');
 ![redux-thunk-test](./images/react-router-test.png)
 
 
+
+# 前后端联调
+## 使用 asios  发送异步请求
+- 如何发送,端口不一致,使用 proxy 配置转发
+- axios 拦截器, 统一 loading  处理
+- redux 里使用异步数据,渲染页面
+
+## axios
+> 简洁好用的发送请求库
+
+- 安装
+`npm install axios --save`
+
+- package.json
+```
+{
+  "proxy": "http://localhost:9093"
+}
+```
+
+- Auth.js
+```
+import axios from 'axios';
+class Auth extends React.Component {
+  constructor() {
+    
+  }
+  componentDidMount() {
+    axios.get('/data')
+      .then(res=>{
+        if (res.status == 200) {
+          this.setState({
+            data: res.data
+          });
+        }
+      });
+  }
+}
+```
+
+
 # jspm
 > Package Manager
 
