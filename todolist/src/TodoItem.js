@@ -32,7 +32,7 @@ class TodoItem extends Component {
 // 校验父组件传递的数据类型
 TodoItem.propTypes = {
   // string or number
-  content: PropTypes.arrayOf(PropTypes.string, PropTypes.number),
+  content: PropTypes.string,
   deleteItem: PropTypes.func,
   index: PropTypes.number,
   // 父组件没有传入不检查

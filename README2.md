@@ -182,10 +182,77 @@ JSX 语法规定最外层标签必须有且只有一个标记。也可以Fragmen
 
 校验父组件传递的属性值
 
+### props，state与render函数的关系
+
+React是数据驱动
+
+当props和stats值改变的时候执行render函数
+
+render函数重新获取新的值进行渲染
+
+数据发生变化，页面就会发生变化
+
+### 子组件重新渲染方式
+
+> 当state或props值改变时，它的render函数会重新运行执行
+
+1. 父组件传给子组件传递父组件state数据改变时，子组件render函数会运行
+2. 当父组件的render 函数被运行时，它的子组件的render 函数都被重新运行一次
+
+### React 虚拟 DOM
+
+1. state 数据
+2. JSX 模板(render函数)
+3. 数据 + 模板 结合，生成真实的 DOM 来显示
+4. state 发生改变
+5. 数据 + 模板 结合，生成真实的 DOM，替换原始的 DOM
+
+- 缺陷：
+  - 第一次生成了一个完整的DOM片段
+  - 第二次生成了一个完整的DOM片段
+  - 第二次的DOM替换第一次的DOM，非常耗性能
+
+1. state 数据
+2. JSX 模板
+3. 数据 + 模板 结合，生成真实的 DOM 来显示
+4. state 发生改变
+5. 数据 + 模板 结合，生成真实的 DOM，并不直接替换原始的 DOM
+6. 新的 DOM(DocumentFragment) 和原始的 DOM 做比对，找差异
+7. 找出 input 框发生了变化
+8. 只用新的 DOM 中的 input 元素，替换掉老的 DOM 中的 input 元素
+
+缺陷：
+系能的提升并不明显
+
+1. state 数据
+2. JSX 模板
+3. 数据 + 模板 结合生成虚拟DOM (虚拟DOM就是一个 JS 对象，用它来描述真实 DOM)（损耗了性能）
+  `['div', {id:'abc'}, ['span',{}, 'hello world']]`
+4. 用虚拟DOM的结构生成真实的 DOM 来显示
+  `<div><span id='abc'>hello world</span></div>`
+5. state 发生变化
+
+6. 数据 + 模板 生成新的虚拟DOM (极大提升了性能)
+  `['div', {id:'abc'}, ['span',{}, 'bye bye']]`
+
+7. 比较原始虚拟DOM和新的虚拟DOM的区别，找到区别是span中的内容
+
+8. 直接操作DOM，改变 span 中的内容
+
+**JSX -> createElement -> 虚拟DOM(JS 对象) -> 真实的 DOM**
+
+`<div><span>item</span></div>` = `return React.createElement('div', {}, React.createElement('div', {}, 'item'));`
+
+`return React.createElement('div', {}, React.createElement('div', {}, 'item'));` 底层创建虚拟DOM
+
+### 虚拟有点：
+
+1. 性能提升了
+2. 跨端应用得以实现 - React Native。虚拟DOM生成原生组件
+
+### 虚拟DOM的 diff算法
 
 
-
-## 原理进阶
 
 ## 动画
 
