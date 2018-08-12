@@ -1,4 +1,5 @@
 # What React
+
 > 一个用于创建**可复用，可聚合** web 组件 UI 库
 > 只提供前端 MVC 框架中的 V 层，并不是完整的 MVC 框架
 
@@ -8,23 +9,31 @@
 - 最新版本: React 16
 
 ## React History
+
 - 2013-6, Facebook 官方发布 React
 - 2014-9, React 热度开始上涨
 - 2015-3，React Native 发布
 
 ## Why use React
-- Facebook 解决的问题：构建数据不断变化的大型应用
-	+ **数据**变换
-		* 大量 **DOM** 操作
-		* **逻辑**极其复杂
+
+Facebook 解决的问题：构建数据不断变化的大型应用
+
+**数据**变换
+
+大量 **DOM** 操作
+
+**逻辑**极其复杂
 
 - React
-	+ 自动 DOM 操作
-	+ 状态对应内容（状态<=>数据）
+  - 自动 DOM 操作
+  - 状态对应内容（状态<=>数据）
 
 ## 前段框架对比
+
 ### MVC
+
 > Model View Controller
+
 - Model(模型)：数据保存 
 - View(视图)：用户界面
 - Controller(控制器)：业务逻辑
@@ -37,13 +46,12 @@
 - 注意以上通信都是**单向的**
 
 #### 互动模式
+
 1. View 接受指令，传递给 Controller
 ![MVC 通信方式](./images/mvc-type.png)
 
-
 2. Controller 接受指令，传递给 Model保存，并在 View 层展现
 ![MVC 通信方式](./images/mvc-type2.png)
-
 
 - Backbne.js 实例
 ![Backbone MVC 通信方式](./images/mvc-backbone.png) 
@@ -53,9 +61,10 @@
 
 3. Controller 非常薄，只起到路由的作用，而 View 非常厚，业务逻辑都部署在 View。所以，Backbone 索性取消了 Controller，只保留一个 Router（路由器） 。
 
-
 ### MVP
+
 > MVP 模式将 Controller 改名为 Presenter，同时改变了通信方向。
+
 ![MVP 通信方式](./images/mvp.png) 
 
 1. 各部分之间的通信，都是双向的。
@@ -65,42 +74,52 @@
 3. View 非常薄，不部署任何业务逻辑，称为"被动视图"（Passive View），即没有任何主动性，而 Presenter非常厚，所有逻辑都部署在那里。
 
 ### MVVM 
+
 > Model View ViewModel
+
 ![MVVM 通信方式](./images/mvvm.png) 
+
 - MVVM 模式将 Presenter 改名为 ViewModel，基本上与 MVP 模式完全一致。
 - 唯一的区别是，它采用双向绑定（data-binding）：View的变动，自动反映在 ViewModel，反之亦然。Angular 和 Ember 都采用这种模式。
 
 ## React features
+
 ### 组件化
->  提高代码**复用率、降低测试难度和代码复杂度**
+
+> 提高代码**复用率、降低测试难度和代码复杂度**
+
 - 提高代码复用率：组件将**数据和逻辑封装**，类似面向对象中的类
 - 降低测试难度：组件**高内聚低耦合**，很容易对单个组件进行测试
 - 降低代码复杂度：直观的语法可以解答提高可读性
 
 ### JSX
+
 > JS 逻辑与 HTMl 标签紧密相连并且极易理解. XML 语法扩展
 
 ### 单向数据流
+
 > 数据一旦更新，就直接重新渲染整个 app
 
 ### 虚拟 DOM 树
-	+ React 重建 DOM 树
-	+ 找到与上个版本的 DOM 的差异
-	+ 计算出最新的 DOM 更新操作
-	+ 从操作队伍中批量地执行 DOM 更新操作
+
+- React 重建 DOM 树
+- 找到与上个版本的 DOM 的差异
+- 计算出最新的 DOM 更新操作
+- 从操作队伍中批量地执行 DOM 更新操作
 
 - 在 Node.js服务器端运行
-	+ 服务器与客户端共用逻辑（lsomorphic javascript）
-	+ SEO 友好，便于生成缓存的单面应用
-	+ 直接渲染特定的页面而不用渲染整个 app
+  - 服务器与客户端共用逻辑（lsomorphic javascript）
+  - SEO 友好，便于生成缓存的单面应用
+  - 直接渲染特定的页面而不用渲染整个 app
 
 - 管理 UI 状态并不简单
-	+ 修改 DOM 树
-	+ 修改数据
-	+ 接收用户的输入
-	+ 异步 API 数据请求
+  - 修改 DOM 树
+  - 修改数据
+  - 接收用户的输入
+  - 异步 API 数据请求
 
 ## 渲染方式
+
 - 传统方式
 	+ 浏览器请求页面
 	+ 服务器请求数据库
@@ -113,6 +132,7 @@
 	+ React 将每个组件渲染出来
 
 ## React 开发环境搭建
+
 - Sublime
 	+ Preferences -> Pakcage Control -> install package
 	+ Ctrl + Shift + p
@@ -124,23 +144,32 @@
 	+ Spacegray 模板
 
 ## React 兼容性
+
 - IE8
 
 ## React 是如何使用 JSX
-`<p className="hello">
+
+```
+<p className="hello">
 	Hello {this.props.name}
-</p>`
+</p>
+```
 
 - 将编译成 React 构造器的方法
-`React.createElement("p", {className: "hello", "hello ", this.props.name})`
+
+```
+React.createElement("p", {className: "hello", "hello ", this.props.name})
+```
 
 # 入门实例
+
 - 默认使用版本 15， 手动更新为 16
 	+ React 16 核心代码重写的版本，整体 API 变化不大
 	+ 主要变更了错误处理、生命周期、打包、对开发影响不是特别大
 	+ `npm install --save react@next react-dom@next`
 
 # React 基础语法
+
 - import React
 - class 语法新建组件，render里直接使用
 - render 函数返回值就是输出 JSX 语法，会把 JSX 转换成 JS 执行
@@ -516,7 +545,7 @@ this.props.history.push('/');
 
 
 # 前后端联调
-## 使用 asios  发送异步请求
+## 使用 asios 发送异步请求
 - 如何发送,端口不一致,使用 proxy 配置转发
 - axios 拦截器, 统一 loading  处理
 - redux 里使用异步数据,渲染页面
@@ -524,8 +553,12 @@ this.props.history.push('/');
 ## axios
 > 简洁好用的发送请求库
 
+
 - 安装
 `npm install axios --save`
+
+- 启动 mongod 服务
+	+ `mongod.exe --dbpath C:\usr_local\MongoDB\data --port 9093`
 
 - package.json
 ```
