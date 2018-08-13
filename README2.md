@@ -245,14 +245,30 @@ render函数重新获取新的值进行渲染
 
 `return React.createElement('div', {}, React.createElement('div', {}, 'item'));` 底层创建虚拟DOM
 
-### 虚拟有点：
+### 虚拟优点
 
 1. 性能提升了
 2. 跨端应用得以实现 - React Native。虚拟DOM生成原生组件
 
-### 虚拟DOM的 diff算法
+### 虚拟 DOM 的 diff 算法
 
+![diff算法](./images/diff-01.png)
 
+setState 异步函数，连续三次setState，合并成一次setState
+
+同级比较
+
+![diff算法比较](./images/diff-02.png)
+
+第一级别比较不同，不再继续比较。第一级别重新生成新的DOM节点树，替换原始节点树。缺点：其他级别相同DOM比较也会创建新的DOM，但是比比较每个节点的算法性能更好。
+
+![diff算法比较](./images/diff-03.png)
+
+每个节点起个名字，这样比对时性能提升。如果一致可以进行复用。
+
+index作为key不好的原因是，删除其中某个节点之后index会重新排序，这样原始节点的key与新节点没有对应关系，所以diff算法比较性能更差。一定不要使用index作为key。
+
+使用稳定值得作为key值才是正确的。
 
 ## 动画
 

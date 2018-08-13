@@ -11,7 +11,7 @@ class TodoList extends Component {
     // 在组件的状态中定义数据
     this.state = {
       inputValue: '',
-      list: ['English','React']
+      list: []
     }
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -54,7 +54,7 @@ class TodoList extends Component {
           <Fragment key={index}>
             <TodoItem
               content={item}
-              index={index}
+              index={item}
               deleteItem={this.handleItemDelete}
             />
             {/*<li 
