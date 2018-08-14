@@ -8,7 +8,30 @@ class TodoItem extends Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
+  componentWillReceiveProps() {
+    console.log('child [componentWillReceiveProps]');
+  }
+  // componentWillMount() {
+  //   console.log('child componentWillMount');
+  // }
+  // componentDidMount() {
+  //   console.log('child componentDidMount');
+  // }
+  // shouldComponentUpdate() {
+  //   console.log('child shouldComponentUpdate');
+  //   return true;
+  // }
+  // componentWillUpdate() {
+  //   console.log('child componentWillUpdate');
+  // }
+  // componentDidUpdate() {
+  //   console.log('child componentDidUpdate');
+  // }  
+  componentWillUnmount() {
+    console.log('child [componentWillUnmount]');
+  }
   render(){
+    console.log('child render');
     const { content, test } = this.props;
     return (
       <li 
@@ -32,9 +55,13 @@ class TodoItem extends Component {
 // 校验父组件传递的数据类型
 TodoItem.propTypes = {
   // string or number
-  content: PropTypes.string,
+  // arrayOf(元素类型,元素类型)
+  // content: PropTypes.arrayOf(PropTypes.string, PropTypes.number),
+
+  // content内容为string or number
+  content: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   deleteItem: PropTypes.func,
-  index: PropTypes.number,
+  index: PropTypes.string,
   // 父组件没有传入不检查
   //test: PropTypes.string,
   test: PropTypes.string.isRequired

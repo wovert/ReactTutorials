@@ -270,6 +270,67 @@ index作为key不好的原因是，删除其中某个节点之后index会重新�
 
 使用稳定值得作为key值才是正确的。
 
+## 声明周期函数
+
+> 在某一时刻组件会自动调用执行函数
+
+![life cycle](./images/life-cycle.png)
+
+- initalization 初始化触发
+  - setup props state
+
+- Mounting 组件挂载时触发
+  - componentWillMount 组件即将被挂载到页面的之前仅自动执行一次(挂载之前)
+  - render 渲染组件
+  - componentDidMount 组件被挂载到页面之后仅自动被执行一次(已经挂载)
+
+- Updation 组件更被时触发
+  - props (props发生变化)
+    - componentWillReceiveProps
+      - 一个组件要从父组件接受参数
+      - 如果这个组件第一次存在于父组件中，不会执行
+      - 如果这个组件之前已经存在于父组件中，才会执行
+
+    - shouldComponentUpdate 组件被更新之前，它会自动被执行。必须返回boolean是否继续往下执行其他事件。
+      - return false; 组件不会被更新
+      - return true; 组件会被更新
+
+    - componentWillUpdate 组件被更新之前，自动执行
+      - shouldComponentUpdate返回false,componentWillUpdate不会被执行
+      - shouldComponentUpdate返回true,componentWillUpdate会被执行
+    - render 更新渲染组件
+    - componentDidUpdate 组件被更新之后，自动执行
+  
+  - states (states发生变化)
+    - shouldComponentUpdate (true向下)
+    - componentWillUpdate
+    - render
+    - componentDidUpdate
+
+- Unmounting
+  - componentWillUnmount 当这个组件即将被页面中剔除的时候，会被执行
+
+``` js
+第二次开始接收参数并更新子组件
+shouldComponentUpdate TodoList.js:29
+componentWillUpdate TodoList.js:33
+render TodoList.js:40
+child [componentWillReceiveProps] TodoItem.js:12
+child shouldComponentUpdate TodoItem.js:21
+child componentWillUpdate TodoItem.js:25
+child componentDidUpdate TodoItem.js:28
+componentDidUpdate
+```
+
+``` js
+删除子组件
+shouldComponentUpdate TodoList.js:29
+componentWillUpdate TodoList.js:33
+render TodoList.js:42
+child [componentWillUnmount] TodoItem.js:31
+componentDidUpdate
+```
+
 ## 动画
 
 ## Redux
