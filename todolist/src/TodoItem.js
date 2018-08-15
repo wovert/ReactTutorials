@@ -8,28 +8,38 @@ class TodoItem extends Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  componentWillReceiveProps() {
-    console.log('child [componentWillReceiveProps]');
-  }
+  // componentWillReceiveProps() {
+  //   console.log('child [componentWillReceiveProps]');
+  // }
   // componentWillMount() {
   //   console.log('child componentWillMount');
   // }
   // componentDidMount() {
   //   console.log('child componentDidMount');
   // }
-  // shouldComponentUpdate() {
-  //   console.log('child shouldComponentUpdate');
-  //   return true;
-  // }
+
+  /**
+   * nextProps 接下来变化的prosp
+   * nextState 接下来变化的state 
+   */
+  shouldComponentUpdate(nextProps, nextState) {
+    // console.log('child shouldComponentUpdate');
+    console.log('nextProps.content:' + nextProps.content);
+    console.log('this.props.content:' + this.props.content);
+    if(nextProps.content !== this.props.content) {
+      return true;
+    }
+    return false;
+  }
   // componentWillUpdate() {
   //   console.log('child componentWillUpdate');
   // }
   // componentDidUpdate() {
   //   console.log('child componentDidUpdate');
   // }  
-  componentWillUnmount() {
-    console.log('child [componentWillUnmount]');
-  }
+  // componentWillUnmount() {
+  //   console.log('child [componentWillUnmount]');
+  // }
   render(){
     console.log('child render');
     const { content, test } = this.props;

@@ -331,6 +331,33 @@ child [componentWillUnmount] TodoItem.js:31
 componentDidUpdate
 ```
 
+注意：render函数必须存在
+
+### axios 模块
+
+调用接口放在`componentDidMount`生命周期函数
+
+安装第三方模块：`npm isntall axios`
+
+重新启动服务器: `npm run start`
+
+``` js
+import axios from 'axios';
+componentDidMount() {
+  // 调用接口
+  axios.get('/api/todolist')
+    .then((data)=>{ alert('success');console.log(data); })
+    .catch(()=>{ alert('faire')  });  
+}
+```
+
+### [Charles](https://www.charlesproxy.com) 实现本地数据 mock
+
+1. Charles 下载并安装
+2. 新建模拟数据文件: data.json
+3. Charles 软件：Tools -> Map Local Settings -> Add
+
+
 ## 动画
 
 ## Redux

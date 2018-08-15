@@ -1,4 +1,6 @@
 import React, { Component, Fragment } from 'react';
+import axios from 'axios';
+
 import TodoItem from './TodoItem';
 // import Test from './Test';
 import './style.css';
@@ -19,22 +21,36 @@ class TodoList extends Component {
     this.handleItemDelete = this.handleItemDelete.bind(this);
   }
 
-  componentWillMount() {
-    console.log('componentWillMount');
-  }
+  // componentWillMount() {
+  //   console.log('componentWillMount');
+  // }
   componentDidMount() {
     console.log('componentDidMount');
+    // 调用接口
+    axios.get('/api/todolist')
+      .then((res)=>{ 
+        console.log(res.data); 
+        // this.setState(()=>{
+        //   return {
+        //     list: res.data
+        //   }
+        // });
+        this.setState(()=>({
+          list: [...res.data]
+        }));
+      })
+      .catch(()=>{ alert('faire')  });
   }
-  shouldComponentUpdate() {
-    console.log('shouldComponentUpdate');
-    return true;
-  }
-  componentWillUpdate() {
-    console.log('componentWillUpdate');
-  }
-  componentDidUpdate() {
-    console.log('componentDidUpdate');
-  }  
+  // shouldComponentUpdate() {
+  //   console.log('shouldComponentUpdate');
+  //   return true;
+  // }
+  // componentWillUpdate() {
+  //   console.log('componentWillUpdate');
+  // }
+  // componentDidUpdate() {
+  //   console.log('componentDidUpdate');
+  // }  
   render(){
     console.log('parent render');
     return (
