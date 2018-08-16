@@ -357,10 +357,13 @@ componentDidMount() {
 2. 新建模拟数据文件: data.json
 3. Charles 软件：Tools -> Map Local Settings -> Add
 
-## 动画
+## React 的 CSS 过度动画
 
+[react-transition-group](https://github.com/reactjs/react-transition-group) 第三方模块
 
+`npm install react-transition-group --sav`
 
+动画会移除DOM元素
 
 ## Redux
 

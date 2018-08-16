@@ -1,3 +1,71 @@
 .input {
   border: 1px solid red;
 }
+
+.show {
+  opacity: 1;
+  /* transition: all 1s ease-in; */
+  animation: show-item 2s ease-in forwards;
+}
+
+.hide {
+  opacity: 0;
+  /* transition: all 1s ease-in; */
+  animation: hide-item 2s ease-in forwards; /*forwards 执行动画之后保存动画最后一帧样式*/
+}
+@keyframes show-item {
+  0% {
+    opacity: 0;
+    color: red;
+  }
+  50% {
+    opacity: 0.5;
+    color: green;
+  }
+  100% {
+    opacity: 1;
+    color: blue;
+  }
+}
+@keyframes hide-item {
+  0% {
+    opacity: 1;
+    color: red;
+  }
+  50% {
+    opacity: 0.5;
+    color: green;
+  }
+  100% {
+    opacity: 0;
+    color: blue;
+  }
+}
+
+/*入场动画*/
+.fade-enter {
+  opacity: 0;
+}
+
+/*入场动画之后动画完成之前*/
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 2s ease-in;
+}
+
+/*动画结束之后*/
+.fade-enter-done {
+  opacity: 1;
+}
+
+/*出场动画*/
+.fade-exit {
+  opacity: 1;
+}
+.face-exit-active {
+  opacity: 0;
+  transition: opacity 2s ease-in;
+}
+.fade-exit-done {
+  opacity: 0;
+}
