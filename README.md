@@ -1,4 +1,6 @@
-# What React
+# React
+
+## What React
 
 > 一个用于创建**可复用，可聚合** web 组件 UI 库
 > 只提供前端 MVC 框架中的 V 层，并不是完整的 MVC 框架
@@ -27,6 +29,16 @@ Facebook 解决的问题：构建数据不断变化的大型应用
 - React
   - 自动 DOM 操作
   - 状态对应内容（状态<=>数据）
+
+React 相关资源：[awesome-react](https://github.com/enaqx/awesome-react)
+
+[babeljs](https://babeljs.io/)
+
+[兼容性](http://kangax.github.io/compat-table/es5/)
+
+[不同版本 JS CDN](https://cdnjs.com/libraries/react/)
+
+[NPMJS](https://www.npmjs.com/)
 
 ## 前段框架对比
 
@@ -168,20 +180,23 @@ React.createElement("p", {className: "hello", "hello ", this.props.name})
 	+ 主要变更了错误处理、生命周期、打包、对开发影响不是特别大
 	+ `npm install --save react@next react-dom@next`
 
-# React 基础语法
+## React 基础语法
 
 - import React
 - class 语法新建组件，render里直接使用
 - render 函数返回值就是输出 JSX 语法，会把 JSX 转换成 JS 执行
 
-## JSX 语法代码
-```
+### JSX 语法代码
+
+``` js
 function hello(props){
 	return <h1>Hello, {props.老大}</h1>
 }
 ```
-## JSX 转后的 JS代码
-```
+
+### JSX 转后的 JS代码
+
+``` js
 "use strict";
 function hello(props) {
 	return React.createElement(
@@ -193,7 +208,8 @@ function hello(props) {
 }
 ```
 
-## JSX 基础语法
+### JSX 基础语法
+
 > View 层语法
 
 - js 里直接写 html
@@ -203,8 +219,10 @@ function hello(props) {
 ![组件渲染](./images/react-component.png)
 ![组件渲染效果](./images/react-component-inbroswer.png)
 
-## 组件之间传递数据
+### 组件之间传递数据
+
 > 组件之间用 props 传递数据
+
 - 使用 `<Component data="values">` 的形式传递
 - 组件里使用 `this.props` 获取值
 - 如果组件只有 render函数，还可以用函数的形式写组件
