@@ -89,7 +89,7 @@ $ yarn start
 
 ### 工程目录
 
-```node
+``` NODE
 $ cd todolist
 $ npm run start
 ```
@@ -366,6 +366,35 @@ componentDidMount() {
 动画会移除DOM元素
 
 ## Redux
+
+### React 弊端
+
+> 组件之间的传递数据
+
+![React 弊端](./images/react-no.png)
+
+一个组件改变 store 之后，其他组件感知到store的数据变化自动更新最新store的数据，间接的实现了组件的传递的功能。
+
+### Redux 是什么
+
+Redux = Reducer + Flux
+
+Flux(de)) 升级成为 Redux
+
+Reducer 概念
+
+### Redux 工作流程
+
+[redux flow](./images/redux-flow.png)
+
+redux把所有数据放到store之中，每个组件从store中拿数据,而每个页面上的组件都更新store中的数据。Store是存储数据的公共区域。
+
+- React Components: 借书的用户
+- Action Creators: 你要借什么书的话
+- store: 图书管的管理员
+- Reducers: 借书记录本
+
+如果要从 React Components组件中获取Store的数据，然后告诉Action creators 我要获取数据行为，Action Creators 创建获取数据的告诉store，store接收到action之后，在 reducers里查找相应的数据。Reducers告诉store你应该给组件什么样的数据。store知道之后把数据给了组件。
 
 ## Reux 进阶
 

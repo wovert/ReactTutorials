@@ -46,7 +46,7 @@ React 相关资源：[awesome-react](https://github.com/enaqx/awesome-react)
 
 > Model View Controller
 
-- Model(模型)：数据保存 
+- Model(模型)：数据保存
 - View(视图)：用户界面
 - Controller(控制器)：业务逻辑
 
@@ -60,6 +60,7 @@ React 相关资源：[awesome-react](https://github.com/enaqx/awesome-react)
 #### 互动模式
 
 1. View 接受指令，传递给 Controller
+
 ![MVC 通信方式](./images/mvc-type.png)
 
 2. Controller 接受指令，传递给 Model保存，并在 View 层展现
@@ -540,8 +541,8 @@ ReactDOM.render(
           {/* <Redirect to='/'></Redirect> */}
         </Switch>
       </nav>
-    </BrowserRouter> 
-  </Provider>), 
+    </BrowserRouter>
+  </Provider>),
   document.getElementById('root')
 );
 ```
@@ -552,6 +553,7 @@ this.props.history.push('/');
 ```
 
 ## 其他组件
+
 - url 参数，Router 组件参数可用冒号标识参数
 - Redirect 组件跳转
 	+ <Redirect to="/"></Redirect>
@@ -559,8 +561,6 @@ this.props.history.push('/');
 
 ![redux-router-index](./images/react-router-index.png)
 ![redux-thunk-test](./images/react-router-test.png)
-
-
 
 # 前后端联调
 ## 使用 asios 发送异步请求
