@@ -89,7 +89,7 @@ $ yarn start
 
 ### 工程目录
 
-``` NODE
+``` shell
 $ cd todolist
 $ npm run start
 ```
@@ -109,7 +109,7 @@ $ npm run start
   - App.test.js 自动化测试
   - index.js 项目源代码入口文件，整个程序运行的入口文件
 
-``` NODE
+``` js
 // 引入包
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -130,7 +130,7 @@ ReactDOM.render(<App />, document.getElementById('root'));
 registerServiceWorker();
 ```
 
-``` Node
+``` js
 import React from 'react';
 const Component = React.Component;
 

@@ -25,10 +25,15 @@ export default (state = defaultState, action) => {
 
     case 'add_todo_item':
       const newState2 = JSON.parse(JSON.stringify(state))
+      if(newState2.inputValue == '') {
+        return newState2;
+      }
       newState2.list.push(newState2.inputValue)
       newState2.inputValue = ''
 
       return newState2
+
+    default:
+      return state;
   }
-  return state
 }
