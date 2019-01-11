@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { login, getUserData } from './Auth.redux';
 import { Redirect } from 'react-router-dom';
-
 import axios from 'axios';
 
 // 两个reducers 每个reducers 都有一个 state
@@ -19,7 +18,12 @@ export default class Auth extends React.Component {
   //   };
   // }
   componentDidMount() {
-    this.props.getUserData();
+    axios.get('/data')
+      .then(res=>{
+        console.log(res);
+      })
+
+    // this.props.getUserData();
     // axios.get('/data')
     //   .then(res=>{
     //     if (res.status == 200) {
