@@ -43,6 +43,47 @@
   - js-cookie
   - rc-queue-anim
 
-### 
+### 前段路由
+
+- 注册
+  - /register
+  - register.jsx
+- 登录
+  - /login
+  - login.jsx
+- 主界面：main.jsx
+  - 老板主界面
+    - /boss
+    - /boss.jsx
+  - 大神主界面
+    - /manito
+    - manito.jsx
+  - 消息列表界面
+    - /message
+    - message.jsx
+  - 个人中心界面
+    - /personal
+    - personal.jsx
+  - 老板信息完善界面
+    - /bossinfo
+    - boss-info.jsx
+  - 大神信息完善界面
+    - /manitoinfo
+    - manito-info.jsx
+  - 聊天界面
+    - /chat/:userid
+    - chart.jsx
+
+### API接口
+
+> 前后台交互 API 接口
+
+- 接口文档
+- 测试接口
+- 对接口
+- 调接口
+- 联调
+- 前后台分离
+- mock(模拟)数据
 
 ## 应用开发详解
