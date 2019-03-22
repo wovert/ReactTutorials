@@ -1,6 +1,8 @@
 # React
 
-## What React
+## Introduction React
+
+### What React
 
 > 一个用于创建**可复用，可聚合** web 组件 UI 库
 > 只提供前端 MVC 框架中的 V 层，并不是完整的 MVC 框架
@@ -10,13 +12,13 @@
 - 全部使用 ES6 语法
 - 最新版本: React 16
 
-## React History
+### React History
 
 - 2013-6, Facebook 官方发布 React
 - 2014-9, React 热度开始上涨
 - 2015-3，React Native 发布
 
-## Why use React
+### Why use React
 
 Facebook 解决的问题：构建数据不断变化的大型应用
 
@@ -30,15 +32,13 @@ Facebook 解决的问题：构建数据不断变化的大型应用
   - 自动 DOM 操作
   - 状态对应内容（状态<=>数据）
 
-React 相关资源：[awesome-react](https://github.com/enaqx/awesome-react)
+### React 相关资源
 
-[babeljs](https://babeljs.io/)
-
-[兼容性](http://kangax.github.io/compat-table/es5/)
-
-[不同版本 JS CDN](https://cdnjs.com/libraries/react/)
-
-[NPMJS](https://www.npmjs.com/)
+- [awesome-react](https://github.com/enaqx/awesome-react)
+- [babeljs](https://babeljs.io/)
+- [兼容性](http://kangax.github.io/compat-table/es5/)
+- [不同版本 JS CDN](https://cdnjs.com/libraries/react/)
+- [NPMJS](https://www.npmjs.com/)
 
 ## 前段框架对比
 
@@ -161,7 +161,7 @@ React 相关资源：[awesome-react](https://github.com/enaqx/awesome-react)
 
 ## React 兼容性
 
-- IE8
+- IE8+
 
 ## React 是如何使用 JSX
 
