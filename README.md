@@ -110,6 +110,15 @@ Facebook 解决的问题：构建数据不断变化的大型应用
 ### JSX
 
 > JS 逻辑与 HTMl 标签紧密相连并且极易理解. XML 语法扩展
+> JavaSript XML 语法标记
+
+相比JS输出html标记需要字符串并连接符进行输出
+
+JSX 可以自定义标签
+
+JSX 定义组件名必须以大写字母开头，小写字母开头是HTML标记
+
+JSX 语法规定最外层标签必须有且只有一个标记。也可以Fragment标记作为片段标记
 
 ### 单向数据流
 
@@ -133,6 +142,76 @@ Facebook 解决的问题：构建数据不断变化的大型应用
   - 接收用户的输入
   - 异步 API 数据请求
 
+1. state 数据
+2. JSX 模板(render函数)
+3. 数据 + 模板 结合，生成真实的 DOM 来显示
+4. state 发生改变
+5. 数据 + 模板 结合，生成真实的 DOM，替换原始的 DOM
+
+- 缺陷：
+  - 第一次生成了一个完整的DOM片段
+  - 第二次生成了一个完整的DOM片段
+  - 第二次的DOM替换第一次的DOM，非常耗性能
+
+1. state 数据
+2. JSX 模板
+3. 数据 + 模板 结合，生成真实的 DOM 来显示
+4. state 发生改变
+5. 数据 + 模板 结合，生成真实的 DOM，并不直接替换原始的 DOM
+6. 新的 DOM(DocumentFragment) 和原始的 DOM 做比对，找差异
+7. 找出 input 框发生了变化
+8. 只用新的 DOM 中的 input 元素，替换掉老的 DOM 中的 input 元素
+
+缺陷：
+系能的提升并不明显
+
+1. state 数据
+2. JSX 模板
+3. 数据 + 模板 结合生成虚拟DOM (虚拟DOM就是一个 JS 对象，用它来描述真实 DOM)（损耗了性能）
+  `['div', {id:'abc'}, ['span',{}, 'hello world']]`
+4. 用虚拟DOM的结构生成真实的 DOM 来显示
+  `<div><span id='abc'>hello world</span></div>`
+5. state 发生变化
+
+6. 数据 + 模板 生成新的虚拟DOM (极大提升了性能)
+  `['div', {id:'abc'}, ['span',{}, 'bye bye']]`
+
+7. 比较原始虚拟DOM和新的虚拟DOM的区别，找到区别是span中的内容
+
+8. 直接操作DOM，改变 span 中的内容
+
+**JSX -> createElement -> 虚拟DOM(JS 对象) -> 真实的 DOM**
+
+`<div><span>item</span></div>` = `return React.createElement('div', {}, React.createElement('div', {}, 'item'));`
+
+`return React.createElement('div', {}, React.createElement('div', {}, 'item'));` 底层创建虚拟DOM
+
+### 虚拟优点
+
+1. 性能提升了
+2. 跨端应用得以实现 - React Native。虚拟DOM生成原生组件
+
+### 虚拟 DOM 的 diff 算法
+
+![diff算法](./images/diff-01.png)
+
+setState 异步函数，连续三次setState，合并成一次setState
+
+同级比较
+
+![diff算法比较](./images/diff-02.png)
+
+第一级别比较不同，不再继续比较。第一级别重新生成新的DOM节点树，替换原始节点树。缺点：其他级别相同DOM比较也会创建新的DOM，但是比比较每个节点的算法性能更好。
+
+![diff算法比较](./images/diff-03.png)
+
+每个节点起个名字，这样比对时性能提升。如果一致可以进行复用。
+
+index作为key不好的原因是，删除其中某个节点之后index会重新排序，这样原始节点的key与新节点没有对应关系，所以diff算法比较性能更差。一定不要使用index作为key。
+
+使用稳定值得作为key值才是正确的。
+
+
 ## 渲染方式
 
 - 传统方式
@@ -145,23 +224,6 @@ Facebook 解决的问题：构建数据不断变化的大型应用
   - 从 API 获取数据
   - 将数据传给顶层组件
   - React 将每个组件渲染出来
-
-## React 开发环境搭建
-
-- Sublime
-  - Preferences -> Pakcage Control -> install package
-  - Ctrl + Shift + p
-- 安装插件
-  - emmet (html/css 编写)
-  - HTML-CSS-JS Prettyfy
-    - 配置 NodeJS 安装路径
-    - 格式化：右键选择 -> Prettify Code
-  - Spacegray 模板
-
-## React 兼容性
-
-- IE8+
-
 
 ## 脚手架
 
@@ -215,14 +277,11 @@ Facebook 解决的问题：构建数据不断变化的大型应用
 
 1. `reset.css` 重置样式文件存放到 `public/css` 目录下；打开 `public/index.html` 文件在`head`标签中插入如下代码`<link rel="stylesheet" href="%PUBLIC_URL%/css/reset.min.css">`；此处必须webpack编译之后打开页面生效
 
-
-
 ## React 是如何使用 JSX
 
-``` javascript
+``` js
 <p className="hello">Hello {this.props.name}</p>
-
-将编译成 React 构造器的方法
+// 将编译成 React 构造器的方法
 React.createElement("p", {className: "hello", "hello ", this.props.name})
 ```
 
@@ -235,9 +294,9 @@ React.createElement("p", {className: "hello", "hello ", this.props.name})
 
 ## React 基础语法
 
-- import React
-- class 语法新建组件，render里直接使用
-- render 函数返回值就是输出 JSX 语法，会把 JSX 转换成 JS 执行
+- `import React`
+- `class` 语法新建组件，`render`里直接使用
+- `render` 函数返回值就是输出 JSX 语法，会把 JSX 转换成 JS 执行
 
 ### JSX 语法代码
 
@@ -279,7 +338,7 @@ function hello(props) {
 
 - 使用 `<Component data="values">` 的形式传递
 - 组件里使用 `this.props` 获取值
-- 如果组件只有 render函数，还可以用函数的形式写组件
+- 如果组件只有 `render`函数，还可以用函数的形式写组件
 
 ![自定义组件间出传递数据](./images/sub-component.png)
 
@@ -306,6 +365,10 @@ function hello(props) {
 
 ## 事件
 
+### 响应式设计思想和事件绑定
+
+绑定事件命名必须驼峰是命名
+
 - onClick 点击事件
   - JSX 里，`onClck={this.函数名}`来绑定事件
   - this 引用问题，需要在`构造函数里用 bind 绑定 this`
@@ -314,6 +377,48 @@ function hello(props) {
 ![修改组件状态](./images/event.png)
 
 ![修改组件状态结果](./images/event-result.png)
+
+### immutable
+
+> state 不许允做任何的改变，所以拷贝数据然后再赋值
+
+### 拆分组件与组件之间的传值
+
+- 父组件通过组件属性向子组件传递值，子组件通过`this.props.属性名`
+- 子组件向父组件传递值
+- key放在循环层的最外层
+
+- 声明式开发
+- 可以与其他框架共存
+- 组件化
+- 单项数据流
+  - 父组件传递状态数据给子组件，子组件只能只读，不能写入。但是，可以在子组件中通过调用父组件方法修改父组件的状态数据
+- 视图层框架(ReactJS)
+- 函数式编程
+- 数据框架层(Redux/Flusk)
+
+### Reactdevelopertools 安装及使用
+
+### PropTypes VS DefaultProps
+
+校验父组件传递的属性值
+
+### props，state与render函数的关系
+
+React是数据驱动
+
+当props和stats值改变的时候执行render函数
+
+render函数重新获取新的值进行渲染
+
+数据发生变化，页面就会发生变化
+
+### 子组件重新渲染方式
+
+> 当state或props值改变时，它的render函数会重新运行执行
+
+1. 父组件传给子组件传递父组件state数据改变时，子组件render函数会运行
+2. 当父组件的render 函数被运行时，它的子组件的render 函数都被重新运行一次
 
 ## React 生命周期
 
@@ -344,15 +449,76 @@ function hello(props) {
 
 ![组件声明周期各种状态](./images/lifecycle-status.png)
 
+### 在某一时刻组件会自动调用执行函数
+
+![life cycle](./images/life-cycle.png)
+
+- initalization 初始化触发
+  - setup props state
+
+- Mounting 组件挂载时触发
+  - componentWillMount 组件即将被挂载到页面的之前仅自动执行一次(挂载之前)
+  - render 渲染组件
+  - componentDidMount 组件被挂载到页面之后仅自动被执行一次(已经挂载)
+
+- Updation 组件更被时触发
+  - props (props发生变化)
+    - componentWillReceiveProps
+      - 一个组件要从父组件接受参数
+      - 如果这个组件第一次存在于父组件中，不会执行
+      - 如果这个组件之前已经存在于父组件中，才会执行
+
+    - shouldComponentUpdate 组件被更新之前，它会自动被执行。必须返回boolean是否继续往下执行其他事件。
+      - return false; 组件不会被更新
+      - return true; 组件会被更新
+
+    - componentWillUpdate 组件被更新之前，自动执行
+      - shouldComponentUpdate返回false,componentWillUpdate不会被执行
+      - shouldComponentUpdate返回true,componentWillUpdate会被执行
+    - render 更新渲染组件
+    - componentDidUpdate 组件被更新之后，自动执行
+  
+  - states (states发生变化)
+    - shouldComponentUpdate (true向下)
+    - componentWillUpdate
+    - render
+    - componentDidUpdate
+
+- Unmounting
+  - componentWillUnmount 当这个组件即将被页面中剔除的时候，会被执行
+
+``` js
+// 第二次开始接收参数并更新子组件
+shouldComponentUpdate TodoList.js:29
+componentWillUpdate TodoList.js:33
+render TodoList.js:40
+child [componentWillReceiveProps] TodoItem.js:12
+child shouldComponentUpdate TodoItem.js:21
+child componentWillUpdate TodoItem.js:25
+child componentDidUpdate TodoItem.js:28
+componentDidUpdate
+```
+
+``` js
+// 删除子组件
+shouldComponentUpdate TodoList.js:29
+componentWillUpdate TodoList.js:33
+render TodoList.js:42
+child [componentWillUnmount] TodoItem.js:31
+componentDidUpdate
+```
+
+注意：render函数必须存在
+
 ## 安装 React Developer Tools
 
 ## antd-mobile 组件
 
-`# cnpm i antd-mobile@next --save`
+`# npm i antd-mobile@next --save`
 
 ### 按需加载
 
-- 安装按需加载模块 `# cnpm i babel-plugin-import --save`
+- 安装按需加载模块 `# npm i babel-plugin-import --save`
 
 ``` shell
 修改配置文件
@@ -368,7 +534,7 @@ function hello(props) {
 ```
 
 ``` js
-隐藏导入样式文件
+// 隐藏导入样式文件
 import 'antd-mobile/dist/antd-mobile.css'
 ```
 
@@ -377,7 +543,7 @@ import 'antd-mobile/dist/antd-mobile.css'
 Windows OS use Administrator commands
 
 ``` shell
-# cnpm i -g create-react-app
+# npm i -g create-react-app
 # create-react-app -v
 # create-react-app liangjian
 # cd liangjian && ls -l
@@ -387,6 +553,35 @@ Windows OS use Administrator commands
 ## Redux
 
 > 状态管理库
+
+### React 弊端
+
+> 组件之间的传递数据
+
+![React 弊端](./images/react-no.png)
+
+一个组件改变 store 之后，其他组件感知到store的数据变化自动更新最新store的数据，间接的实现了组件的传递的功能
+
+### Redux 是什么
+
+Redux = Reducer + Flux
+
+Flux(de)) 升级成为 Redux
+
+Reducer 概念
+
+### Redux 工作流程
+
+[redux flow](./images/redux-flow.png)
+
+redux把所有数据放到store之中，每个组件从store中拿数据,而每个页面上的组件都更新store中的数据。Store是存储数据的公共区域。
+
+- React Components: 借书的用户
+- Action Creators: 你要借什么书的话
+- store: 图书管的管理员
+- Reducers: 借书记录本
+
+如果要从 React Components组件中获取Store的数据，然后告诉Action creators 我要获取数据行为，Action Creators 创建获取数据的告诉store，store接收到action之后，在 reducers里查找相应的数据。Reducers告诉store你应该给组件什么样的数据。store知道之后把数据给了组件。
 
 ### Redux 特性
 
@@ -414,11 +609,12 @@ Windows OS use Administrator commands
 
 ### 安装 redux
 
-``` shell
-# cnpm install redux -S
-
+``` sh
+# npm install redux -S
 # vim src/index.js
+```
 
+```js
 import { createStore } from 'redux';
 // 2. 根据老的state 和 action 生成新的state
 function counter($state = 0, action) {
@@ -452,6 +648,7 @@ store.dispatch({type: '减机关枪'});
 ```
 
 ![redux-demo](./images/redux-demo.png)
+
 ![redux-demo-result](./images/redux-demo-result.png)
 
 ### Redux 如何和 React 一起用
@@ -475,15 +672,15 @@ store.dispatch({type: '减机关枪'});
 
 ### redux-thunk 插件处理异步
 
-``` shell
-# cnpm i redux-thunk -S
-# cnpm i redux-logger -S
+``` sh
+# npm i redux-thunk -S
+# npm i redux-logger -S
 
 使用 applyMiddleware 开启thunk中间件
-**Action 可以返回函数，使用 dispatch 提交 action**
+Action 可以返回函数，使用 dispatch 提交 action
 
-# cnpm i redux-devtools-extension -S
-# cnpm i redux-chunk -S
+# npm i redux-devtools-extension -S
+# npm i redux-chunk -S
 ```
 
 index.js (applyMiddleware 处理中间件)
@@ -501,12 +698,11 @@ const store = createStore(counter, applyMiddleware)
 
 ![redux-thunk-result](./images/thunk-result.png)
 
-
 ### 调试工具 redux-devtools-extension 配置
 
-- 新建 store 的时候判断 window.devToolsExtension
-- 使用 compose 结合 thunk 和 window.devToolsExtension
-- 调试窗的 redux 选项卡，实时看到 state
+- 新建 `store` 的时候判断 `window.devToolsExtension`
+- 使用 `compose` 结合 `thunk` 和 `window.devToolsExtension`
+- 调试窗的 `redux` 选项卡，实时看到 `state`
 
 ``` js
 import { createStore, applyMiddleware, compose } from 'redux';
@@ -519,7 +715,7 @@ const store = createStore(counter, compose(
 ### 使用 react-redux
 
 - 老赵能力用起来很麻烦，为了方便管理，使用魏和尚来负责链接
-- `cnpm i react-redux -S`
+- `npm i react-redux -S`
 - 忘记 subscribe，记住reducer，action和dispatch 即可
 - React-redux 提供 Provider 和 connect 两个接口来链接
 
@@ -542,7 +738,7 @@ const store = createStore(counter, compose(
      "transform-decorators-legacy"
   ]
 }
-```	
+```
 
 3. 修改 connect
 
@@ -565,7 +761,6 @@ App = connect(mapStateProps, actionCreator)(App);
   { addGun, removeGun, addGunAsync }
 )
 class App extends React.Component {...}
-
 ```
 
 ![redux-thunk-result](./images/react-redux-index.png)
@@ -589,23 +784,23 @@ class App extends React.Component {...}
 
 ### 安装 [react-router](https://reacttraining.com/react-router/)
 
-- `cnpm i react-router-dom -S`
-- Router4 使用 react-router-dom 作为浏览器的路由
-- 忘记 Router2  的内容，拥抱最新的 Router4
+- `npm i react-router-dom -S`
+- **Router4** 使用 `react-router-dom` 作为浏览器的路由
+- 忘记 **Router2**  的内容，拥抱最新的 Router4
 
 ### 组件
 
-- BrowserRouter 包括整个应用
-- Router 路由对应渲染的组件，可嵌套
-- Link 跳转专用
+- `BrowserRouter` 包括整个应用
+- `Route`r 路由对应渲染的组件，可嵌套
+- `Link` 跳转专用
 
 ``` js
 // 多页应用
-import { BrowserRouter, Route, Link, Redirect, Switch } from 'react-router-dom';
-import App from './App';
-import Yiying from './Yiying';
-import Qibinglian from './Qibinglian';
-import Test from './Test';
+import { BrowserRouter, Route, Link, Redirect, Switch } from 'react-router-dom'
+import App from './App'
+import Yiying from './Yiying'
+import Qibinglian from './Qibinglian'
+import Test from './Test'
 ReactDOM.render(
   (<Provider store={store}>
     <BrowserRouter>
@@ -628,21 +823,21 @@ ReactDOM.render(
     </BrowserRouter>
   </Provider>),
   document.getElementById('root')
-);
+)
 ```
 
 - 跳转到 /
 
 ``` js
-this.props.history.push('/');
+  this.props.history.push('/')
 ```
 
 ### 其他组件
 
-- url 参数，Router 组件参数可用冒号标识参数
-- Redirect 组件跳转
-  - <Redirect to="/"></Redirect>
-- Switch 只渲染一个子 Route 组件
+- `url` 参数，`Router` 组件参数可用冒号标识参数
+- `Redirect` 组件跳转
+  - `<Redirect to="/"></Redirect>`
+- `Switch` 只渲染一个子 `Route` 组件
 
 ![redux-router-index](./images/react-router-index.png)
 
@@ -652,29 +847,39 @@ this.props.history.push('/');
 
 ### 使用 asios 发送异步请求
 
-- 如何发送,端口不一致,使用 proxy 配置转发
-- axios 拦截器, 统一 loading  处理
-- redux 里使用异步数据,渲染页面
+- 如何发送,端口不一致,使用 `proxy` 配置转发
+- **axios** 拦截器, 统一 loading  处理
+- **redux** 里使用异步数据,渲染页面
 
 ### axios
 
 > 简洁好用的发送请求库
 
-- 安装: `npm install axios --save`
-
+- 调用接口放在`componentDidMount`生命周期函数
+- 安装第三方模块：`npm i axios --save`
 - 启动 mongod 服务: `mongod.exe --dbpath C:\usr_local\MongoDB\data --port 9093`
 
-``` shell
-# vim package.json
-{
-  "proxy": "http://localhost:9093"
+``` js
+import axios from 'axios'
+componentDidMount() {
+  // 调用接口
+  axios.get('/api/todolist')
+    .then((data)=>{ alert('success');console.log(data); })
+    .catch(()=>{ alert('faire')  })
 }
+```
+
+``` sh
+# vim package.json
+  {
+    "proxy": "http://localhost:9093"
+  }
 ```
 
 Auth.js
 
 ``` js
-import axios from 'axios';
+import axios from 'axios'
 class Auth extends React.Component {
   constructor() {}
   componentDidMount() {
@@ -683,9 +888,9 @@ class Auth extends React.Component {
         if (res.status == 200) {
           this.setState({
             data: res.data
-          });
+          })
         }
-      });
+      })
   }
 }
 ```
@@ -706,13 +911,13 @@ class Auth extends React.Component {
 
 ### setup jspm
 
-- 全局安装：`# cnpm install jspm -g`
+- 全局安装：`# npm install jspm -g`
 - 创建项目：`# mkdir frontend && cd frontend`
 - 初始化项目：`# npm init`
-- 安装 jspm : `# cnpm i jspm --save-dev`
+- 安装 jspm : `# npm i jspm --save-dev`
 - 配置 jspm : `# jspm init`
-  - config.js 是jspm 配置文件
-  - jspm_packages jspm安装的包目录
+  - `config.js` 是jspm 配置文件
+  - `jspm_packages` jspm安装的包目录
 
 - jspm会 动态的载入 babel 工具
 
@@ -720,7 +925,7 @@ class Auth extends React.Component {
 
 - 修改报名位jquery components 是仓库拥有者， jquery 仓库的名字
 
-`#jspm install jquery=github:components/jquery`
+`# jspm install jquery=github:components/jquery`
 
 - config.js
 
@@ -730,9 +935,9 @@ class Auth extends React.Component {
 
 - https://github.com/jspm/registry 的package.json 有jquery， 通过一下方式安装
 
--jspm install jquery 安装最新的版本
--jspm install jquery@^2.1.0
--jspm install jquery@~2.1.0
+- `jspm install jquery` 安装最新的版本
+- `jspm install jquery@^2.1.0`
+- `jspm install jquery@~2.1.0`
 
 ### 使用ES6模块, BrowserSync 使用
 
@@ -740,18 +945,18 @@ class Auth extends React.Component {
 
 2. 使用BrowserSync： `browser-sync start --server` 开启服务
 
-browser-sync start --server --no-notify --files 'index.html, app/**/*.js'
+`browser-sync start --server --no-notify --files 'index.html, app/**/*.js'`
 
 ### 打包bundle 功能
 
-``` shell
+``` sh
 # jspm bundle app/main app/build.js  将app文件夹下的main.js里面的js都打包到build.js中
 # jspm bundle app/main app/build.js --inject 这样不用在html 引入build.js文件
 ```
 
 ### jspm 安装 react
 
-``` shell
+``` sh
 # jspm install react
 # jspm install react@0.14.0-rc1
 
@@ -762,11 +967,51 @@ browser-sync start --server --no-notify --files 'index.html, app/**/*.js'
 
 监视服务器文件的变化
 
-``` shell
+``` sh
 # browser-sync start --server --no-notify --files 'index.html, app/**/*.js'
 ```
 
 ## bower 包管理
 
-- `# cnpm install -g bower`
+- `# npm install -g bower`
 - `# bower install react`
+
+## React 的 CSS 过度动画
+
+[react-transition-group](https://github.com/reactjs/react-transition-group) 第三方模块
+
+`npm install react-transition-group --sav`
+
+动画会移除DOM元素
+
+### 初始化项目
+
+``` js
+// 引入包
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+// all in js (JS引入css文件)
+import './index.css';
+
+// 引入自定义组件
+import App from './App';
+
+// PWA progressive web application
+// https协议的服务器上，第一次访问之后，第二次访问时断网，依赖可以访问之前访问的页面
+import registerServiceWorker from './registerServiceWorker';
+
+// App组件挂载到id为root节点上
+// <App /> 是JSX语法需要引入react
+ReactDOM.render(<App />, document.getElementById('root'));
+registerServiceWorker();
+```
+
+``` js
+import React from 'react';
+const Component = React.Component;
+
+import React,{Component} from 'react';
+```
+
+使用了**JSX语法**必须引入**react包**
