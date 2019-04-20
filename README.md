@@ -5,12 +5,11 @@
 ### What React
 
 > 一个用于创建**可复用，可聚合** web 组件 UI 库
-> 只提供前端 MVC 框架中的 V 层，并不是完整的 MVC 框架
+> 只提供前端 MVC(M:接口数据，C:React封装好了) 框架中的 V 层，并不是完整的 MVC 框架
 
 - Facebook 出品，专注 View 层
 - 一切皆组件
-- 全部使用 ES6 语法
-- 最新版本: React 16
+- 全部使用 ES6 语法(上线时基于Babel工具ES6编译成ES5)
 
 ### React History
 
@@ -75,7 +74,7 @@ Facebook 解决的问题：构建数据不断变化的大型应用
 
 2. 用户也可以直接向 Controller 发送指令（改变 URL 触发 hashChange 事件），再由 Controller 发送给 View。
 
-3. Controller 非常薄，只起到路由的作用，而 View 非常厚，业务逻辑都部署在 View。所以，Backbone 索性取消了 Controller，只保留一个 Router（路由器） 。
+3. Controller 非常薄，只起到路由的作用，而 View 非常厚，业务逻辑都部署在 View。所以，Backbone 索性取消了 Controller，只保留一个 Router（路由器）。
 
 ### MVP
 
@@ -93,7 +92,7 @@ Facebook 解决的问题：构建数据不断变化的大型应用
 
 > Model View ViewModel
 
-![MVVM 通信方式](./images/mvvm.png) 
+![MVVM 通信方式](./images/mvvm.png)
 
 - MVVM 模式将 Presenter 改名为 ViewModel，基本上与 MVP 模式完全一致。
 - 唯一的区别是，它采用双向绑定（data-binding）：View的变动，自动反映在 ViewModel，反之亦然。Angular 和 Ember 都采用这种模式。
@@ -162,6 +161,61 @@ Facebook 解决的问题：构建数据不断变化的大型应用
 ## React 兼容性
 
 - IE8+
+
+
+## 脚手架
+
+- vue: `vue-cli`
+- react: `create-react-cli`
+
+### create-react-cli
+
+- 全局环境安装模块: `npm i -g create-react-app`
+- 查看全局安装模块目录：`npm root -g`
+- 查看模块八本：`create-react-app --version`
+
+### 使用脚手架创建项目
+
+> 项目命名规则：小写字母、数字和特殊字符(横线和下划线)
+
+```sh
+# create-react-app my-app
+```
+
+### 项目结构
+
+- **node_modules** 当前项目中依赖的包
+- **.bin** 本地项目可执行命令，在package.json的 scripts 中配置对应的脚本即可
+  - `react-scripts`
+- **public** 当前项目的HTML页面(单页面应用放一个index.html即可，多页面根据自己需求放置需要的页面)
+  - `index.html`
+    - 所有的逻辑都在JS中完成（包括页面结构的创建），如果给当前的页面导入CSS样式或者ImG图片等内容
+      - 1. JS中基于 ES6 Module模块规范，使用 `import` 导入，这样 webpack在编译合并JS的时候，会把导入的资源文件等插入到页面的结构中（**绝对不能再JS管控的结构中通过相对目录**。例如：`./`或者`../` 导入资源，因为在 webpack 编译的时候，地址就不在是之前的相对地址）
+      - 2. 不在JS中导入（JS中导入的资源最后都会基于Webpack编译），可以把资源手动的在HTML中导入，但是HTML最后也要基于Webpack编译，导入的地址也**不建议相对地址**，而是使用 `%PUBLIC_URL%` 写成绝对地址
+        - `%PUBLIC_URL%` 等于 `public`目录
+- **src** 组件、路由、CSS和图片源码目录
+  - `index.js` 当前项目的主入口文件
+- **.gitignore** git提交过程中忽略的文件或目录
+- **package.json** 当前项目配置清单
+  - **dependencies** 生产环境模块依赖
+    - `react`
+    - `react-dom`
+    - `react-scripts` **集成了webpack等需要的内容**
+      - Babel
+      - CSS
+      - ESlint
+      - webpack
+      - 没有 less/sass处理内容(需要时，自己额外的安装)
+  - **devDependencies** 开发依赖模块
+  - **scripts**
+    - `start`： 开发环境下，基于 webpack 编译处理，最后可以预览当前开发项目成果（在webpack中安装了`webpack-dev-server`插件，基于这个插件会自动创建一个Web服务【端口号】默认是`3000`，webpack会自动打开浏览器并展示给我们，并且监听代码变化，自动重新编译，并且刷新浏览器来完成重新渲染）
+    - `build`: 项目需要部署到服务器上，先执行 `yarn build`，把项目整体打包（完成后会在项目中生成一个build目录，这个目录中包含了所有编译后的内容，把这个上传到服务器即可）；而且在服务器上进行部署的时候，不需要安装任何模块（Webpack已经打包编译了）
+
+### 项目开发流程
+
+1. `reset.css` 重置样式文件存放到 `public/css` 目录下；打开 `public/index.html` 文件在`head`标签中插入如下代码`<link rel="stylesheet" href="%PUBLIC_URL%/css/reset.min.css">`；此处必须webpack编译之后打开页面生效
+
+
 
 ## React 是如何使用 JSX
 
