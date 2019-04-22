@@ -31,6 +31,12 @@ Facebook 解决的问题：构建数据不断变化的大型应用
   - 自动 DOM 操作
   - 状态对应内容（状态<=>数据）
 
+### React 版本
+
+- React 16 核心代码重写的版本，整体 API 变化不大
+- 主要变更了错误处理、生命周期、打包、对开发影响不是特别大
+- `# npm install --save react@next react-dom@next`
+
 ### React 相关资源
 
 - [awesome-react](https://github.com/enaqx/awesome-react)
@@ -211,7 +217,6 @@ index作为key不好的原因是，删除其中某个节点之后index会重新�
 
 使用稳定值得作为key值才是正确的。
 
-
 ## 渲染方式
 
 - 传统方式
@@ -274,7 +279,6 @@ index作为key不好的原因是，删除其中某个节点之后index会重新�
     - `build`: 项目需要部署到服务器上，先执行 `yarn build`，把项目整体打包（完成后会在项目中生成一个build目录，这个目录中包含了所有编译后的内容，把这个上传到服务器即可）；而且在服务器上进行部署的时候，不需要安装任何模块（Webpack已经打包编译了）
   - **eject**
 
-
 ### 项目开发流程
 
 1. `reset.css` 重置样式文件存放到 `public/css` 目录下；打开 `public/index.html` 文件在`head`标签中插入如下代码`<link rel="stylesheet" href="%PUBLIC_URL%/css/reset.min.css">`；此处必须webpack编译之后打开页面生效
@@ -295,6 +299,14 @@ index作为key不好的原因是，删除其中某个节点之后index会重新�
         - 1)首先确认执行eject操作，这个操作不可逆，一旦暴露出来配置项，就无法再隐藏回去
         - 2)当前的项目 **git** 管理，在执行`eject`的时候，没有提交到历史去的内容，需要先提交到历史区，然后再 `eject` 才可以，否则报错
     - (2) 再次修改对应的配置项即可
+      - 暴露后，项目目录多个两个目录
+        - **config** webpack配置文件
+          - **webpack.config.dev.js** 开发环境下的配置项(`yarn start`)
+          - **webpack.config.prod.js** 生产环境下的配置项(`yarn build`)
+        - **scripts** 可执行脚本的JS文件
+          - **start.js** `yarn start` 执行的就是这个JS
+          - **build.js** `yarn build` 执行的就是这个JS
+        - **package.json** 中的内容修改
     - 举例：
       - (1) `vim src/static/less/index.less`
         - `@color: lightblue;`
@@ -302,8 +314,103 @@ index作为key不好的原因是，删除其中某个节点之后index会重新�
       - (2) `vim src/index.js`
         - `import from './static/less/index.less`
       - (3) 预览项目的时候，也是先基于webpack编译，把编译后的内容放到浏览器中运行，所以项目中使用**less**，需要修改webpack配置项，在配置项中加入less的编译工作，这样后期预览项目，首先基于**webpack把less编译为css**，然后在呈现在页面中
+        - 1)`yarn add less less-loader`
+        - 2)`less`在开发和生产环境都需要配置的
+          - `vim config/webpack.config.js`
+
+```js
+            const lessRegex = /\.less$/;
+            const lessModuleRegex = /\.module\.less$/;
+            {
+              test: lessRegex,
+              exclude: lessModuleRegex,
+              use: getStyleLoaders(
+                {
+                  importLoaders: 2,
+                  sourceMap: isEnvProduction && shouldUseSourceMap,
+                },
+                'less-loader'
+              ),
+              sideEffects: true
+            },
+            {
+              test: lessModuleRegex,
+              use: getStyleLoaders(
+                {
+                  importLoaders: 2,
+                  sourceMap: isEnvProduction && shouldUseSourceMap,
+                  modules: true,
+                  getLocalIdent: getCSSModuleLocalIdent
+                },
+                'less-loader'
+              )
+            },
+```
+        - `set HTTPS=true&&set PORT=3443&&yarn start` 开启https协议模式（设置环境变量HTTPS的值）
+
+## react & react-dom
+
+- **渐进式框架**：流行的框架设计思想，一般框架中包含很多内容，这样导致框架的体积过于臃肿，拖慢加载速度。实际项目中，我们使用一个框架，不一定用到所有的功能，此时应该把框架的功能进行拆分，用户想要什么，让其自己自由组合即可。
+- 全家桶：渐进式框架N多部分的组合
+- **VUE全家桶**：vue-cli/vue/vue-router/vuex/axios(fetch)/vue element(vant)
+- **REACT全家桶**：create-react-app/react/react-dom/react-router-dom/redux/react-redux/axios/ant/dva/saga/mobx
+  - **react**: react框架的核心部分，提供了Component类可以进行**组件开发**，提供**钩子函数**（生命周期函数：所有的声明周期函数都是基于回调函数完成的）
+  - **react-dom**：把JSX语法渲染为真实DOM（能够放到页面中展示的结构都叫做真实的DOM）的组件
+    - `ReactDOM.reander([JSX], [CONTAINER], [CALLBACK])` 把JSX元素渲染到页面中
+      - JSX：React虚拟元素
+      - CONTAINER：容器，想把元素放到页面中的那个容器中
+      - CALLBACK: 当把内容放到页面中呈现触发的回调函数
 
 ## React 是如何使用 JSX
+
+> JSX: React独有的语法，JavaScript+XML = JSX
+
+- (1)不推荐把JSX直接方法哦body中，而是放在自己创建一个容器中，一般我们都放在一个ID为ROOT的div中即可 `ReactDOM.render(<div id="box">Hello {data}</div>), document.querySelector('#root'), ()=> { let oBox=document.querySelector('#box'); console.log(oBox.innerHTML)})`
+- (2)JSX 中出现的`{}`是存放JS代码，但是要求JS代码执行完成需要有返回结果（JS表达式）
+  - 不能直接放一个对象数据类型的值（`对象(除了给style赋值)`、`数组`（数组中没有对象都是基本值或者是JSX元素是可以的）、`函数`都不行）
+  - 可以是基本数类型的值(`布尔类型`什么都不显示、`null`、`undefined`也是JSX元素，代表的是空)
+  - 不支持循环判断语句，但是支持**三元运算符**
+- (3)当前循环数组创建 JSX 元素（一般都是基于数组的`MAP`方法完成迭代），需要给创空的元素设置唯一的 `KEY` 值（当前本次循环内唯一即可）
+- (4)只能出现一个根元素
+- (5)给元素设置样式类用的是 `className` 而不是 `class`
+- (6)style属性中不能直接写样式字符串，而是基于一个样式对象来遍历赋值
+
+```js
+let data = [
+  {
+    name: 'wovert',
+    age: '10'
+  },
+  {
+    name: 'lingyima',
+    age: '18'
+  }
+]
+
+export default class App extends Component {
+  render() {
+    return (
+      <div className="App">
+        <header className="App-header">
+          boolean: {true}<br />
+          null: {null}<br />
+          undefined: {undefined}<br />
+          {
+            data.map((item, index) => {
+              let {name, age} = item
+              return <span key={age}>{name}</span>
+            })
+          }
+          <img src={logo} className="App-logo" alt="logo" />
+          <p>
+            Edit <code>src/App.js</code> and save to reload.
+          </p>
+        </header>
+      </div>
+    );
+  }
+}
+```
 
 ``` js
 <p className="hello">Hello {this.props.name}</p>
@@ -311,14 +418,23 @@ index作为key不好的原因是，删除其中某个节点之后index会重新�
 React.createElement("p", {className: "hello", "hello ", this.props.name})
 ```
 
-## React 入门实例
+## JSX 渲染机制
 
-- 默认使用版本 15， 手动更新为 16
-  - React 16 核心代码重写的版本，整体 API 变化不大
-  - 主要变更了错误处理、生命周期、打包、对开发影响不是特别大
-  - `# npm install --save react@next react-dom@next`
+- (1) 基于babel中的语法解析模块**babel-preset-react** 把 JSX语法编译为 `React.createElement(...)` 结构
+  - presets
+    - state-0 提案(能不能成功不知道)
+    - stage-1 审议(已经审核)
+    - stage-2 草案(没有规范，但等于正式)
+    - stage-3 正式发布
+    - react
+- (2) 执行`React.createElement(type, props, children)` 创建一个对象（虚拟DOM）
+  - type: 'h1'
+  - props: {id: '', className: '', style: '', children: ''}
+  - ref: null
+  - key: null
+- (3) ReactDOM.render(JSX语法最后生成的对象，容器)，基于render方法把生成的对象动态创建为DOM圆度，插入到指定的容器中
 
-## React 基础语法
+ ## React 基础语法
 
 - `import React`
 - `class` 语法新建组件，`render`里直接使用

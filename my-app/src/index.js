@@ -10,6 +10,7 @@ import App from './App'
 console.log(qs.parse('name=wovert&age=10&type=10'))
 
 
+// JSX 元素渲染到页面中
 ReactDOM.render(<App />, document.getElementById('root'))
 
 // If you want your app to work offline and load faster, you can change
