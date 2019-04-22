@@ -272,10 +272,36 @@ index作为key不好的原因是，删除其中某个节点之后index会重新�
   - **scripts**
     - `start`： 开发环境下，基于 webpack 编译处理，最后可以预览当前开发项目成果（在webpack中安装了`webpack-dev-server`插件，基于这个插件会自动创建一个Web服务【端口号】默认是`3000`，webpack会自动打开浏览器并展示给我们，并且监听代码变化，自动重新编译，并且刷新浏览器来完成重新渲染）
     - `build`: 项目需要部署到服务器上，先执行 `yarn build`，把项目整体打包（完成后会在项目中生成一个build目录，这个目录中包含了所有编译后的内容，把这个上传到服务器即可）；而且在服务器上进行部署的时候，不需要安装任何模块（Webpack已经打包编译了）
+  - **eject**
+
 
 ### 项目开发流程
 
 1. `reset.css` 重置样式文件存放到 `public/css` 目录下；打开 `public/index.html` 文件在`head`标签中插入如下代码`<link rel="stylesheet" href="%PUBLIC_URL%/css/reset.min.css">`；此处必须webpack编译之后打开页面生效
+
+### 脚手架深入剖析
+
+- `create-react-app` 脚手架把安装的`webpack`及配置文件集成在`react-script`模块中，放到了`node_modules`目录中
+- 生产环境项目中，需要在脚手架默认安装的基础上，额外安装一些其他需要的模块，例如：`react-router-dom/axios/less/less-loader`
+  - 情况一(`react-router-dom/axios`)：我们安装其他的组件，但是安装成功后不需要修改webapck的配置项，此时直接的安装，并且调取使用即可。
+    - 举例：
+      `yarn add qs` 之后`"dependencies": {"qs": "^6.7.0"`
+      - src/index.js 中导入`qs`
+        - `import qs from 'qs'`
+        - `console.log(qs.parse('name=wovert&age=10&type=teacher'))`
+  - 情况二(`less/less-loader`)：安装的插件基于webpack处理的，也就是需要把安装的模块配置到webpack中（重新修改webapck配置项）
+    - (1) 首先需要把隐藏的`node_modules`中的配置项暴露到项目中
+      - `yarn eject` 指向之后不可逆
+        - 1)首先确认执行eject操作，这个操作不可逆，一旦暴露出来配置项，就无法再隐藏回去
+        - 2)当前的项目 **git** 管理，在执行`eject`的时候，没有提交到历史去的内容，需要先提交到历史区，然后再 `eject` 才可以，否则报错
+    - (2) 再次修改对应的配置项即可
+    - 举例：
+      - (1) `vim src/static/less/index.less`
+        - `@color: lightblue;`
+        - `html, body { height: 100%; overflow: hidden; background:@color}`
+      - (2) `vim src/index.js`
+        - `import from './static/less/index.less`
+      - (3) 预览项目的时候，也是先基于webpack编译，把编译后的内容放到浏览器中运行，所以项目中使用**less**，需要修改webpack配置项，在配置项中加入less的编译工作，这样后期预览项目，首先基于**webpack把less编译为css**，然后在呈现在页面中
 
 ## React 是如何使用 JSX
 
