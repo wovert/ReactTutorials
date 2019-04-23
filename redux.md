@@ -1028,6 +1028,8 @@ ReactDOM.render(
 )
 ```
 
+![react-redux](./images/react-redux.png)
+
 ### React-Router 路由库
 
 使用React-Router的项目，与其他项目没有不同之处，也是使用`Provider`在`Router`外面包一层，毕竟`Provider`的唯一功能就是传入`store`对象。
