@@ -21,7 +21,7 @@ export default class App extends Component {
     return (
       <div className="App">
         {/* JSX中调取组件 */}
-        <Dialog content="内容" title="标题" />
+        <Dialog content="内容" title="标题" type="sys" />
         <header className="App-header">
           boolean: {true}<br />
           null: {null}<br />

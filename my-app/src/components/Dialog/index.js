@@ -5,14 +5,14 @@ import React from 'react' // 每一个组建中都要导入react, 因为需要�
  * @props 调用组件传递的属性集合对象
  */
 export default function Dialog(props) {
-  let {type, content, title, children} = props
+  let {content, title, children} = props
   return (
     <section className="panel panel-default col-lg-4" style={{width:'50%'}}>
     <div className="panel-heading">
-      <h3 className="panel-title">系统提示</h3>
+      <h3 className="panel-title">{title}</h3>
     </div>
     <div className="panel-body">
-
+      {content}
     </div>
     {
       children ? <div className="panel-footer">
