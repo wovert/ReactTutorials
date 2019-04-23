@@ -1,6 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import qs from 'qs'
+// 公用样式放到idnex中导入，这样在其他组建中可以使用；webpack会把所有的组件编译到一起
+// 导入bootstrap, 需要导入的不经过压缩处理的文件，否则无法编译
+import 'bootstrap/dist/css/bootstrap.css'
 import './static/less/index.less'
 
 // import './index.css';

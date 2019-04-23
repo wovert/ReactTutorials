@@ -434,12 +434,17 @@ React.createElement("p", {className: "hello", "hello ", this.props.name})
   - key: null
 - (3) ReactDOM.render(JSX语法最后生成的对象，容器)，基于render方法把生成的对象动态创建为DOM圆度，插入到指定的容器中
 
+## 声明组件
 
-## React 基础语法
+### 1. 函数式声明组件
 
-- `import React`
-- `class` 语法新建组件，`render`里直接使用
-- `render` 函数返回值就是输出 JSX 语法，会把 JSX 转换成 JS 执行
+### 2. 基于继承Component类来创建组件
+
+> 基于create-element把JSX 转换为一个对象，当Render渲染这个对象的时候，遇到type是一个函数或者类，不是直接创建元素，而是先把方法执行
+
+- 如果是函数式声明的组件，就把它当做普通方法执行（方法中的`this`是`undefined`），把函数返回的JSX元素（也是解析后的对象）进行渲染
+- 如果是类声明式的组件，会把当前类`new`它执行，创建类的一个实例（当前本次调取的组件就是他的实例）
+
 
 ### JSX 语法代码
 
