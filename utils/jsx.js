@@ -49,3 +49,55 @@ console.log(obj)
  *  __proto__:Object.prototype
  * }
  */
+
+/** 
+ * render: 把创建的对象生成对应的DOM元素，最后插入到页面中
+ */
+function render (obj = {}, container, callback) {
+  let {type, props} = obj
+  let newElement = document.createElement(type)
+  for (let attr in props) {
+    if (!props.hasOwnProperty(attr)) break // 不是私有的直接结束遍历
+    if (!props[attr]) continue // 如果当前属性没有值，直接不处理即可
+
+    let value = props[attr]
+
+    // class-name
+    if (attr === 'className') {
+      newElement.setAttribute('class', value)
+      continue
+    }
+
+    // style
+    if (attr === 'style') {
+      if (value === '') {
+        continue
+      }
+      for (let styKey in value) {
+        if (value.hasOwnProperty(styKey)) {
+          newElement['style'][styKey] = value[styKey]
+        }
+      }
+      continue
+    }
+
+    // children
+    if (arr === 'children') {
+      if (typeof value === 'string') {
+        let text = document.createTextNode(value)
+        newElement.appedChild(text)
+      }
+      continue
+    }
+
+    // 基于setAttribute可以让设置的属性表现在HTML结构上
+    newElement.setAttribute(attr, value)
+  }
+  container.appedChild(newElement)
+  callback && callback()
+
+}
+
+render(obj, root, () => {
+  console.log('ok')
+})
