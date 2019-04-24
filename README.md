@@ -168,8 +168,7 @@ JSX 语法规定最外层标签必须有且只有一个标记。也可以Fragmen
 7. 找出 input 框发生了变化
 8. 只用新的 DOM 中的 input 元素，替换掉老的 DOM 中的 input 元素
 
-缺陷：
-系能的提升并不明显
+缺陷：系能的提升并不明显
 
 1. state 数据
 2. JSX 模板
@@ -544,11 +543,30 @@ function hello(props) {
 - 函数式编程
 - 数据框架层(Redux/Flusk)
 
-### Reactdevelopertools 安装及使用
+### React developer tools 安装及使用
+
+> Chrome 浏览器下载 React Developer Tools
 
 ### PropTypes VS DefaultProps
 
-校验父组件传递的属性值
+> 校验父组件传递的属性值
+
+```js
+import PropTypes from 'prop-types'
+
+// 校验父组件传递的值
+TodoItem.propTypes = {
+  content: PropTypes.string,
+  deleteItem: PropTypes.func,
+  index: PropTypes.oneOfType(PropTypes.number, PropTypes.string),
+  name: PropTypes.string.isRequired
+}
+
+// 设置默认值
+TodoItem.defaultProps = {
+  name: 'default name'
+}
+```
 
 ### props，state与render函数的关系
 

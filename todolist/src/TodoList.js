@@ -44,6 +44,7 @@ export default class TodoList extends Component {
           key={index}
           index={index}
           content={item}
+          // name={item}
           // deleteItem={this.handleItemDelete.bind(this)}
           deleteItem={this.handleItemDelete}
         />

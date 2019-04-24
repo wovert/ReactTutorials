@@ -1,16 +1,17 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
-export default class TodoItem extends React.Component {
+class TodoItem extends React.Component {
   constructor (props) {
     super(props)
     this.handleClick = this.handleClick.bind(this) // 提高性能
   }
   render () {
-    const { content } = this.props
+    const { content, name } = this.props
     return (
       <li 
         onClick={this.handleClick}
-        dangerouslySetInnerHTML={{__html: content}}
+        dangerouslySetInnerHTML={{__html: content + name}}
       ></li>
     )
   }
@@ -20,3 +21,18 @@ export default class TodoItem extends React.Component {
     deleteItem(index)
   }
 }
+
+// 校验父组件传递的值
+TodoItem.propTypes = {
+  content: PropTypes.string,
+  deleteItem: PropTypes.func,
+  index: PropTypes.number,
+  name: PropTypes.string.isRequired
+}
+
+// 设置默认值
+TodoItem.defaultProps = {
+  name: 'default name'
+}
+
+export default TodoItem
