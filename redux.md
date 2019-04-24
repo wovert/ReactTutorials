@@ -6,6 +6,8 @@
 
 ![React 弊端](./images/react-no.png)
 
+![React 弊端](./images/react-no2.png)
+
 一个组件改变 store 之后，其他组件感知到store的数据变化自动更新最新store的数据，间接的实现了组件的传递的功能
 
 ## Redux 是什么

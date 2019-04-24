@@ -13,7 +13,7 @@
 
 ### React History
 
-- 2013-6, Facebook 官方发布 React
+- 2013-6, Facebook 官方发布 React（函数式编程）
 - 2014-9, React 热度开始上涨
 - 2015-3，React Native 发布
 
@@ -33,7 +33,7 @@ Facebook 解决的问题：构建数据不断变化的大型应用
 
 ### React 版本
 
-- React 16 核心代码重写的版本，整体 API 变化不大
+- React Fiber(React 16 RC) 核心代码重写的版本，整体 API 变化不大
 - 主要变更了错误处理、生命周期、打包、对开发影响不是特别大
 - `# npm install --save react@next react-dom@next`
 
@@ -445,7 +445,6 @@ React.createElement("p", {className: "hello", "hello ", this.props.name})
 - 如果是函数式声明的组件，就把它当做普通方法执行（方法中的`this`是`undefined`），把函数返回的JSX元素（也是解析后的对象）进行渲染
 - 如果是类声明式的组件，会把当前类`new`它执行，创建类的一个实例（当前本次调取的组件就是他的实例）
 
-
 ### JSX 语法代码
 
 ``` js
@@ -688,9 +687,7 @@ import 'antd-mobile/dist/antd-mobile.css'
 
 ## 案例-亮剑
 
-Windows OS use Administrator commands
-
-``` shell
+``` sh
 # npm i -g create-react-app
 # create-react-app -v
 # create-react-app liangjian
@@ -1103,7 +1100,7 @@ import ReactDOM from 'react-dom';
 // all in js (JS引入css文件)
 import './index.css';
 
-// 引入自定义组件
+// 引入自定义组件（自定义组件名开头必须是大写）
 import App from './App';
 
 // PWA progressive web application
