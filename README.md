@@ -113,6 +113,11 @@ Facebook 解决的问题：构建数据不断变化的大型应用
 - 降低测试难度：组件**高内聚低耦合**，很容易对单个组件进行测试
 - 降低代码复杂度：直观的语法可以解答提高可读性
 
+### 编码方式
+
+- 编程式实现：需要以具体代码在哪里（where）做什么（what），如何实现（How）
+- 声明式实现：只需要声明在哪里(where)做什么（what），而无需关系如何实现（how）
+
 ### JSX
 
 > JS 逻辑与 HTMl 标签紧密相连并且极易理解. XML 语法扩展
@@ -318,41 +323,42 @@ index作为key不好的原因是，删除其中某个节点之后index会重新�
           - `vim config/webpack.config.js`
 
 ```js
-            const lessRegex = /\.less$/;
-            const lessModuleRegex = /\.module\.less$/;
-            {
-              test: lessRegex,
-              exclude: lessModuleRegex,
-              use: getStyleLoaders(
-                {
-                  importLoaders: 2,
-                  sourceMap: isEnvProduction && shouldUseSourceMap,
-                },
-                'less-loader'
-              ),
-              sideEffects: true
-            },
-            {
-              test: lessModuleRegex,
-              use: getStyleLoaders(
-                {
-                  importLoaders: 2,
-                  sourceMap: isEnvProduction && shouldUseSourceMap,
-                  modules: true,
-                  getLocalIdent: getCSSModuleLocalIdent
-                },
-                'less-loader'
-              )
-            },
+  const lessRegex = /\.less$/;
+  const lessModuleRegex = /\.module\.less$/;
+  {
+    test: lessRegex,
+    exclude: lessModuleRegex,
+    use: getStyleLoaders(
+      {
+        importLoaders: 2,
+        sourceMap: isEnvProduction && shouldUseSourceMap,
+      },
+      'less-loader'
+    ),
+    sideEffects: true
+  },
+  {
+    test: lessModuleRegex,
+    use: getStyleLoaders(
+      {
+        importLoaders: 2,
+        sourceMap: isEnvProduction && shouldUseSourceMap,
+        modules: true,
+        getLocalIdent: getCSSModuleLocalIdent
+      },
+      'less-loader'
+    )
+  },
 ```
-        - `set HTTPS=true&&set PORT=3443&&yarn start` 开启https协议模式（设置环境变量HTTPS的值）
+
+`set HTTPS=true&&set PORT=3443&&yarn start` 开启https协议模式（设置环境变量HTTPS的值）
 
 ## react & react-dom
 
 - **渐进式框架**：流行的框架设计思想，一般框架中包含很多内容，这样导致框架的体积过于臃肿，拖慢加载速度。实际项目中，我们使用一个框架，不一定用到所有的功能，此时应该把框架的功能进行拆分，用户想要什么，让其自己自由组合即可。
 - 全家桶：渐进式框架N多部分的组合
-- **VUE全家桶**：vue-cli/vue/vue-router/vuex/axios(fetch)/vue element(vant)
-- **REACT全家桶**：create-react-app/react/react-dom/react-router-dom/redux/react-redux/axios/ant/dva/saga/mobx
+- **VUE全家桶**：vue-cli/vue/vue-router/vuex/babel/webpack/axios(fetch)/vue element(vant)
+- **REACT全家桶**：create-react-app/react/react-dom/react-router-dom/redux/react-redux/babel/webpack/axios/ant/dva/saga/mobx
   - **react**: react框架的核心部分，提供了Component类可以进行**组件开发**，提供**钩子函数**（生命周期函数：所有的声明周期函数都是基于回调函数完成的）
   - **react-dom**：把JSX语法渲染为真实DOM（能够放到页面中展示的结构都叫做真实的DOM）的组件
     - `ReactDOM.reander([JSX], [CONTAINER], [CALLBACK])` 把JSX元素渲染到页面中
@@ -556,9 +562,9 @@ import PropTypes from 'prop-types'
 
 // 校验父组件传递的值
 TodoItem.propTypes = {
-  content: PropTypes.string,
+  content: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   deleteItem: PropTypes.func,
-  index: PropTypes.oneOfType(PropTypes.number, PropTypes.string),
+  index: PropTypes.number,
   name: PropTypes.string.isRequired
 }
 
@@ -585,9 +591,28 @@ render函数重新获取新的值进行渲染
 1. 父组件传给子组件传递父组件state数据改变时，子组件render函数会运行
 2. 当父组件的render 函数被运行时，它的子组件的render 函数都被重新运行一次
 
-## React 生命周期
+### ref属性
 
-> React 组件有若干个钩子函数，在组件不同的状态执行
+``` html
+<ul ref={(ul) => { this.ul = ul }}>
+  { this.getTodoItem() }
+</ul>
+```
+
+```js
+this.setState((prevState) => ({
+  list: [...prevState.list, prevState.inputValue],
+  inputValue: ''
+}), () => {
+  // setState异步执行完成之后执行以下代码
+  console.log(this.ul.querySelectorAll('li').length)
+})
+console.log(this.ul.querySelectorAll('li').length) // 比预计的少一个，因为setState异步执行
+```
+
+## React 生命周期函数
+
+> 某一时刻组件会自动调用执行的函数；在组件不同的状态执行
 
 - 初始化周期
 - 组件重新渲染生命周期
@@ -596,6 +621,7 @@ render函数重新获取新的值进行渲染
 ![父组件下达命令](./images/lifecycle-flow.png)
 
 ![父组件下达命令](./images/lifecycle-parent.png)
+
 - 父组件: 输入命令并下达作战命令, `refs 属性`可以轻易获取　DOM　属性值
 
 ![子组件接受命令](./images/lifecycle-child1.png)
@@ -618,64 +644,46 @@ render函数重新获取新的值进行渲染
 
 ![life cycle](./images/life-cycle.png)
 
-- initalization 初始化触发
-  - setup props state
+- **initalization**: 初始化时触发(`constructor(props){super(props) ... }`)
+  - setup `props state`
 
-- Mounting 组件挂载时触发
-  - componentWillMount 组件即将被挂载到页面的之前仅自动执行一次(挂载之前)
-  - render 渲染组件
-  - componentDidMount 组件被挂载到页面之后仅自动被执行一次(已经挂载)
+- **Mounting**: 组件挂载时触发
+  - `componentWillMount`: 组件即将被挂载到页面的之前仅自动执行**一次**(挂载之前)
+  - `render`: 渲染组件
+  - `componentDidMount`: 组件被挂载到页面之后仅自动被执行**一次**(已经挂载)
 
-- Updation 组件更被时触发
-  - props (props发生变化)
-    - componentWillReceiveProps
+- **Updation**: 组件更被时触发
+  - **props** (props发生变化)
+    - `componentWillReceiveProps`
       - 一个组件要从父组件接受参数
-      - 如果这个组件第一次存在于父组件中，不会执行
-      - 如果这个组件之前已经存在于父组件中，才会执行
+      - 只要父组件的render函数被重新执行了，子组件的这个生命周期函数就会被执行
+        - 如果这个组件第一次存在于父组件中，不会执行
+        - 如果这个组件之前已经存在于父组件中，才会执行
 
-    - shouldComponentUpdate 组件被更新之前，它会自动被执行。必须返回boolean是否继续往下执行其他事件。
-      - return false; 组件不会被更新
-      - return true; 组件会被更新
+    - `shouldComponentUpdate`: 组件被更新之前，它会自动被执行。必须返回boolean是否继续往下执行其他事件。
+      - `return false` 组件不会被更新
+      - `return true` 组件会被更新
 
-    - componentWillUpdate 组件被更新之前，自动执行
-      - shouldComponentUpdate返回false,componentWillUpdate不会被执行
-      - shouldComponentUpdate返回true,componentWillUpdate会被执行
-    - render 更新渲染组件
-    - componentDidUpdate 组件被更新之后，自动执行
+    - `componentWillUpdate`: 组件被更新之前，自动执行
+      - `shouldComponentUpdate`: 返回 `false`, `componentWillUpdate` 不会被执行
+      - `shouldComponentUpdate`: 返回 `true`, `componentWillUpdate` 会被执行
+    - `render`: 更新渲染组件
+    - `componentDidUpdate`: 组件被更新之后，自动执行
   
-  - states (states发生变化)
-    - shouldComponentUpdate (true向下)
-    - componentWillUpdate
-    - render
-    - componentDidUpdate
+  - **states** (states发生变化)
+    - `shouldComponentUpdate` (`true`向下)
+    - `componentWillUpdate`
+    - `render`
+    - `componentDidUpdate`
 
-- Unmounting
-  - componentWillUnmount 当这个组件即将被页面中剔除的时候，会被执行
-
-``` js
-// 第二次开始接收参数并更新子组件
-shouldComponentUpdate TodoList.js:29
-componentWillUpdate TodoList.js:33
-render TodoList.js:40
-child [componentWillReceiveProps] TodoItem.js:12
-child shouldComponentUpdate TodoItem.js:21
-child componentWillUpdate TodoItem.js:25
-child componentDidUpdate TodoItem.js:28
-componentDidUpdate
-```
-
-``` js
-// 删除子组件
-shouldComponentUpdate TodoList.js:29
-componentWillUpdate TodoList.js:33
-render TodoList.js:42
-child [componentWillUnmount] TodoItem.js:31
-componentDidUpdate
-```
+- **Unmounting**
+  - `componentWillUnmount`: 当这个组件即将被页面中移除的时候，会被执行
 
 注意：render函数必须存在
 
-## 安装 React Developer Tools
+### 生命周期函数的使用场景
+
+ 
 
 ## antd-mobile 组件
 
@@ -685,8 +693,7 @@ componentDidUpdate
 
 - 安装按需加载模块 `# npm i babel-plugin-import --save`
 
-``` shell
-修改配置文件
+``` sh
 # vim package.json
   "babel": {
     "presets": [
@@ -700,7 +707,7 @@ componentDidUpdate
 
 ``` js
 // 隐藏导入样式文件
-import 'antd-mobile/dist/antd-mobile.css'
+// import 'antd-mobile/dist/antd-mobile.css'
 ```
 
 ## 案例-亮剑
@@ -709,8 +716,7 @@ import 'antd-mobile/dist/antd-mobile.css'
 # npm i -g create-react-app
 # create-react-app -v
 # create-react-app liangjian
-# cd liangjian && ls -l
-# npm start
+# cd liangjian && npm start
 ```
 
 ### 独立团项目

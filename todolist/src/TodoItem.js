@@ -24,7 +24,7 @@ class TodoItem extends React.Component {
 
 // 校验父组件传递的值
 TodoItem.propTypes = {
-  content: PropTypes.string,
+  content: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   deleteItem: PropTypes.func,
   index: PropTypes.number,
   name: PropTypes.string.isRequired

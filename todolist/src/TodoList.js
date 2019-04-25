@@ -26,11 +26,12 @@ export default class TodoList extends Component {
             value={this.state.inputValue}
             // onChange={this.handleInputChange.bind(this)}
             onChange={this.handleInputChange}
+            ref={(input) => { this.input = input }}
           />
           {/* <button onClick={this.handleBtnClick.bind(this)}>提交</button> */}
           <button onClick={this.handleBtnClick}>提交</button>
         </div>
-        <ul>
+        <ul ref={(ul) => { this.ul = ul }}>
           { this.getTodoItem() }
         </ul>
       </Fragment>
@@ -55,6 +56,11 @@ export default class TodoList extends Component {
     // this.setState({
     //   inputValue: e.target.value
     // })
+
+    // e.target 指向DOM节点
+    // console.log(e.target)
+    console.log(this.input.value)
+    
     const value = e.target.value
     // ({}): 外城()表示return
     this.setState(() => ({
@@ -70,7 +76,12 @@ export default class TodoList extends Component {
     this.setState((prevState) => ({
       list: [...prevState.list, prevState.inputValue],
       inputValue: '' 
-    }))
+    }), () => {
+      // setState异步执行完成之后执行以下代码
+      console.log(this.ul.querySelectorAll('li').length)       
+    })
+
+    // console.log(this.ul.querySelectorAll('li').length) // 比预计的少一个，因为setState异步执行
   }
 
   handleItemDelete (index) {
