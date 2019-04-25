@@ -10,7 +10,7 @@ export default class TodoList extends Component {
       list: ['english','math']
     }
 
-    this.handleInputChange = this.handleInputChange.bind(this)
+    // this.handleInputChange = this.handleInputChange.bind(this)
     this.handleBtnClick = this.handleBtnClick.bind(this)
     this.handleItemDelete = this.handleItemDelete.bind(this)
   }
@@ -52,7 +52,7 @@ export default class TodoList extends Component {
       )
     })
   }
-  handleInputChange (e) {
+  handleInputChange = (e)  => {
     // this.setState({
     //   inputValue: e.target.value
     // })

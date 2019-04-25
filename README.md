@@ -234,6 +234,24 @@ index作为key不好的原因是，删除其中某个节点之后index会重新�
   - 将数据传给顶层组件
   - React 将每个组件渲染出来
 
+## yarn
+
+> 新一代包管理工具
+
+### yarn 特性
+
+- 速度快
+- 安装版本统一、更安全
+- 更简洁的输出
+- 更好的语义化
+
+### 如何使用yarn
+
+- yarn init
+- yarn add
+- yarn remove
+- yarn / yarn install 安装依赖包
+
 ## 脚手架
 
 - vue: `vue-cli`
@@ -618,6 +636,11 @@ console.log(this.ul.querySelectorAll('li').length) // 比预计的少一个，�
 - 组件重新渲染生命周期
 - 组件卸载声明周期
 
+- getDefaultProps
+- getInitalState
+- componentWillMount
+- render
+
 ![父组件下达命令](./images/lifecycle-flow.png)
 
 ![父组件下达命令](./images/lifecycle-parent.png)
@@ -684,14 +707,63 @@ console.log(this.ul.querySelectorAll('li').length) // 比预计的少一个，�
 ### 生命周期函数的使用场景
 
  
-
 ## antd-mobile 组件
 
 `# npm i antd-mobile@next --save`
 
-### 按需加载
+### 按需加载组件代码和样式，修改主题
 
-- 安装按需加载模块 `# npm i babel-plugin-import --save`
+```sh
+# yarn add babel-plugin-import --dev
+# vim config/webpack.config.js
+if (preProcessor) {
+  if (preProcessor === 'less-loader') { // 为less-loader添加配置项，启动javascript
+    loaders.push({
+      loader: require.resolve(preProcessor),
+      options: {
+        sourceMap: isEnvProduction && shouldUseSourceMap,
+        modifyVars: { // 修稿主题颜色
+          'primary-color': '#f9c700',
+        },
+        javascriptEnabled: true // 解决上文报错
+      },
+    });
+  } else {
+    loaders.push({
+      loader: require.resolve(preProcessor),
+      options: {
+        sourceMap: isEnvProduction && shouldUseSourceMap,
+      },
+    });
+  }
+}
+
+{
+  test: /\.(js|mjs|jsx|ts|tsx)$/,
+  include: paths.appSrc,
+  loader: require.resolve('babel-loader'),
+  options: {
+    customize: require.resolve(
+      'babel-preset-react-app/webpack-overrides'
+    ),
+    plugins: [
+      [
+        ...
+      ],
+      [
+        'import',
+        {
+          libraryName: 'antd',
+          style: true // true 会加载 less 文件
+        }
+      ]
+    ],
+  },
+},
+
+```
+
+或
 
 ``` sh
 # vim package.json
