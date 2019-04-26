@@ -704,9 +704,53 @@ console.log(this.ul.querySelectorAll('li').length) // 比预计的少一个，�
 
 注意：render函数必须存在
 
-### 生命周期函数的使用场景
+### React 优化
 
- 
+1. 作用域绑定函数
+
+`this.handleBtnClick = this.handleBtnClick.bind(this)`
+
+2. `setState()` 异步处理机制：多次处理改成一次来做，降低 DOM 操作频次
+
+3. 虚拟 DOM 比对速度
+
+4. 子组件判断内容渲染
+
+```js
+shouldComponentUpdate (nextProps, nextState) {
+  if (nextProps.content !== this.props.content) {
+    return true
+  } else {
+    return false
+  }
+}
+```
+
+## Ajax 请求
+
+```sh
+# yarn add axios
+# vim TodoList.js
+  import axios from 'axios'
+
+```
+
+```js
+// 组件挂载（只有一次执行）之后请求ajax
+componentDidMount () {
+  axios.get('/api/todolist')
+    .then(() => {alert('success')})
+    .catch(() => {alert('error')})
+}
+```
+
+## [react-transition-group](https://reactcommunity.org/react-transition-group/) 动画
+
+```js
+import { CSSTransition } from 'react-transition-gruop'
+```
+
+
 ## antd-mobile 组件
 
 `# npm i antd-mobile@next --save`

@@ -1,4 +1,6 @@
 import React, { Component, Fragment } from 'react'
+import { CSSTransition } from 'react-transition-group'
+import axios from 'axios'
 import TodoItem from './TodoItem'
 import './index.css'
 
@@ -7,7 +9,8 @@ export default class TodoList extends Component {
     super(props)
     this.state = {
       inputValue: '',
-      list: ['english','math']
+      list: ['english','math'],
+      show: false
     }
 
     // this.handleInputChange = this.handleInputChange.bind(this)
@@ -31,11 +34,27 @@ export default class TodoList extends Component {
           {/* <button onClick={this.handleBtnClick.bind(this)}>提交</button> */}
           <button onClick={this.handleBtnClick}>提交</button>
         </div>
-        <ul ref={(ul) => { this.ul = ul }}>
-          { this.getTodoItem() }
-        </ul>
+        <CSSTransition
+          in={this.state.show}
+          timeout={1000}
+          classNames='fade'
+        >
+          <ul ref={(ul) => { this.ul = ul }}>
+            { this.getTodoItem() }
+          </ul>
+        </CSSTransition>
       </Fragment>
     )
+  }
+
+  componentDidMount () {
+    axios.get('/api/todolist')
+      .then((res) => {
+        this.setState(() => ({
+          list: [...res.data]
+        }))
+      })
+      .catch(() => {alert('error')})
   }
 
   getTodoItem () {
@@ -59,8 +78,6 @@ export default class TodoList extends Component {
 
     // e.target 指向DOM节点
     // console.log(e.target)
-    console.log(this.input.value)
-    
     const value = e.target.value
     // ({}): 外城()表示return
     this.setState(() => ({
@@ -75,10 +92,11 @@ export default class TodoList extends Component {
     // prevState == this.state
     this.setState((prevState) => ({
       list: [...prevState.list, prevState.inputValue],
+      show: true,
       inputValue: '' 
     }), () => {
       // setState异步执行完成之后执行以下代码
-      console.log(this.ul.querySelectorAll('li').length)       
+      console.log(this.ul.querySelectorAll('li').length) 
     })
 
     // console.log(this.ul.querySelectorAll('li').length) // 比预计的少一个，因为setState异步执行

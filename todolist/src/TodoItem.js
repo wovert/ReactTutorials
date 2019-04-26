@@ -6,12 +6,20 @@ class TodoItem extends React.Component {
     super(props)
     this.handleClick = this.handleClick.bind(this) // 提高性能
   }
+  shouldComponentUpdate (nextProps, nextState) {
+    if (nextProps.content !== this.props.content) {
+      return true
+    } else {
+      return false
+    }
+  }
   render () {
-    const { content, name } = this.props
+    console.log('父组件render, 子组件也会自动渲染 render')
+    const { content } = this.props
     return (
       <li 
         onClick={this.handleClick}
-        dangerouslySetInnerHTML={{__html: content + name}}
+        dangerouslySetInnerHTML={{__html: content}}
       ></li>
     )
   }
