@@ -14,7 +14,7 @@ import {
  */
 // 默认数据
 const defaultState = {
-  inputValue: '',
+  inputValue: 'hello world',
   list: []
 };
 

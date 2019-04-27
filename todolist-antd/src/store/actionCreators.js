@@ -3,8 +3,8 @@ import {
   ADD_TODO_ITEM,
   DELETE_TODO_ITEM,
   INIT_LIST_ACTION,
-  GET_INIT_LIST
 } from './actionTypes'
+import { getListApi } from './api'
 
 export const getInputChangeAction = (value) => ({
   type: CHANGE_INPUT_VALUE,
@@ -20,11 +20,29 @@ export const getDeleteItemAction = (index) => ({
   index
 })
 
-export const initListAction = (data) => ({
+export const getListDataAction = (data) => ({
   type: INIT_LIST_ACTION,
   data
 })
 
-export const getInitListAction = () => ({
-  type: GET_INIT_LIST
-})
+export const getInitListAction = () => {
+  return async (dispatch) => {
+    try {
+      const result = await getListApi()
+      const data = result.data
+      const action = getListDataAction(data)
+      dispatch(action)
+    } catch (e) {
+      console.log(e)
+    }
+    
+      // getListApi().then((res) => {
+      //   const data = res.data
+      //   const action = getListDataAction(data)
+      //   dispatch(action)
+      // })
+      // .catch((err) => {
+      //   console.log(err)
+      // })
+  }  
+}
