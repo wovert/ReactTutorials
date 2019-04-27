@@ -1,4 +1,9 @@
-import { CHANGE_INPUT_VALUE, ADD_TODO_ITEM, DELETE_TODO_ITEM } from './actionTypes'
+import {
+  CHANGE_INPUT_VALUE,
+  ADD_TODO_ITEM,
+  DELETE_TODO_ITEM,
+  INIT_LIST_ACTION
+} from './actionTypes'
 
 /**
  * 笔记本
@@ -8,8 +13,8 @@ import { CHANGE_INPUT_VALUE, ADD_TODO_ITEM, DELETE_TODO_ITEM } from './actionTyp
  */
 // 默认数据
 const defaultState = {
-  inputValue: 'alice',
-  list: [1, 2]
+  // inputValue: 'alice',
+  // list: [1, 2]
 };
 
 // reducer 可以接受state，但绝对不能修改state
@@ -37,6 +42,10 @@ export default (state = defaultState, action) => {
       newState.list.splice(action.index, 1)
       return newState
 
+    case INIT_LIST_ACTION:
+      newState = JSON.parse(JSON.stringify(state))
+      newState.list = action.data
+      return newState
     default:
       return state
   }

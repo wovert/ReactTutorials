@@ -1,8 +1,14 @@
 import React, { Component } from 'react'
+import axios from 'axios'
 import store from './store'
 
 import TodoListUI from './TodoListUI'
-import { getInputChangeAction, getAddItemAction, getDeleteItemAction } from './store/actionCreators'
+import {
+  getInputChangeAction,
+  getAddItemAction,
+  getDeleteItemAction,
+  initListAction
+} from './store/actionCreators'
 // import { CHANGE_INPUT_VALUE, ADD_TODO_ITEM, DELETE_TODO_ITEM } from './store/actionTypes'
 
 class TodoList extends Component {
@@ -33,6 +39,15 @@ class TodoList extends Component {
       />
     )
   }
+  componentDidMount () {
+    axios.get('/api/todolist')
+      .then((res) => {
+        const data = res.data
+        const action = initListAction(data)
+        store.dispatch(action)
+      })
+  }
+
   handleItemDelete (index) {
     // const action = {
     //   type: DELETE_TODO_ITEM,
@@ -47,6 +62,7 @@ class TodoList extends Component {
     //   type: CHANGE_INPUT_VALUE, // 描述事情
     //   value: e.target.value
     // }
+    e.persist()
     const action = getInputChangeAction(e.target.value)
     // action 传给 store 的 reducer
     store.dispatch(action)
