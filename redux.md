@@ -578,7 +578,7 @@ redux标准流程：在view中派发 action，action 通过 dispatch 方法派�
 
 redux 的中间件流程：action和store之间，action只能是一个对象，action直接派发给store。现在redux-thunk之后，action可以是函数了。action通过dispatch方法传递给store。action和store之间 dispatch方法。是dispatch的一个封装，dispatch的一个升级。最原始的方法是接受到action对象之后，直接传递给store。使用redux-thunk之后，在传递给dispatch传递的是函数的时候，不会直接传递给store，它会先执行函数，然后根据需要传递给store。如果传递的是对象，直接传递给store；如果传递的是函数，先执行函数。
 
-奥妙就在 Action Creator 之中。
+奥妙就在 **Action Creator** 之中。
 
 ```js
 class AsyncApp extends Component {
@@ -735,6 +735,12 @@ export default function promiseMiddleware({ dispatch }) {
 从上面代码可以看出，如果 Action 本身是一个 Promise，它 resolve 以后的值应该是一个 Action 对象，会被dispatch方法送出（action.then(dispatch)），但 reject 以后不会有任何动作；如果 Action 对象的payload属性是一个 Promise 对象，那么无论 resolve 和 reject，dispatch方法都会发出 Action。
 
 中间件和异步操作，就介绍到这里。下一篇文章将是最后一部分，介绍如何使用react-redux这个库。
+
+### redux-saga 中间件
+
+安装 redux-sage 中间件 `yarn add redux-saga`
+
+(redux-saga)[https://github.com/redux-saga/redux-saga)
 
 ## React-Redux 的用法
 

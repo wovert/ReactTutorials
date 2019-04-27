@@ -2,7 +2,8 @@ import {
   CHANGE_INPUT_VALUE,
   ADD_TODO_ITEM,
   DELETE_TODO_ITEM,
-  INIT_LIST_ACTION
+  INIT_LIST_ACTION,
+  // GET_INIT_LIST
 } from './actionTypes'
 
 /**
@@ -46,6 +47,11 @@ export default (state = defaultState, action) => {
       newState = JSON.parse(JSON.stringify(state))
       newState.list = action.data
       return newState
+
+    // case GET_INIT_LIST:
+    //   newState = JSON.parse(JSON.stringify(state))
+    //   return newState   
+
     default:
       return state
   }

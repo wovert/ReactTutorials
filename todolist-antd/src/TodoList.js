@@ -5,8 +5,7 @@ import {
   getInputChangeAction,
   getAddItemAction,
   getDeleteItemAction,
-  // initListAction,
-  getTodoList
+  getInitListAction
 } from './store/actionCreators'
 
 class TodoList extends Component {
@@ -39,13 +38,7 @@ class TodoList extends Component {
   }
 
   componentDidMount () {
-    // axios.get('/api/todolist')
-    //   .then((res) => {
-    //     const data = res.data
-    //     const action = initListAction(data)
-    //     store.dispatch(action)
-    //   })
-    const action = getTodoList() // action 是函数
+    const action = getInitListAction()
     store.dispatch(action)
   }
 
@@ -75,7 +68,7 @@ class TodoList extends Component {
    */
   handleStoreChange () {
     // 重新获取 store 数据同步到 state
-    // console.log('重新获取 store 数据同步到 state:', store.getState())
+    console.log('重新获取 store 数据同步到 state:', store.getState())
     this.setState(store.getState())
   }
   

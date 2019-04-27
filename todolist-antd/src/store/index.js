@@ -1,8 +1,10 @@
 import { createStore, applyMiddleware, compose } from 'redux'
-import thunk from 'redux-thunk'
-
-// 引入笔记本
+import createSagaMiddleware from 'redux-saga'
 import reducer from './reducer'
+import todoSagas from './sagas'
+
+// create the saga middleware
+const sagaMiddleware = createSagaMiddleware()
 
 // 创建store并reducer
 const composeEnhancers =
@@ -12,12 +14,14 @@ const composeEnhancers =
     }) : compose
 
 const enhancer = composeEnhancers(
-  applyMiddleware(thunk),
+  applyMiddleware(sagaMiddleware)
 )
 
 const store = createStore(
   reducer,
   enhancer
 )
+
+sagaMiddleware.run(todoSagas)
 
 export default store
