@@ -570,6 +570,14 @@ let state = {
 
 > 异步操作至少要送出两个 Action：用户触发第一个 Action，这个跟同步操作一样，没有问题；如何才能在操作结束时，系统自动送出第二个 Action 呢？
 
+### 什么是 redux 的中间件
+
+![redux data flow](./images/redux-data-flow.png)
+
+redux标准流程：在view中派发 action，action 通过 dispatch 方法派发给store。store接受action，连同state一起传给reducer，reducer返回新的数据store。store改变state。
+
+redux 的中间件流程：action和store之间，action只能是一个对象，action直接派发给store。现在redux-thunk之后，action可以是函数了。action通过dispatch方法传递给store。action和store之间 dispatch方法。是dispatch的一个封装，dispatch的一个升级。最原始的方法是接受到action对象之后，直接传递给store。使用redux-thunk之后，在传递给dispatch传递的是函数的时候，不会直接传递给store，它会先执行函数，然后根据需要传递给store。如果传递的是对象，直接传递给store；如果传递的是函数，先执行函数。
+
 奥妙就在 Action Creator 之中。
 
 ```js
