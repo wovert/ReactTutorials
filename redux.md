@@ -424,6 +424,12 @@ function listerner() {
 
 如果要从 `React Components`组件中获取`Store`的数据，然后告诉`Action creators` 我要获取数据行为，Action Creators 创建获取数据的告诉store，store接收到action之后，在 reducers里查找相应的数据。Reducers告诉store你应该给组件什么样的数据。store知道之后把数据给了组件。
 
+## 组件分类
+
+- UI组件（傻瓜组件） - 负责页面渲染
+- 容器组件（聪明组件）- 负责页面逻辑
+- 无状态组件
+
 ## 异步怎么操作
 
 > Action 发出以后，Reducer 立即算出 State，这叫做同步；Action 发出以后，过一段时间再执行 Reducer，这就是异步。
