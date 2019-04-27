@@ -13,6 +13,16 @@
 
 ### React History
 
+简单功能一下出现BUG
+
+![React出现的原因](./images/why-react.png)
+
+- 问题出现的根源
+  - 传统UI从骚猪关注太多细节 (DOM API）
+  - 应用程序状态分散在各处，难以追踪和维护
+
+!  [flux架构：单项数据流](./images/flux.png)
+
 - 2013-6, Facebook 官方发布 React（函数式编程）
 - 2014-9, React 热度开始上涨
 - 2015-3，React Native 发布
@@ -112,6 +122,18 @@ Facebook 解决的问题：构建数据不断变化的大型应用
 - 提高代码复用率：组件将**数据和逻辑封装**，类似面向对象中的类
 - 降低测试难度：组件**高内聚低耦合**，很容易对单个组件进行测试
 - 降低代码复杂度：直观的语法可以解答提高可读性
+
+![受控组件vs非受控组件](./images/shoukong.png)
+
+#### 何时创建组件：单一职责原则
+
+1. 每个组件只做一件事
+2. 如果组件变得复杂，那么应该拆分成小组件
+
+#### 数据状态管理: DRY 原则
+
+1. 能计算得到的状态就不要单独存储
+2. 组件尽量无状态，所需数据通过 props 获取
 
 ### 编码方式
 
@@ -640,6 +662,8 @@ console.log(this.ul.querySelectorAll('li').length) // 比预计的少一个，�
 - getInitalState
 - componentWillMount
 - render
+
+![react lifecycle](./images/react-lifecycle.png)
 
 ![父组件下达命令](./images/lifecycle-flow.png)
 
