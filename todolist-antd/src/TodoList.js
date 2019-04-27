@@ -1,15 +1,13 @@
 import React, { Component } from 'react'
-import axios from 'axios'
 import store from './store'
-
 import TodoListUI from './TodoListUI'
 import {
   getInputChangeAction,
   getAddItemAction,
   getDeleteItemAction,
-  initListAction
+  // initListAction,
+  getTodoList
 } from './store/actionCreators'
-// import { CHANGE_INPUT_VALUE, ADD_TODO_ITEM, DELETE_TODO_ITEM } from './store/actionTypes'
 
 class TodoList extends Component {
 
@@ -39,13 +37,16 @@ class TodoList extends Component {
       />
     )
   }
+
   componentDidMount () {
-    axios.get('/api/todolist')
-      .then((res) => {
-        const data = res.data
-        const action = initListAction(data)
-        store.dispatch(action)
-      })
+    // axios.get('/api/todolist')
+    //   .then((res) => {
+    //     const data = res.data
+    //     const action = initListAction(data)
+    //     store.dispatch(action)
+    //   })
+    const action = getTodoList() // action 是函数
+    store.dispatch(action)
   }
 
   handleItemDelete (index) {
@@ -56,6 +57,7 @@ class TodoList extends Component {
     const action = getDeleteItemAction(index)
     store.dispatch(action)
   }
+
   handleInputChange (e) {
     // 创建action
     // const action = {
@@ -67,17 +69,15 @@ class TodoList extends Component {
     // action 传给 store 的 reducer
     store.dispatch(action)
   }
-
   
   /**
    * 监听函数
    */
   handleStoreChange () {
     // 重新获取 store 数据同步到 state
-    console.log('重新获取 store 数据同步到 state:', store.getState())
+    // console.log('重新获取 store 数据同步到 state:', store.getState())
     this.setState(store.getState())
   }
-
   
   /**
    * 按钮事件

@@ -5,7 +5,7 @@ import 'antd/dist/antd.css'
 // 无状态组件
 const TodoListUI = (props) => {
   return (
-    <div 
+    <div
       style={{
         marginTop: '10px',
         marginLeft: '10px',
@@ -39,7 +39,7 @@ const TodoListUI = (props) => {
         renderItem={
           (item, index) => (
             <List.Item 
-              onClick={ (index) => { props.handleItemDelete(index) } }
+              onClick={ () => { props.handleItemDelete(index) } }
             >
               {item}
             </List.Item>
@@ -48,7 +48,6 @@ const TodoListUI = (props) => {
       />
     </div>
   )
-
 }
 
 export default TodoListUI

@@ -13,8 +13,8 @@ import {
  */
 // 默认数据
 const defaultState = {
-  // inputValue: 'alice',
-  // list: [1, 2]
+  inputValue: '',
+  list: []
 };
 
 // reducer 可以接受state，但绝对不能修改state
