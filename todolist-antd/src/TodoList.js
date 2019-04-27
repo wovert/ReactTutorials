@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Input, Button, List } from 'antd'
 import store from './store'
 import 'antd/dist/antd.css'
+import { getInputChangeAction, getAddItemAction, getDeleteItemAction } from './store/actionCreators'
+// import { CHANGE_INPUT_VALUE, ADD_TODO_ITEM, DELETE_TODO_ITEM } from './store/actionTypes'
 
 class TodoList extends Component {
 
@@ -18,6 +20,7 @@ class TodoList extends Component {
 
     this.handleStoreChange = this.handleStoreChange.bind(this)
     this.handleBtnClick = this.handleBtnClick.bind(this)
+
   }
 
   render () {
@@ -54,32 +57,44 @@ class TodoList extends Component {
           bordered
           dataSource={this.state.list}
           renderItem={
-            item => (
-              <List.Item>{item}</List.Item>
+            (item, index) => (
+              <List.Item 
+                onClick={ this.handleItemDelete.bind(this, index) }
+              >
+                {item}
+              </List.Item>
             )
           }
         />
       </div>
     )
   }
-
+  handleItemDelete (index) {
+    // const action = {
+    //   type: DELETE_TODO_ITEM,
+    //   index
+    // }
+    const action = getDeleteItemAction(index)
+    store.dispatch(action)
+  }
   handleInputChange (e) {
     // 创建action
-    const action = {
-      type: 'change_input_value', // 描述事情
-      value: e.target.value
-    }
-
+    // const action = {
+    //   type: CHANGE_INPUT_VALUE, // 描述事情
+    //   value: e.target.value
+    // }
+    const action = getInputChangeAction(e.target.value)
     // action 传给 store 的 reducer
     store.dispatch(action)
   }
+
   
   /**
    * 监听函数
    */
   handleStoreChange () {
     // 重新获取 store 数据同步到 state
-    console.log(store.getState())
+    console.log('重新获取 store 数据同步到 state:', store.getState())
     this.setState(store.getState())
   }
 
@@ -88,9 +103,10 @@ class TodoList extends Component {
    * 按钮事件
    */
   handleBtnClick (e) {
-    const action = {
-      type: 'add_todo_item'
-    }
+    // const action = {
+    //   type: ADD_TODO_ITEM
+    // }
+    const action = getAddItemAction()
     store.dispatch(action)
   }
 }
