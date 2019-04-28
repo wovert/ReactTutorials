@@ -483,6 +483,14 @@ React.createElement("p", {className: "hello", "hello ", this.props.name})
 
 ### 1. 函数式声明组件
 
+```js
+export function Toast () {
+  return (
+    <div>组件内容</div>
+  )
+}
+```
+
 ### 2. 基于继承Component类来创建组件
 
 > 基于create-element把JSX 转换为一个对象，当Render渲染这个对象的时候，遇到type是一个函数或者类，不是直接创建元素，而是先把方法执行
