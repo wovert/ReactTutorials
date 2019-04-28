@@ -1285,3 +1285,49 @@ import React,{Component} from 'react';
 ```
 
 使用了**JSX语法**必须引入**react包**
+
+## styled-components 与 reset.css 的结合使用
+
+1. 安装 css模块
+
+`yarn add styled-components`
+
+2. 创建css内容的js文件`style.js`并导入
+
+```js
+// styled-components版本4以下
+import { injectGlobal } from 'styled-components'
+// 全局样式
+injectGlobal`
+  body {color:red}
+`
+```
+
+`import ./style.js`
+
+---
+
+``` js
+// styled-components版本4以上
+import {createGlobalStyle} from 'styled-components'
+
+// 全局样式
+export const GlobalStyled = createGlobalStyle`
+  body {
+    color: red
+  }
+`
+```
+
+``` js
+import { GlobalStyled } from './style'
+class App extends React.Components{
+  render () {
+    return (
+      <div className='App'>
+        <GlobalStyled />
+      </div>
+    )
+  }
+}
+```
