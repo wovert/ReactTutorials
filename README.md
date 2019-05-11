@@ -67,7 +67,7 @@
 
 注意以上通信都是**单向的**数据流
 
-#### 互动模式
+#### MVC 互动模式
 
 1. View 接受指令，传递给 Controller
 
@@ -77,9 +77,9 @@
 
 ![MVC 通信方式](./images/mvc-type2.png)
 
-- Backbne.js 实例
+**Backbne.js 实例**
 
-![Backbone MVC 通信方式](./images/mvc-backbone.png) 
+![Backbone MVC 通信方式](./images/mvc-backbone.png)
 
 1. 用户可以向 View 发送指令（DOM 事件），再由 View 直接要求 Model 改变状态。
 
