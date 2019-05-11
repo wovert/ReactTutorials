@@ -1,12 +1,12 @@
 import React from 'react'
 import { Button, List } from 'antd-mobile'
-//import 'antd-mobile/dist/antd-mobile.css'
+import 'antd-mobile/dist/antd-mobile.css'
 
 /**
  * 定义 App 组件
  */
 class App extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
 
     // 当前组件状态
@@ -23,7 +23,7 @@ class App extends React.Component {
   /**
    * 渲染组件
    */
-  render() {
+  render () {
     let boss = '李云龙'
     // JSX 语法
     return (
@@ -39,7 +39,7 @@ class App extends React.Component {
   }
 }
 
-function Qibinglian(props) {
+function Qibinglian (props) {
   return <h3>骑兵连连长{props.boss}, 冲啊!</h3>
 }
 
