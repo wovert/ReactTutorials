@@ -147,12 +147,30 @@
 > 不是模板语言，只是一种语法糖。JS 逻辑与 HTMl 标签紧密相连并且极易理解 XML 语法扩展。JavaSript XML 语法标记
 
 ![JSX的本质](./images/jsx-native.png)
+
+![JSX本质](./images/jsx-native2.png)
+
 JSX 的本质：动态创建组件的语法糖
 
 - 相比 `JS` 输出 `html` 标记需要字符串并连接符进行输出
 - `JSX` 可以**自定义标签**
 - `JSX` 定义组件名必须以**大写字母开头**，小写字母开头是HTML标记
 - `JSX` 语法规定**最外层标签**必须有且**只有一个标记**。也可以`Fragment`标记作为片**段标记**
+
+#### JSX 中使用表达式
+
+1. JSX 本身是表达式: `const element = <h1>Hello, world!</h1>`
+2. 在属性中使用表达式：`<MyComponent foo={1 + 2 + 3 + 4} />`
+3. 延展属性:
+
+```jsx
+const props = {firstName: 'Ben', lastName: 'Hector'}
+const greeting = <Greeting {...props} />
+```
+
+4. 表达式作为子元素: `const element = <li>{props.message}</li>`
+
+
 
 ### 单向数据流
 
