@@ -124,6 +124,9 @@
 
 ![受控组件vs非受控组件](./images/shoukong.png)
 
+- 受控组件：状态来自于外部
+- 非受控组件：状态来自于内部，外部要用的时候，使用其他方式拿到他的值（不需要`change`事件），但是外界需要知道`DOM`元素(ref)才能
+
 #### 何时创建组件：单一职责原则
 
 1. 每个组件只做一件事
@@ -132,7 +135,7 @@
 #### 数据状态管理: DRY 原则
 
 1. 能计算得到的状态就不要单独存储
-2. 组件尽量无状态，所需数据通过 props 获取
+2. 组件尽量无状态，所需数据通过 `props` 获取
 
 ### 编码方式
 
@@ -144,13 +147,10 @@
 > JS 逻辑与 HTMl 标签紧密相连并且极易理解. XML 语法扩展
 > JavaSript XML 语法标记
 
-相比JS输出html标记需要字符串并连接符进行输出
-
-JSX 可以自定义标签
-
-JSX 定义组件名必须以大写字母开头，小写字母开头是HTML标记
-
-JSX 语法规定最外层标签必须有且只有一个标记。也可以Fragment标记作为片段标记
+- 相比JS输出html标记需要字符串并连接符进行输出
+- JSX 可以**自定义标签**
+- JSX 定义组件名必须以**大写字母开头**，小写字母开头是HTML标记
+- JSX 语法规定**最外层标签**必须有且**只有一个标记**。也可以`Fragment`标记作为片**段标记**
 
 ### 单向数据流
 
@@ -163,42 +163,42 @@ JSX 语法规定最外层标签必须有且只有一个标记。也可以Fragmen
 - 计算出最新的 DOM 更新操作
 - 从操作队伍中批量地执行 DOM 更新操作
 
-- 在 Node.js服务器端运行
+- 在 `Node.js` 服务器端运行
   - 服务器与客户端共用逻辑（lsomorphic javascript）
-  - SEO 友好，便于生成缓存的单面应用
+  - `SEO` 友好，便于生成缓存的单面应用
   - 直接渲染特定的页面而不用渲染整个 app
 
-- 管理 UI 状态并不简单
-  - 修改 DOM 树
+- 管理 `UI` 状态并不简单
+  - 修改 `DOM` 树
   - 修改数据
   - 接收用户的输入
-  - 异步 API 数据请求
+  - 异步 `API` 数据请求
 
-1. state 数据
-2. JSX 模板(render函数)
-3. 数据 + 模板 结合，生成真实的 DOM 来显示
-4. state 发生改变
-5. 数据 + 模板 结合，生成真实的 DOM，替换原始的 DOM
+1. `state` 数据
+2. `JSX` 模板(`render`函数)
+3. 数据 + 模板 结合，生成真实的 `DOM` 来显示
+4. `state` 发生改变
+5. 数据 + 模板 结合，生成真实的 `DOM`，替换原始的 `DOM`
 
 - 缺陷：
-  - 第一次生成了一个完整的DOM片段
-  - 第二次生成了一个完整的DOM片段
-  - 第二次的DOM替换第一次的DOM，非常耗性能
+  - 第一次生成了一个完整的 `DOM` 片段
+  - 第二次生成了一个完整的 `DOM` 片段
+  - 第二次的 `DOM` 替换第一次的 `DOM`，非常耗性能
 
-1. state 数据
-2. JSX 模板
-3. 数据 + 模板 结合，生成真实的 DOM 来显示
-4. state 发生改变
-5. 数据 + 模板 结合，生成真实的 DOM，并不直接替换原始的 DOM
-6. 新的 DOM(DocumentFragment) 和原始的 DOM 做比对，找差异
-7. 找出 input 框发生了变化
-8. 只用新的 DOM 中的 input 元素，替换掉老的 DOM 中的 input 元素
+1. `state` 数据
+2. `JSX` 模板
+3. 数据 + 模板 结合，生成真实的 `DOM` 来显示
+4. `state` 发生改变
+5. 数据 + 模板 结合，生成真实的 `DOM`，并不直接替换原始的 `DOM`
+6. 新的 DOM(DocumentFragment) 和原始的 `DOM` 做比对，找差异
+7. 找出 `input` 框发生了变化
+8. 只用新的 `DOM` 中的 `input` 元素，替换掉老的 `DOM` 中的 `input` 元素
 
 缺陷：系能的提升并不明显
 
-1. state 数据
+1. `state` 数据
 2. JSX 模板
-3. 数据 + 模板 结合生成虚拟DOM (虚拟DOM就是一个 JS 对象，用它来描述真实 DOM)（损耗了性能）
+3. 数据 + 模板 结合生成虚拟 `DOM` (虚拟DOM就是一个 JS 对象，用它来描述真实 DOM)（损耗了性能）
   `['div', {id:'abc'}, ['span',{}, 'hello world']]`
 4. 用虚拟DOM的结构生成真实的 DOM 来显示
   `<div><span id='abc'>hello world</span></div>`
@@ -211,7 +211,7 @@ JSX 语法规定最外层标签必须有且只有一个标记。也可以Fragmen
 
 8. 直接操作DOM，改变 span 中的内容
 
-**JSX -> createElement -> 虚拟DOM(JS 对象) -> 真实的 DOM**
+JSX -> createElement -> 虚拟DOM(JS 对象) -> 真实的 DOM
 
 `<div><span>item</span></div>` = `return React.createElement('div', {}, React.createElement('div', {}, 'item'));`
 
@@ -220,27 +220,27 @@ JSX 语法规定最外层标签必须有且只有一个标记。也可以Fragmen
 ### 虚拟优点
 
 1. 性能提升了
-2. 跨端应用得以实现 - React Native。虚拟DOM生成原生组件
+2. 跨端应用得以实现 - `React Native`。虚拟DOM生成原生组件
 
 ### 虚拟 DOM 的 diff 算法
 
 ![diff算法](./images/diff-01.png)
 
-setState 异步函数，连续三次setState，合并成一次setState
+`setState` 异步函数，连续三次`setState`，合并成一次`setState`
 
 同级比较
 
 ![diff算法比较](./images/diff-02.png)
 
-第一级别比较不同，不再继续比较。第一级别重新生成新的DOM节点树，替换原始节点树。缺点：其他级别相同DOM比较也会创建新的DOM，但是比比较每个节点的算法性能更好。
+第一级别比较不同，不再继续比较。第一级别重新生成新的 `DOM` 节点树，替换原始节点树。缺点：其他级别相同 `DOM` 比较也会创建新的 `DOM`，但是比比较每个节点的算法性能更好。
 
 ![diff算法比较](./images/diff-03.png)
 
 每个节点起个名字，这样比对时性能提升。如果一致可以进行复用。
 
-index作为key不好的原因是，删除其中某个节点之后index会重新排序，这样原始节点的key与新节点没有对应关系，所以diff算法比较性能更差。一定不要使用index作为key。
+`index` 作为 `key` 不好的原因是，删除其中某个节点之后 `index` 会重新排序，这样原始节点的`key`与新节点没有对应关系，所以`diff`算法比较性能更差。一定不要使用`index`作为`key`。
 
-使用稳定值得作为key值才是正确的。
+使用稳定值得作为`key`值才是正确的。
 
 ## 渲染方式
 
@@ -266,12 +266,12 @@ index作为key不好的原因是，删除其中某个节点之后index会重新�
 - 更简洁的输出
 - 更好的语义化
 
-### 如何使用yarn
+### 如何使用 yarn
 
-- yarn init
-- yarn add
-- yarn remove
-- yarn / yarn install 安装依赖包
+- `yarn init`
+- `yarn add`
+- `yarn remove`
+- `yarn / yarn install` 安装依赖包
 
 ## 脚手架
 
@@ -289,7 +289,7 @@ index作为key不好的原因是，删除其中某个节点之后index会重新�
 > 项目命名规则：小写字母、数字和特殊字符(横线和下划线)
 
 ```sh
-# create-react-app my-app
+create-react-app my-app
 ```
 
 ### 项目结构
@@ -300,8 +300,8 @@ index作为key不好的原因是，删除其中某个节点之后index会重新�
 - **public** 当前项目的HTML页面(单页面应用放一个index.html即可，多页面根据自己需求放置需要的页面)
   - `index.html`
     - 所有的逻辑都在JS中完成（包括页面结构的创建），如果给当前的页面导入CSS样式或者ImG图片等内容
-      - 1. JS中基于 ES6 Module模块规范，使用 `import` 导入，这样 webpack在编译合并JS的时候，会把导入的资源文件等插入到页面的结构中（**绝对不能再JS管控的结构中通过相对目录**。例如：`./`或者`../` 导入资源，因为在 webpack 编译的时候，地址就不在是之前的相对地址）
-      - 2. 不在JS中导入（JS中导入的资源最后都会基于Webpack编译），可以把资源手动的在HTML中导入，但是HTML最后也要基于Webpack编译，导入的地址也**不建议相对地址**，而是使用 `%PUBLIC_URL%` 写成绝对地址
+      - 1.JS中基于 ES6 Module模块规范，使用 `import` 导入，这样 webpack在编译合并JS的时候，会把导入的资源文件等插入到页面的结构中（**绝对不能再JS管控的结构中通过相对目录**。例如：`./`或者`../` 导入资源，因为在 webpack 编译的时候，地址就不在是之前的相对地址）
+      - 2.不在JS中导入（JS中导入的资源最后都会基于Webpack编译），可以把资源手动的在HTML中导入，但是HTML最后也要基于Webpack编译，导入的地址也**不建议相对地址**，而是使用 `%PUBLIC_URL%` 写成绝对地址
         - `%PUBLIC_URL%` 等于 `public`目录
 - **src** 组件、路由、CSS和图片源码目录
   - `index.js` 当前项目的主入口文件
@@ -362,32 +362,32 @@ index作为key不好的原因是，删除其中某个节点之后index会重新�
           - `vim config/webpack.config.js`
 
 ```js
-  const lessRegex = /\.less$/;
-  const lessModuleRegex = /\.module\.less$/;
-  {
-    test: lessRegex,
-    exclude: lessModuleRegex,
-    use: getStyleLoaders(
-      {
-        importLoaders: 2,
-        sourceMap: isEnvProduction && shouldUseSourceMap,
-      },
-      'less-loader'
-    ),
-    sideEffects: true
-  },
-  {
-    test: lessModuleRegex,
-    use: getStyleLoaders(
-      {
-        importLoaders: 2,
-        sourceMap: isEnvProduction && shouldUseSourceMap,
-        modules: true,
-        getLocalIdent: getCSSModuleLocalIdent
-      },
-      'less-loader'
-    )
-  },
+const lessRegex = /\.less$/
+const lessModuleRegex = /\.module\.less$/
+{
+  test: lessRegex,
+  exclude: lessModuleRegex,
+  use: getStyleLoaders(
+    {
+      importLoaders: 2,
+      sourceMap: isEnvProduction && shouldUseSourceMap,
+    },
+    'less-loader'
+  ),
+  sideEffects: true
+},
+{
+  test: lessModuleRegex,
+  use: getStyleLoaders(
+    {
+      importLoaders: 2,
+      sourceMap: isEnvProduction && shouldUseSourceMap,
+      modules: true,
+      getLocalIdent: getCSSModuleLocalIdent
+    },
+    'less-loader'
+  )
+}
 ```
 
 `set HTTPS=true&&set PORT=3443&&yarn start` 开启https协议模式（设置环境变量HTTPS的值）
