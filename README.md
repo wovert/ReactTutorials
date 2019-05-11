@@ -8,10 +8,12 @@
 
 ### React History
 
+简单功能一下出现BUG
+
 ![React出现的原因](./images/why-react.png)
 
 - 问题出现的根源
-  - 传统UI从骚猪关注太多细节 (DOM API）
+  - 传统UI操作关注太多细节 (DOM API）
   - 应用程序状态分散在各处，难以追踪和维护
 
 !  [flux架构：单项数据流](./images/flux.png)
