@@ -701,11 +701,34 @@ console.log(this.ul.querySelectorAll('li').length) // 比预计的少一个，�
 - **Pre-commit Phase**: 可以读取DOM
 - **Commit Phase**: 可是使用DOM，运行副作用，安排更新
 
+- `constructor`
+  - 1.用于初始化内部状态，很少使用
+  - 2.唯一可以直接修改 state 的地方
 - `getDerivedStateFromProps`: React 16.3 引入的API，它从外部的属性去初始化内部的状态
+  - 1.当 `state` 需要从 `props` 初始化时使用
+  - 2.不推荐使用：维护两个状态一致性会增加复杂度
+    - `state` 需要从 `props` 获的，可以从`props`动态得到，不需要单独存储这个状态
+    - 一旦单独存储，意味着始终维护两个状态，容易出现bugs
+  - 3.每次 `render` 都会调用
+  - 4.典型场景：**表单空间获取默认值**
 - `render`: 描述UI DOM 结构，组件必须声明
 - `compnentDidMount`: 可是发起接口请求，定义外部资源，可以运行副作用
+  - 1.UI渲染完成后调用
+  - 2.只执行一次
+  - 3.典型场景：**获取外部资源**
+- `componentWillUnmount`
+  - 1.组件移除时被调用
+  - 2.典型场景：资源释放
 - `shouldComponentUpdate`: 组件是否需要渲染，可以做性能**优化操作**，即时`state`变化，但是 `UI` 不需要变化
+  - 1.决定 `Virtual DOM` 是否要重绘
+  - 2.一般可以由 `PureComponent` 自动实现
+  - 3.典型场景：**性能优化**
 - `getSnapshotBeforeUpdate`: React 16.3 引入的API
+  - 1.在页面 `render` 之前调用，`state` 已更新
+  - 2.典型场景：获取 `render` 之前的 `DOM` 状态
+- `componentDidUpdate`
+  - 1.每次 `UI` 更新时被调用
+  - 2.典型场景：**页面需要根据 `props` 变化重新获取数据**; 文件详情页，根据id变化内容也变化
 
 ![父组件下达命令](./images/lifecycle-flow.png)
 
