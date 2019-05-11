@@ -4,7 +4,7 @@
 
 ### What React
 
-> 2013年，Facebook 开发的用于创建**可复用，可聚合** web 组件 **UI 库**。仅提供前端 MVC(M:接口数据，C:React封装好了) 框架中的 **V 层**，并不是完整的 MVC 框架
+> 2013年，Facebook 开发的函数式编程，用于创建**可复用，可聚合** web 组件 **UI 库**。仅提供前端 MVC(M:接口数据，C:React封装好了) 框架中的 **V 层**，并不是完整的 MVC 框架
 
 ### React History
 
@@ -18,23 +18,19 @@
 
 ![flux架构：单项数据流](./images/flux.png)
 
-- 2013-6, Facebook 官方发布 React（函数式编程）
+- 2013-6, Facebook 官方发布
 - 2014-9, React 热度开始上涨
-- 2015-3，React Native 发布
+- 2015-3, React Native 发布
 
 ### Why use React
 
-Facebook 解决的问题：构建数据不断变化的大型应用
+> 构建数据不断变化的大型应用
 
-**数据**变换
-
-大量 **DOM** 操作
-
-**逻辑**极其复杂
-
-- React
-  - 自动 DOM 操作
-  - 状态对应内容（状态<=>数据）
+- **数据**变换
+- 大量 **DOM** 操作
+- **逻辑**极其复杂
+- React 自动 DOM 操作
+- React 状态对应内容（状态<=>数据）
 
 ### React 版本
 
