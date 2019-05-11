@@ -34,8 +34,8 @@
 
 ### React 版本
 
-- React Fiber(React 16 RC) 核心代码重写的版本，整体 API 变化不大
-- 主要变更了错误处理、生命周期、打包、对开发影响不是特别大
+- `React Fiber`(React 16 RC) 核心代码重写的版本，整体 API 变化不大
+  - 主要变更了错误处理、生命周期、打包、对开发影响不是特别大
 - `# npm install --save react@next react-dom@next`
 
 ### React 相关资源
@@ -43,8 +43,11 @@
 - [awesome-react](https://github.com/enaqx/awesome-react)
 - [babeljs](https://babeljs.io/)
 - [兼容性](http://kangax.github.io/compat-table/es5/)
-- [不同版本 JS CDN](https://cdnjs.com/libraries/react/)
+- [cdnjs.com](https://cdnjs.com/libraries/react/)
+- [cdnjs.net](https://cdnjs.com/libraries/react/)
+- [UNPKG](https://unpkg.com/)
 - [NPMJS](https://www.npmjs.com/)
+- [淘宝NPM镜像](https://npm.taobao.org)
 
 ## 前段框架对比
 
