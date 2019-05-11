@@ -65,7 +65,7 @@
 2. Controller 完成业务逻辑后，要求 Model 改变状态
 3. Model 将新的数据发送到 View, 用户得到反馈
 
-注意以上通信都是**单向的**数据流
+注意以上通信都是**单向的**
 
 #### MVC 互动模式
 
@@ -93,7 +93,7 @@
 
 ![MVP 通信方式](./images/mvp.png)
 
-1. 各部分之间的通信，都是双向的。
+1. 各部分之间的通信，都是**双向**的。
 
 2. View 与 Model 不发生联系，都通过 Presenter 传递
 
@@ -105,8 +105,8 @@
 
 ![MVVM 通信方式](./images/mvvm.png)
 
-- MVVM 模式将 Presenter 改名为 ViewModel，基本上与 MVP 模式完全一致。
-- 唯一的区别是，它采用双向绑定（data-binding）：View的变动，自动反映在 ViewModel，反之亦然。Angular 和 Ember 都采用这种模式。
+- `MVVM` 模式将 `Presenter` 改名为 `ViewModel`，基本上与 MVP 模式完全一致。
+- 唯一的区别是，它采用双向绑定（data-binding）：`View`的变动，自动反映在 `ViewModel`，反之亦然。`Angular` 和 `Ember` 都采用这种模式。
 
 ## React features
 
