@@ -697,6 +697,16 @@ console.log(this.ul.querySelectorAll('li').length) // 比预计的少一个，�
 
 ![react lifecycle](./images/react-lifecycle.png)
 
+- **Render Phase**: 纯净且没有副作用；可能会被Render暂停，终止或重新启动
+- **Pre-commit Phase**: 可以读取DOM
+- **Commit Phase**: 可是使用DOM，运行副作用，安排更新
+
+- `getDerivedStateFromProps`: React 16.3 引入的API，它从外部的属性去初始化内部的状态
+- `render`: 描述UI DOM 结构，组件必须声明
+- `compnentDidMount`: 可是发起接口请求，定义外部资源，可以运行副作用
+- `shouldComponentUpdate`: 组件是否需要渲染，可以做性能**优化操作**，即时`state`变化，但是 `UI` 不需要变化
+- `getSnapshotBeforeUpdate`: React 16.3 引入的API
+
 ![父组件下达命令](./images/lifecycle-flow.png)
 
 ![父组件下达命令](./images/lifecycle-parent.png)
