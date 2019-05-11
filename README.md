@@ -110,7 +110,9 @@
 
 ## React features
 
-- 全部使用 ES6 语法(上线时基于Babel工具ES6编译成ES5)
+### ES6
+
+> 全部使用 `ES6` 语法(上线时基于`Babel`工具`ES6`编译成`ES5`)
 
 ### 组件化
 
