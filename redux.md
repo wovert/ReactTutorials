@@ -4,11 +4,15 @@
 
 > 组件之间的传递数据
 
+![react-redux](./images/react-redux2.png)
+
 ![React 弊端](./images/react-no.png)
 
 ![React 弊端](./images/react-no2.png)
 
 一个组件改变 store 之后，其他组件感知到store的数据变化自动更新最新store的数据，间接的实现了组件的传递的功能
+
+[learning-react-redux](https://css-tricks.com/learning-react-redux/)
 
 ## Redux 是什么
 
@@ -18,9 +22,15 @@
 
 ## Redux 特性
 
-- 状态管理，和 React　解耦
-- 单一状态，单项数据流
-- 核心概念：store, state, action, reducer
+- 状态管理，和 React 解耦
+- 单一状态，单项数据流, Single Source of Truth
+  - ![redux in MVC](./images/redux-mvc.png)
+  - ![redux in mvvm](./images/redux-mvvm.png)
+- 可预测性
+  - `state + action = new state`
+- 纯函数更新 `Store`
+  - ![纯函数更新 store](./images/redux-feature-func.png)
+  - 纯函数：输出结果依赖输入参数，函数的内部不依赖于任何外部参数和外部资源
 
 ## redux 应用场景
 
@@ -48,11 +58,13 @@ Redux 只是 Web 架构的一种解决方案，也可以选择其他解决方案
 1. Web 应用是一个状态机，视图与状态是一一对应的
 2. 所有的状态，保存在一个对象里面
 
-## API
+## Redux 核心概念：store, state, action, reducer
 
 ### Store
 
 > 保存数据的地方或者一个容器。整个应用只能有一个 Store
+
+![redux-store](./images/redux-store.png)
 
 Redux 提供`createStore`这个函数，用来生成 `Store`。
 
@@ -134,7 +146,7 @@ store.dispatch({
 
 > Store 收到 Action 以后，必须给出一个新的 State，这样 View 才会发生变化。这种 State 的计算过程就叫做 Reducer。
 
-`Reducer` 是一个函数，它接受 `Action` 和当前 `State` 作为参数，返回一个`新的 State`。
+`Reducer` 是一个纯函数用于更新 `store`，它接受 `Action` 和当前 `State` 作为参数，返回一个`新的 State`。
 
 ```js
 const reducer = function (state, action) {
@@ -278,6 +290,10 @@ const createStore = (reducer) => {
 }
 ```
 
+[redux ppt](https://slides.com/jenyaterpil/redux-from-twitter-hype-to-production#/7)
+
+![redux status](./images/redux-status.png)
+
 ## Reducer 的拆分
 
 > `Reducer` 函数负责生成 `State`。由于整个应用只有一个 `State` 对象，包含所有数据，对于大型应用来说，这个 `State` 必然十分庞大，导致 `Reducer` 函数也十分庞大。
@@ -385,6 +401,50 @@ import { combineReducers } from 'redux'
 import * as reducers from './reducers'
 
 const reducer = combineReducers(reducers)
+```
+
+### 理解 bingActionCreators
+
+```js
+function addTodoWithDispatch(text) {
+  const action = {
+    type: ADD_TODO,
+    text
+  }
+  dispatch(action)
+}
+
+/////////////////////////////
+
+dispatch(addTodo(text))
+dispatch(completeTodo(index))
+
+/////////////////////////////
+
+const boundAddTodo = text => dispatch(addTodo(text))
+const boundCompleteTodo = index => dispatch(completeTodo(index))
+
+/////////////////////////////
+
+function bindActionCreator(actionCreator, dispatch) {
+  return function () {
+    return dispatch(actionCreator.apply(this, arguments))
+  }
+}
+
+function bindActionCreators(actionCreators, dispatch) {
+  const keys = Object.keys(actionCreators)
+  const boundActionCreators = {}
+  const len = keys.length
+  for (let i = 0; i < len; i++) {
+    const key = keys[i]
+    const actionCreator = actionCreators[key]
+    if (typeof actionCreator === 'function') {
+      boundActionCreators[key] = bindActionCreator(actionCreator, dispatch)
+    }
+  }
+  return boundActionCreators
+}
 ```
 
 ## 工作流程
