@@ -7,7 +7,6 @@ module.exports = {
   output: {
     filename: 'bundle.js',
     path: path.join(__dirname, 'dist'),
-    publicPath: '/public/' // 指定bundle文件访问路径，实际文件在内存中
   },
   module: {
     rules: [
@@ -26,6 +25,6 @@ module.exports = {
   devServer: {
     hot: true,
     port: 3000,
-    // overlay: true
+    overlay: true
   }
 }

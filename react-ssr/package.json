@@ -7,8 +7,8 @@
     "build:client": "webpack --config webpack.config.client.js",
     "build:server": "webpack --config webpack.config.server.js",
     "build": "yarn build:client && yarn build:server",
-    "dev:client": "webpack-dev-server",
-    "start": "node ./src/server/server.js"
+    "dev:client": "webpack-dev-server --config webpack.config.js",
+    "start": "nodemon ./src/server/server.js"
   },
   "keywords": [],
   "author": "",

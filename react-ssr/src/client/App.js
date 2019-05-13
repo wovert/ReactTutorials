@@ -7,7 +7,7 @@ class App extends Component {
     return (
       <Fragment>
         <h1>React SSR showing!</h1>
-        <h2>Header 222</h2>
+        <h2>Header</h2>
       </Fragment>
     )
   }
