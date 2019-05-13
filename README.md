@@ -344,8 +344,28 @@ JSX -> createElement -> 虚拟DOM(JS 对象) -> 真实的 DOM
 
 ## 脚手架
 
-- vue: `vue-cli`
-- react: `create-react-cli`
+- vue 脚手架: `vue-cli`
+- react 脚手架
+  - `create-react-cli` 入门
+  - Codesandbox 在线
+  - Rekit 大型项目
+
+### 为什么需要脚手架工具
+
+- React
+- Redux
+- React/Router
+- Babel
+- Webpack
+- ESLint
+
+### Rekit
+
+![Rekit](./images/rekit.png)
+
+### Online: Codesandbox.io
+
+> 可以在线打包
 
 ### create-react-cli
 
@@ -460,6 +480,20 @@ const lessModuleRegex = /\.module\.less$/
 ```
 
 `set HTTPS=true&&set PORT=3443&&yarn start` 开启https协议模式（设置环境变量HTTPS的值）
+
+## 打包和部署
+
+### 为什么需要打包
+
+1. 编译ES6语法特性，编译JSX
+2. 整合资源，例如图片，Less/Sass/Stylus
+3. 优化代码体积
+
+### 打包注意事项
+
+1. 设置 Node 环境为 production
+2. 禁用开始时专用代码，比如 logger
+3. 设置应用根路径
 
 ## react & react-dom
 
@@ -631,7 +665,7 @@ function hello(props) {
 ![组件内部](./images/state.png)
 ![组件内部结果](./images/state-result.png)
 
-### 组件设计模式 - 高阶组件和函数作为子组件
+### 设计模式 - 高阶组件和函数作为子组件
 
 #### 高阶组件（HoF）
 
@@ -641,9 +675,18 @@ function hello(props) {
 
 三个圈代表三个组件，UI都是组件树来描述的。绿色组件需要属性的时候，Parent组件向子组件传递所需属性，同样的绿色组件属相传给子组件。问题：所有的属性由父组件传给过来，父组件需要知道你的组件的所有状态，这时候相隔好几层组件的怎么传递？高阶组件可以解决这个问题。高阶组件自己获取外部资源，做业务处理之后封装组件。此时，这个组件属性来源有两处。一个是父组件，另一个是高阶组件。高阶组件接受组件作为参数，返回新的组件。
 
+#### 函数作为子组件
 
+![函数作为子组件](./images/child-comp.png)
 
+## Context API
 
+> 解決组件间通信问题。全局的状态由多个组件共享状态。redux, React-router 依赖 Context API。React 16.3 开始可以使用 Context API
+
+![Context API 使用场景](./images/context-api.png)
+
+- 根节点：provide
+- context api: consume
 
 ## 事件
 
