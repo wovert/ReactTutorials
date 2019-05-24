@@ -34,15 +34,25 @@
 
 ### React 同构
 
-- 客户端与服务器端使用同样的组件。服务器端负责首次渲染。而行为和交互由客户端进行
+- 客户端与服务器端使用同样的组件
+- 服务器端负责首次渲染
+- 行为和交互由客户端进行
+
+1. 使用脚手架创建工程 `create-react-app`
+2. 将 express 和 create-react-app 项目的配置文件进行结合
+3. 将 create-react-app 编译打包后的文件通过 express 公开出来
+
+`app.use('/', express.static('build'))`
+
 
 ## 创建项目
 
 ```sh
 # mkdir react-ssr && cd react-ssr
 # npm init -y
+# npm i -g @babel/cli
 # yarn add webpack webpack-cli webpack-dev-server -D
-# yarn add babel-loader @babel/core @babel/preset-env @babel/preset-react -D
+# yarn add babel-loader @babel/core @babel/node @babel/preset-env @babel/preset-react -D
 # yarn add react react-dom
 # vim .babelrc
   {
@@ -179,10 +189,3 @@ module.exports = {
 
 - Linux : `nvm ls-remote`
 - Windows：`nvm ls available`
-
-## jest-babel报错：Requires Babel "^7.0.0-0", but was loaded with "6.26.3"
-
-``` sh
-yarn remove jest babel-jest babel-core @babel/core
-yarn add --dev jest babel-jest babel-core@^7.0.0-bridge.0 @babel/core
-```
