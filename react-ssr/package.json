@@ -8,13 +8,16 @@
     "build:server": "webpack --config webpack.config.server.js",
     "build": "yarn build:client && yarn build:server",
     "dev:client": "webpack-dev-server --config webpack.config.js",
-    "start": "nodemon ./src/server/server.js"
+    "start:build": "nodemon ./src/server/server-build.js",
+    "start:dev": "cross-env NODE_ENV=development nodemon --exec babel-node ./src/server/server-dev.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@babel/core": "^7.4.4",
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/node": "^7.4.5",
     "@babel/preset-env": "^7.4.4",
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.6",

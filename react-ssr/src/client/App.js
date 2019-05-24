@@ -8,6 +8,13 @@ class App extends Component {
       <Fragment>
         <h1>React SSR showing!</h1>
         <h2>Header</h2>
+        <ul>
+          {
+            this.props.list.map(item => {
+              return <li>{item}</li>
+            })
+          }
+        </ul>
       </Fragment>
     )
   }

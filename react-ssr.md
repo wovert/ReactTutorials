@@ -2,25 +2,35 @@
 
 [Text2MindMaps](https://tobloef.com/text2mindmap/)
 
+## 服务器端渲染 VS 客户端渲染
+
+- 服务器端渲染需要消耗更多的服务器端资源（CPU、内存）
+- 客户端渲染可以将静态资源部署到CDN，实现高并发
+- 服务端渲染对SEO更友好
+
 ## React 服务器端渲染
 
 - 构建编译与运行环境
-  - 安装 babel-node: `npm i babel-cli -g`
+  - 安装 babel-node(运行ES6): `npm i babel-cli -g` 或者 `npm install -g @babel/cli`
   - 安装编译 react 需要的组件
     - `npm i @babel/preset-env -S`
     - `npm i @babel/preset-preact -S`
     - `npm i babel-plugin-transform-decorators-legacy -S`
 - 在 `package.json` 设置运行命令
   - `cross-env NODE_ENV=development nodemon --exec babel-node src/server/server.js`
-  - `cross-env`: 跨平台设置环境变量
-  - `nodemon`: 监视文件的改变并重新运行命令
+    - `cross-env`: 跨平台设置环境变量
+    - `nodemon`: 监视文件的改变并重新运行命令
 
-- renderToString: 将 React Component 转换为HTML字符串，生成的HTML的DOM会带有额外属性：各个DOM会有`data-react-id`属性，第一个会有`data-checksum`属性(传入数数据是否改变，数据改变时，data-checksum属性就会变，checksum变化意味着组件重新渲染，不能使用上一个渲染完的内容，提高React渲染组件性能，判断哪些组件有变化)
-- renderToStaticMarkup: 将 React Component 转化为HTML字符串，但是生成HTML的DOM不会有额外的属性，从而节省HTML字符串的大小
+### React 服务器端渲染的实现
 
-- React 16 丢弃了 `data-react-id`和`data-checksum`
-- React 15 中，当重新渲染节点时，ReactDOM.render()方法执行与服务端生成的字符挨个比对。如果一旦有不匹配的，不论什么原因，React在开发模式下会发出警告，替换整个服务端的节点数。
-- React 16 的客户端渲染器检测到节点不匹配，仅仅是尝试修改不匹配的HTML子树，而不是修改整个HTML树
+> reat-dom/server 包里有两个方法 renderString 和 renderToStaticMarkup
+
+- `renderToString`: 将 React Component 转换为 HTML 字符串，生成的 HTML 的 DOM 会带有额外属性：各个 DOM 会有`data-react-id`属性，第一个会有`data-checksum`属性(传入数数据是否改变，数据改变时，data-checksum 属性就会变，checksum变化意味着组件重新渲染，不能使用上一个渲染完的内容，提高 React 渲染组件性能，判断哪些组件有变化)
+- `renderToStaticMarkup`: 将 React Component 转化为 HTML 字符串，但是生成 HTML 的 DOM 不会有额外的属性，从而节省 HTML 字符串的大小
+
+- React 16 丢弃了 `data-react-id` 和 `data-checksum`
+- React 15 中，当重新渲染节点时，`ReactDOM.render()`方法执行与服务端生成的字符挨个比对。如果一旦有不匹配的，不论什么原因，React 在开发模式下会发出警告，替换整个服务端的节点数
+- React 16 的客户端渲染器检测到节点不匹配，仅仅是尝试修改不匹配的 HTML 子树，而不是修改整个 HTML 树
 
 ### React 同构
 
@@ -165,4 +175,14 @@ module.exports = {
 # yarn build
 # yarn start
 
+```
+
+- Linux : `nvm ls-remote`
+- Windows：`nvm ls available`
+
+## jest-babel报错：Requires Babel "^7.0.0-0", but was loaded with "6.26.3"
+
+``` sh
+yarn remove jest babel-jest babel-core @babel/core
+yarn add --dev jest babel-jest babel-core@^7.0.0-bridge.0 @babel/core
 ```
