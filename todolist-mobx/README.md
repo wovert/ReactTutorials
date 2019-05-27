@@ -24,7 +24,7 @@ Step 3: 使 `create-react-app` 创建的项目支持装饰器语法
 
 ```sh
 npm run eject
-npm install --save-dev babel-plugin-transform-decorators-legacy
+npm install --save-dev @babel/plugin-proposal-decorators
 ```
 
 Step 4: 修改配置文件 `package.json`
@@ -32,7 +32,12 @@ Step 4: 修改配置文件 `package.json`
 ```js
 "babel": {
     "plugins": [
-        "transform-decorators-legacy"
+      [
+        "@babel/plugin-proposal-decorators",
+        {
+          "legacy": true
+        }
+      ]
     ],
     "presets": [
         "react-app"
@@ -82,4 +87,78 @@ store.todos.push(new Todo('Get Coffee'), new Todo('Write blog'));
 store.todos[0].finished = true;
 
 export default store;
+```
+
+## 实现监听数据的组件
+
+`Provider、observer、inject` 均为是mobx-react提供。
+
+`Provider` 以组件的形式存在，用来包裹最外层组件节点，并且传入 `store`（通过）context 传递给后代组件。
+
+使用 `@observer` 装饰的 react 组件将转换成一个监听者，当 `@observable` 修饰的数据变化，react 组件就会重新渲染。
+
+`@inject` 为了使被装饰的组件以 `props` 的形式获取到 `Provider` 传递过来的数据。
+
+```js
+import {observer, inject} from 'mobx-react';
+const TodoView = ({todo}) => (
+    <li>
+        <input
+            type="checkbox"
+            checked={todo.finished}
+            // 此处的 onChange 并未遵循 action 的约定，进一步证明了直接更新 store 的数据也是可行的
+            onChange={() => {todo.finished = !todo.finished;}}
+        />
+        {todo.title}
+    </li>
+)
+
+@inject('todolist')
+@observer
+export default class TodoListView extends Component {
+    state = {
+        title: ''
+    }
+    changeTitle = e => {
+        let title = e.target.value;
+        this.setState({title});
+    }
+    // 调用 store 中的 addTodoaction 更新 store 里面的数据
+    submit = () => {
+        this.props.todolist.addTodo(this.state.title);
+    }
+    render() {
+        return (
+            <div>
+                <input type="text" value={this.state.title} onChange={this.changeTitle} />
+                <button onClick={this.submit}>submit</button>
+                <ul>
+                    {this.props.todolist.todos.map(todo => (
+                        <TodoView todo={todo} key={todo.id} />
+                    ))}
+                </ul>
+                Tasks left: {this.props.todolist.unfinishedTodoCount}
+            </div>
+        );
+    }
+}
+```
+
+## 通过 Provider 将数据传递给组件树
+
+```js
+import TodoListView from './TodoListView'
+import store from './store'
+import {Provider} from 'mobx-react'
+
+export default class App extends Component {
+  // 将 store 传给 Provider
+  render() {
+    return (
+      <Provider todolist={store}>
+        <TodoListView />
+      </Provider>
+    );
+  }
+}
 ```
