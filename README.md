@@ -660,7 +660,7 @@ function hello(props) {
 
 - JSX 本质就是 js,所以直接`数组.map` 渲染列表
 - `Constructor` 设置初始状态，记得执行`super(props)`
-- State 是`不可变得对象·，使用 `this.state` 获取
+- State 是不可变得对象，使用 `this.state` 获取
 
 ![组件内部](./images/state.png)
 ![组件内部结果](./images/state-result.png)

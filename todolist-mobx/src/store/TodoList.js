@@ -21,7 +21,7 @@ class Todo {
 }
 
 // TODO List 类
-class TodoList {
+export default class TodoList {
 
   // 可被观察的待办项 todos
   @observable todos = []
@@ -37,10 +37,3 @@ class TodoList {
     this.todos.push(new Todo(title))
   }
 }
-
-// 我们创建TodoList 对象，在手动的添加两个待办项，此处的 store 对象可以理解为是一个单例，在将其引用暴露出去
-const store = new TodoList()
-store.todos.push(new Todo('Get Coffee'), new Todo('Write blog'))
-store.todos[0].finished = true
-
-export default store
