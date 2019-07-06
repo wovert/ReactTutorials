@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="../bower_components/babel/browser.js"></script>
+  <script src="../bower_components/react/react.development.js"></script>
+  <script src="../bower_components/react/react-dom.development.js"></script>
+</head>
+<body>
+  <div id="root">
+  </div>
+  <script type="text/babel">
+    class Cmp1 extends React.Component {
+      constructor(...args) {
+        super(...args)
+
+        this.state = {
+          users: []
+        }
+      }
+
+      async componentDidMount() {
+        try {
+          let res = await fetch('./data/1.json');
+          let {data} = await res.json();
+
+          console.log(data);
+        } catch (e) {
+          alert('数据请求失败，请刷新');
+        }
+      }
+
+      fn () {
+        this.props.a++
+      }
+
+      render(){
+        return (
+          <div>
+            <input type="button" value="+1" onClick={this.fn.bind(this)} />
+            {this.props.a}
+          </div>
+        );
+      }
+    }
+    let root = document.getElementById('root')
+    ReactDOM.render(
+      <div>
+        <Cmp1 a={0} />
+      </div>,
+      root
+    )
+  </script>
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="../bower_components/babel/browser.js"></script>
+  <script src="../bower_components/react/react.development.js"></script>
+  <script src="../bower_components/react/react-dom.development.js"></script>
+  <style>
+    .main {
+      background: olivedrab;
+    }
+  </style>
+</head>
+<body>
+  <div id="root">
+  </div>
+  <script type="text/babel">
+    class Parent extends React.Component {
+        constructor(...args) {
+          super(...args)
+          this.data = [
+            'wovert.com',
+            'xiuhong.net',
+            'lingyima.com'
+          ]
+          this.fn3 = this.fn3.bind(this)
+          this.state = {
+            toggle: false
+          }
+        }
+        fn () {
+          console.log(this)
+          // this.props.num++
+        }
+        fn2 () {
+          console.log(this) // Parent组件
+          // this.props.num++
+        }
+        fn3 () {
+          console.log(this) // Parent组件
+          // this.props.num++
+        }
+        fn4 () {
+          console.log(this) // Parent组件
+        }
+        
+        // toggleButton = () => {
+        //   this.setState(prevState => ({ toggle: !prevState.toggle }));
+        // }
+
+        render () {
+          const toggle = this.state.toggle
+          return (
+            <div>
+              {/*
+                调用了一次,而且仅此一次,再也不能调用了
+                原因是jsx语法,渲染的时候会把{}里面包裹的代码先解析一遍,因为如果加了括号,直接就执行了里面的函数,就没有东西了,但是这个时候,this是可以拿到的
+              */}
+              fn:<input type="button" value="+1" onClick={this.fn()} />{this.props.num}<br />
+
+              {/* Function.prototype.bind() */}
+              fn2:<input type="button" value="+1" onClick={this.fn2.bind(this)} />{this.props.num}<br />
+
+              {/* 在构造函数中bind this */}
+              fn3:<input type="button" value="+1" onClick={this.fn3} />{this.props.num}<br />
+
+              {/* 使用箭头函数 */}
+              fn4:<input type="button" value="+1" onClick={
+                (...args) => {
+                  this.fn4(...args)
+                }
+              } />{this.props.num}<br />
+              
+              {/* 使用箭头函数 */}
+              <button onClick={this.toggleButton}>
+                {toggle ? "ON" : "OFF"}
+              </button>
+              
+
+              {/* ES7函数绑定语法 
+              <input type="button" value="+1" onClick={::this.fn} />{this.props.num}<br />
+              */}
+
+              <ul>
+                {
+                  // this.data.map((item, index) => <Child key={index} text={item} />)
+                  this.props.data.map((item, index) => <Child key={index} text={item} />)
+                }
+              </ul>
+            </div>
+          )
+        }
+        
+    }
+    class Child extends React.Component {
+      constructor(...args) {
+        super(...args)
+      }
+      render() {
+        console.log(this.props)
+        return (<li>
+          {this.props.text}
+        </li>)
+      }
+    }
+
+    class App extends React.Component {
+      constructor (...args) {
+        super(...args)
+        this.name = 'wovert'
+        this.age = 1
+      }
+      fn () {
+        return (
+          <p>方法内容</p>
+        )
+      }
+      render () {
+        let styles = {background: 'red'}
+        let content = <div style={styles}>
+          <q style={{color: 'yellow'}}>
+            content
+          </q>
+        </div>
+
+        let arr = []
+        for (let i = 0; i < 6; i++) {
+          arr.push(<li key={i}>{i}</li>)
+        }
+
+        let datas = [
+          { name: 'wovert', age: 1 },
+          { name: 'lingyima', age: 12 },
+          { name: 'xiuhong', age: 10 }
+        ]
+
+        return (
+          <div>
+            <h2>组件1</h2>
+            <Parent data={['wovert.com', 'xiuhong.net', 'lingyima.com']} num={0} />
+            {content}
+            <p>
+              姓名: {this.name} <br />
+              年龄：{this.age}
+            </p>
+            {this.fn()}
+            <hr />
+            <ul>{arr}</ul>
+            <ul>
+              {datas.map((data, index) =>(
+                <li key={index}>
+                  姓名：{data.name},
+                  年龄：{data.age}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )
+      }
+    }
+
+    let root = document.getElementById('root')
+    ReactDOM.render(
+      <main className="main">
+        <header>Header</header>
+        <section>
+          <form>
+            <label htmlFor="username">用户名：</label>
+            <input id="username" type="text" />
+          </form>
+          <App />
+        </section>
+        <footer>Footer</footer>
+      </main>,
+      root
+    )
+  </script>
+</body>
+</html>

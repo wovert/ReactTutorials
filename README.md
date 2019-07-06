@@ -49,6 +49,14 @@
 - [NPMJS](https://www.npmjs.com/)
 - [淘宝NPM镜像](https://npm.taobao.org)
 
+### react生态圈
+
+1. JSX：扩展的JS，React强依赖
+2. Flux
+3. Redux
+4. React-Native：开发移动应用
+5. React-Server
+
 ## 前段框架对比
 
 ### MVC
