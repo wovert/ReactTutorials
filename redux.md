@@ -959,6 +959,10 @@ const mapDispatchToProps = {
 
 ### <Provider> 组件
 
+- provider: 抱在外面
+- connect: 状态映射
+- reducer: 状态对象
+
 connect方法生成容器组件以后，需要让容器组件拿到state对象，才能生成 UI 组件的参数。
 
 一种解决方法是将state对象作为参数，传入容器组件。但是，这样做比较麻烦，尤其是容器组件可能在很深的层级，一级级将state传下去就很麻烦。

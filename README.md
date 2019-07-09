@@ -379,7 +379,7 @@ JSX -> createElement -> 虚拟DOM(JS 对象) -> 真实的 DOM
 
 - 全局环境安装模块: `npm i -g create-react-app`
 - 查看全局安装模块目录：`npm root -g`
-- 查看模块八本：`create-react-app --version`
+- 查看模块版本：`create-react-app --version`
 
 ### 使用脚手架创建项目
 
