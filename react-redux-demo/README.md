@@ -12,3 +12,16 @@
 ```sh
 npm i redux react-redux -D
 ```
+
+## 单项数据流
+
+state -> component -> action -> state
+
+## react-router-dom
+
+> DOM渲染
+
+- Router 路由表
+- Route
+- Link
+

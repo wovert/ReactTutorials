@@ -42,7 +42,7 @@ import store from './store'
 
 ReactDOM.render(
   <Provider store={store}>
-    <App name={'lingyima'} />
+    <App />
   </Provider>, 
   document.getElementById('root')
 )
