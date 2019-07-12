@@ -1,10 +1,9 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React, { Component } from "react";
+import { connect } from "react-redux";
 
-class Table extends Component{
-
-  fnDel(ID) {
-    this.props.del_callback && this.props.del_callback(ID)
+class Table extends Component {
+  delHandler(ID) {
+    this.props.delHandler && this.props.delHandler(ID);
   }
 
   render() {
@@ -19,13 +18,16 @@ class Table extends Component{
           </tr>
         </thead>
         <tbody>
-          {this.props.items.map((item, index)=>(
+          {this.props.items.map((item, index) => (
             <tr key={item.ID}>
               <td>{item.name}</td>
               <td>￥{item.price}</td>
               <td>{item.count}</td>
               <td>
-                <i className="glyphicon glyphicon-trash" onClick={this.fnDel.bind(this, item.ID)}></i>
+                <i
+                  className="glyphicon glyphicon-trash"
+                  onClick={this.delHandler.bind(this, item.ID)}
+                />
               </td>
             </tr>
           ))}
@@ -35,9 +37,10 @@ class Table extends Component{
   }
 }
 
-export default connect(function (state, props){
-  // console.log(state)
-  return state
-}, {
-
-})(Table)
+export default connect(
+  function(state, props) {
+    // console.log(state)
+    return state;
+  },
+  {}
+)(Table);
