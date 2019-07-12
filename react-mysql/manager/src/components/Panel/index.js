@@ -87,16 +87,18 @@ class Panel extends Component {
   }
 }
 
-export default connect(
-  (state, props) => {
-    return state;
-  },
-  {
-    addItem(item) {
-      return {
-        type: ADD_ITEM,
-        item
-      };
+export default withRouter(
+  connect(
+    (state, props) => {
+      return state;
+    },
+    {
+      addItem(item) {
+        return {
+          type: ADD_ITEM,
+          item
+        };
+      }
     }
-  }
-)(withRouter(Panel));
+  )(Panel)
+);
