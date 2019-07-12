@@ -1,15 +1,18 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+// import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
+// yarn build 直接访问非根路由返回找不到页面
+// import { HashRouter as Router, Route, Link } from "react-router-dom";
+
+// yarn build 只显示根路由(直接访问非根路由返回找不到页面)
+// 应用于 react-native
+import { MemoryRouter as Router, Route, Link } from "react-router-dom";
+
 import { connect } from "react-redux";
 import View from "./pages/view";
 import Add from "./pages/add";
-// import Dialog from './components/Dialog'
 import Data from "./data";
-//import HelloCreate from './components/Hello'
 import { INIT_ITEM } from "./store/actions";
-
-//let Hello1=HelloCreate('你好')
-//let Hello2=HelloCreate('hello')
 
 class App extends Component {
   constructor(...args) {

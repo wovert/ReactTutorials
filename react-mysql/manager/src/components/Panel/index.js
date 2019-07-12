@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import Data from "../../data";
 import { ADD_ITEM } from "../../store/actions";
@@ -12,6 +12,7 @@ class Panel extends Component {
     let count = this.refs.count.value;
     let { data } = await Data.get(`add/${name}/${price}/${count}`);
     this.props.addItem(data);
+    this.props.history.push("/");
   }
 
   render() {
@@ -98,4 +99,4 @@ export default connect(
       };
     }
   }
-)(Panel);
+)(withRouter(Panel));
