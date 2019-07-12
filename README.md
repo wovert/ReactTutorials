@@ -608,6 +608,9 @@ export function Toast () {
 - 如果是函数式声明的组件，就把它当做普通方法执行（方法中的`this`是`undefined`），把函数返回的JSX元素（也是解析后的对象）进行渲染
 - 如果是类声明式的组件，会把当前类`new`它执行，创建类的一个实例（当前本次调取的组件就是他的实例）
 
+
+`import React from 'react'` 每个组件中都要导入react，因为需要基于它的createElement把JSX进行解析渲染
+
 ### JSX 语法代码
 
 ``` js
