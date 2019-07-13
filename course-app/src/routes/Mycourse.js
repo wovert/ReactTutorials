@@ -1,7 +1,8 @@
 import React from "react";
-import { connect } from "react-redux";
+// import { connect } from "react-redux";
 import { Menu } from "antd";
-import { Switch, Route, Redirect } from "react-router-dom";
+// import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import "../static/css/Mycourse.less";
 import Unpay from "./mycourse/Unpay";
 import Pay from "./mycourse/Pay";

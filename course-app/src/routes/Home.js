@@ -1,6 +1,6 @@
 import React from "react";
-import { connect } from "react-redux";
-import { Switch, Route, Redirect } from "react-router-dom";
+// import { connect } from "react-redux";
+import { Switch, Route } from "react-router-dom";
 
 /*IMPORT COMPONENT AND CSS*/
 import List from "./course/List";
@@ -10,6 +10,7 @@ import "../static/css/course.less";
 export default class Home extends React.Component {
   constructor(props, context) {
     super(props, context);
+    this.state = {};
   }
 
   render() {

@@ -1,25 +1,51 @@
 import React from "react";
-import logo from "./logo.svg";
-import "./App.less";
+import {
+  HashRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from "react-router-dom";
+
+// antd
+import { LocaleProvider } from "antd";
+import zh_CN from "antd/lib/locale-provider/zh_CN";
+
+// comon css
+import "./static/css/reset.min.css";
+import "./static/css/common.less";
+
+// common component
+import NavTop from "./components/NavTop";
+import NavBottom from "./components/NavBottom";
+
+// router component
+import Home from "./routes/Home";
+import Person from "./routes/Person";
+import Mycourse from "./routes/Mycourse";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <LocaleProvider locale={zh_CN}>
+        <div>
+          {/*HEADER*/}
+          <NavTop />
+
+          {/*MAIN=>ROUTE*/}
+          <main className="container">
+            <Switch>
+              <Route path="/course" component={Home} />
+              <Route path="/mycourse" component={Mycourse} />
+              <Route path="/person" component={Person} />
+              <Redirect to="/course" />
+            </Switch>
+          </main>
+
+          {/*FOOTER*/}
+          <NavBottom />
+        </div>
+      </LocaleProvider>
+    </Router>
   );
 }
 
