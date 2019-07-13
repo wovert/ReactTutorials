@@ -31,12 +31,13 @@ function App() {
           {/*HEADER*/}
           <NavTop />
 
-          {/*MAIN=>ROUTE*/}
+          {/*MAIN ROUTE*/}
           <main className="container">
             <Switch>
+              <Route path="/" component={Home} />
               <Route path="/course" component={Home} />
-              <Route path="/mycourse" component={Mycourse} />
               <Route path="/person" component={Person} />
+              <Route path="/mycourse" component={Mycourse} />
               <Redirect to="/course" />
             </Switch>
           </main>
