@@ -6,13 +6,19 @@ import VoteFoot from "./VoteFoot";
 
 class App extends React.Component {
   // 组件传递属性是只读的，设置默认值和相关规则
-  static defaultProps = {};
   static propTypes = {
-    title: PropTypes.string.isRequired
+    title: PropTypes.string.isRequired,
+    myRedux: PropTypes.object
   };
 
   constructor(props) {
     super(props);
+    let { myRedux } = this.props;
+    myRedux.updateState(state => {
+      return {
+        ...state
+      };
+    });
     this.state = {
       supportCount: 0,
       againstCount: 0
@@ -29,18 +35,8 @@ class App extends React.Component {
         }}
       >
         <VoteHead title={this.props.title} />
-        <VoteBody
-          supportCount={this.state.supportCount}
-          againstCount={this.state.againstCount}
-        />
-        <VoteFoot
-          supportHandler={e => {
-            this.setState({ supportCount: this.state.supportCount + 1 });
-          }}
-          againstHandler={e => {
-            this.setState({ againstCount: this.state.againstCount + 1 });
-          }}
-        />
+        <VoteBody myRedux={this.props.myRedux} />
+        <VoteFoot myRedux={this.props.myRedux} />
       </section>
     );
   }
