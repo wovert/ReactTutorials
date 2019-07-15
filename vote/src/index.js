@@ -1,12 +1,12 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import "bootstrap/dist/css/bootstrap.css";
+import Vote from "./Vote";
 
-ReactDOM.render(<App />, document.getElementById('root'));
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+ReactDOM.render(
+  <main>
+    <Vote title="世界杯小组赛法国VS秘鲁，法国队必胜" />
+    <Vote title="世界杯小组赛阿根廷VS克罗地亚，老板与魔笛之争" />
+  </main>,
+  document.getElementById("root")
+);
