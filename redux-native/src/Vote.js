@@ -4,7 +4,7 @@ import VoteHead from "./VoteHead";
 import VoteBody from "./VoteBody";
 import VoteFoot from "./VoteFoot";
 
-class App extends React.Component {
+class Vode extends React.Component {
   // 组件传递属性是只读的，设置默认值和相关规则
   static propTypes = {
     title: PropTypes.string.isRequired,
@@ -42,4 +42,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default Vode;
