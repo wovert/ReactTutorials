@@ -4,7 +4,7 @@
 
 ### What React
 
-> 2013 年，Facebook 开发的函数式编程，用于创建**可复用，可聚合** web 组件 **UI 库**。仅提供前端 MVC(M:接口数据，C:React 封装好了) 框架中的 **V 层**，并不是完整的 MVC 框架
+> 2013 年，Facebook 开发的**函数式编程**，用于创建**可复用，可聚合 web 组件 UI 库**。仅提供前端 MVC(M:接口数据，C:React 封装好了) 框架中的 **V 层**，并不是完整的 MVC 框架
 
 ### React History
 
@@ -193,7 +193,7 @@ const greeting = <Greeting {...props} />;
 
 #### Virtual DOM 的工作原理
 
-> React 组件内部有虚拟 DOM 状态，这种 DOM 状态最终会映射到真实的 DOM 节点上，但是真实 DOM 发生变化的时候，它内部需要计算与虚拟 DOM 之间的区别来产生 diff，最终真实的 DOM 不会把整体更新 DOM，而是把 diff 部分以一种更搞笑的方式更新到 UI 上，从而能够保证性能
+> React 组件内部有虚拟 DOM 状态，这种 DOM 状态最终会映射到真实的 DOM 节点上，但是真实 DOM 发生变化的时候，它内部需要计算与虚拟 DOM 之间的区别来产生 diff，最终真实的 DOM 不会把整体更新 DOM，而是把 diff 部分以一种更高效的方式更新到 UI 上，从而能够保证性能
 
 #### 虚拟 DOM 是如何工作的
 

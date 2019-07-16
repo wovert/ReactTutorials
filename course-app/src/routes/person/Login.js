@@ -49,7 +49,7 @@ class Login extends React.Component {
     const { getFieldDecorator } = this.props.form;
     return (
       <div className="personLoginBox">
-        <Form onSubmit={this.handleSubmit} className="login-form">
+        <Form onSubmit={this.register} className="login-form">
           <FormItem>
             {getFieldDecorator("userName", {})(
               <Input prefix={<Icon type="user" />} placeholder="用户名!" />
