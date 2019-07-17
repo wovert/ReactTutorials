@@ -1,4 +1,4 @@
-export const PERSON_QUERY_BASE = "PERSON_QUERY_BASE";
+export const PERSON_QUERY_BASE = "PERSON_QUERY_BASE"; // 用户基本信息行为标识
 
 export const COURSE_QUERY_BANNER = "COURSE_QUERY_BANNER";
 export const COURSE_QUERY_LIST = "COURSE_QUERY_LIST";

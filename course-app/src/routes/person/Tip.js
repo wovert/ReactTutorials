@@ -19,7 +19,7 @@ class Tip extends React.Component {
         />
         <Button
           type="dashed"
-          onClick={ev => {
+          onClick={() => {
             this.props.history.push("/person/login");
           }}
         >
@@ -27,7 +27,7 @@ class Tip extends React.Component {
         </Button>
         <Button
           type="dashed"
-          onClick={ev => {
+          onClick={() => {
             this.props.history.push("/person/register");
           }}
         >
@@ -38,4 +38,5 @@ class Tip extends React.Component {
   }
 }
 
+// 受路由管控
 export default withRouter(connect()(Tip));

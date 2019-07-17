@@ -2,13 +2,14 @@ import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { Button } from "antd";
-import { exitLogin } from "../../api/person";
+
 import action from "../../store/action";
+import { exitLogin } from "../../api/person";
 
 class Info extends React.Component {
-  // eslint-disable-next-line no-useless-constructor
   constructor(props, context) {
     super(props, context);
+    this.state = {};
   }
 
   componentWillMount() {
@@ -19,9 +20,9 @@ class Info extends React.Component {
   }
 
   render() {
-    let { baseInfo } = this.props;
+    const { baseInfo } = this.props;
     if (!baseInfo) return "";
-    let { name, email, phone } = baseInfo;
+    const { name, email, phone } = baseInfo;
     return (
       <div className="personBaseInfo">
         <p>
@@ -39,7 +40,7 @@ class Info extends React.Component {
 
         <Button
           type="danger"
-          onClick={async ev => {
+          onClick={async e => {
             await exitLogin();
             this.props.history.push("/person");
           }}
@@ -53,7 +54,7 @@ class Info extends React.Component {
 
 export default withRouter(
   connect(
-    state => ({ ...state.person }),
-    action.person
+    state => ({ ...state.person }), // baseInfo
+    action.person // queryBaseInfo
   )(Info)
 );

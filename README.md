@@ -1,62 +1,5 @@
 # React
 
-## Introduction React
-
-### What React
-
-> 2013 年，Facebook 开发的**函数式编程**，用于创建**可复用，可聚合 web 组件 UI 库**。仅提供前端 MVC(M:接口数据，C:React 封装好了) 框架中的 **V 层**，并不是完整的 MVC 框架
-
-### React History
-
-简单功能一下出现 BUG
-
-![React出现的原因](./images/why-react.png)
-
-- 问题出现的根源
-  - **传统 UI 操作关注太多细节** (DOM API)
-  - **应用程序状态分散在各处，难以追踪和维护**
-
-![flux架构：单项数据流](./images/flux.png)
-
-- 2013-6, Facebook 官方发布
-- 2014-9, React 热度开始上涨
-- 2015-3, React Native 发布
-
-### Why use React
-
-> 构建数据不断变化的大型应用
-
-- **数据**变换
-- 大量 **DOM** 操作
-- **逻辑**极其复杂
-- React 自动 DOM 操作
-- React 状态对应内容（状态<=>数据）
-
-### React 版本
-
-- `React Fiber`(React 16 RC) 核心代码重写的版本，整体 API 变化不大
-  - 主要变更了错误处理、生命周期、打包、对开发影响不是特别大
-- `# npm install --save react@next react-dom@next`
-
-### React 相关资源
-
-- [awesome-react](https://github.com/enaqx/awesome-react)
-- [babeljs](https://babeljs.io/)
-- [兼容性](http://kangax.github.io/compat-table/es5/)
-- [cdnjs.com](https://cdnjs.com/libraries/react/)
-- [cdnjs.net](https://cdnjs.com/libraries/react/)
-- [UNPKG](https://unpkg.com/)
-- [NPMJS](https://www.npmjs.com/)
-- [淘宝 NPM 镜像](https://npm.taobao.org)
-
-### react 生态圈
-
-1. JSX：扩展的 JS，React 强依赖
-2. Flux
-3. Redux
-4. React-Native：开发移动应用
-5. React-Server
-
 ## 前段框架对比
 
 ### MVC
@@ -116,6 +59,90 @@
 - `MVVM` 模式将 `Presenter` 改名为 `ViewModel`，基本上与 MVP 模式完全一致。
 - 唯一的区别是，它采用双向绑定（data-binding）：`View`的变动，自动反映在 `ViewModel`，反之亦然。`Angular` 和 `Ember` 都采用这种模式。
 
+## Introduction React
+
+### What React
+
+> 2013 年，Facebook 开发的**函数式编程**，用于创建**可复用，可聚合 web 组件 UI 库**。仅提供前端 MVC(M:接口数据，C:React 封装好了) 框架中的 **V 层**，并不是完整的 MVC 框架
+
+### React History
+
+传统 Web UI 开发的问题：简单功能一下出现 BUG
+
+![React出现的原因](./images/why-react.png)
+
+- 问题出现的根源
+
+  - **传统 UI 操作关注太多细节** (DOM API)
+  - **应用程序状态分散在各处，难以追踪和维护**
+
+- React 整体刷新
+
+```jxs
+{text:'message1'}   => <li>message1</li>
+{text:'message2'}   => <li>message1</li>
+```
+
+- React 很简单
+
+  - 1 个新概念——组件
+  - 4 个必须 API
+  - 单项数据流
+  - 完善的错误提示
+
+- React 解决了 UI 细节问题
+  - 数据模型如何解决？
+
+![mvc](./images/mvc-flow.png)
+
+- 很多 Model 和 view，操作复杂，数据是双向绑定的。导致的问题是，当应用程序出错时很难追踪，Model 或 view 哪一个发生错误。
+
+![flux架构：单项数据流](./images/flux.png)
+
+- Flux 架构的衍生项目
+
+  - redux
+  - MobX
+
+- 2013-6, Facebook 官方发布
+- 2014-9, React 热度开始上涨
+- 2015-3, React Native 发布
+
+### Why use React
+
+> 构建数据不断变化的大型应用
+
+- **数据**变换
+- 大量 **DOM** 操作
+- **逻辑**极其复杂
+- React 自动 DOM 操作
+- React 状态对应内容（状态<=>数据）
+
+### React 版本
+
+- `React Fiber`(React 16 RC) 核心代码重写的版本，整体 API 变化不大
+  - 主要变更了错误处理、生命周期、打包、对开发影响不是特别大
+- `# npm install --save react@next react-dom@next`
+
+### React 相关资源
+
+- [awesome-react](https://github.com/enaqx/awesome-react)
+- [babeljs](https://babeljs.io/)
+- [兼容性](http://kangax.github.io/compat-table/es5/)
+- [cdnjs.com](https://cdnjs.com/libraries/react/)
+- [cdnjs.net](https://cdnjs.com/libraries/react/)
+- [UNPKG](https://unpkg.com/)
+- [NPMJS](https://www.npmjs.com/)
+- [淘宝 NPM 镜像](https://npm.taobao.org)
+
+### react 生态圈
+
+1. JSX：扩展的 JS，React 强依赖
+2. Flux
+3. Redux
+4. React-Native：开发移动应用
+5. React-Server
+
 ## React features
 
 ### ES6
@@ -129,6 +156,12 @@
 - 提高代码复用率：组件将**数据和逻辑封装**，类似面向对象中的类
 - 降低测试难度：组件**高内聚低耦合**，很容易对单个组件进行测试
 - 降低代码复杂度：直观的语法可以解答提高可读性
+
+**props(外部状态) + state(内部状态) = View**
+
+1. React 组件一般不提供方法，而是某种**状态机**
+2. React 组件可以理解为一个**纯函数**
+3. **单项**数据绑定
 
 ![受控组件vs非受控组件](./images/shoukong.png)
 
@@ -170,7 +203,7 @@ JSX 的本质：动态创建组件的语法糖
 
 1. JSX 本身是表达式: `const element = <h1>Hello, world!</h1>`
 2. 在属性中使用表达式：`<MyComponent foo={1 + 2 + 3 + 4} />`
-3. 延展属性:
+3. 延展属性
 
 ```jsx
 const props = { firstName: "Ben", lastName: "Hector" };
@@ -199,7 +232,7 @@ const greeting = <Greeting {...props} />;
 
 ![虚拟DOM](./images/v-dom-flow.png)
 
-算法：O(n) 复杂度
+> 算法：O(n) 复杂度
 
 #### 广度优先分层比较
 
@@ -220,17 +253,17 @@ const greeting = <Greeting {...props} />;
 3. 节点类型发送变化
    ![属性变化及顺序](./images/v-dm-step3.png)
 
-F 节点编程 G 节点，React 会删除 F 节点，创建 G 节点。它不管 F 节点是否应用到其他节点上。
+> F 节点编程 G 节点，React 会删除 F 节点，创建 G 节点。它不管 F 节点是否应用到其他节点上。
 
 4. 节点跨层移动
 
 ![节点跨层移动](./images/v-dm-step4.png)
 
-删除原来 B 节点下的所有子节点，在新的 B 节点下创建子节点及子子几点。React 在跨层移动相对**性能比较低**。
+> 删除原来 B 节点下的所有子节点，在新的 B 节点下创建子节点及子子几点。React 在跨层移动相对**性能比较低**。
 
 #### Vitual DOM 的两个假设
 
-1. 组件的 DOM 结构是相对稳定的(跨层移动)
+1. 组件的 DOM 结构是相对稳定的(很少跨层移动)
 2. 类型相同的兄弟节点可以被唯一标识(`key`属性)
 
 [Virtual DOM 案例](https://supnate.github.io/react-dom-diff/index.html)
@@ -304,21 +337,21 @@ JSX -> createElement -> 虚拟 DOM(JS 对象) -> 真实的 DOM
 
 ![diff算法](./images/diff-01.png)
 
-`setState` 异步函数，连续三次`setState`，合并成一次`setState`
+> `setState` 异步函数，连续三次`setState`，合并成一次`setState`
 
 同级比较
 
 ![diff算法比较](./images/diff-02.png)
 
-第一级别比较不同，不再继续比较。第一级别重新生成新的 `DOM` 节点树，替换原始节点树。缺点：其他级别相同 `DOM` 比较也会创建新的 `DOM`，但是比比较每个节点的算法性能更好。
+> 第一级别比较不同，不再继续比较。第一级别重新生成新的 `DOM` 节点树，替换原始节点树。缺点：其他级别相同 `DOM` 比较也会创建新的 `DOM`，但是比比较每个节点的算法性能更好。
 
 ![diff算法比较](./images/diff-03.png)
 
-每个节点起个名字，这样比对时性能提升。如果一致可以进行复用。
+> 每个节点起个名字，这样比对时性能提升。如果一致可以进行复用。
 
-`index` 作为 `key` 不好的原因是，删除其中某个节点之后 `index` 会重新排序，这样原始节点的`key`与新节点没有对应关系，所以`diff`算法比较性能更差。一定不要使用`index`作为`key`。
+> `index` 作为 `key` 不好的原因是，删除其中某个节点之后 `index` 会重新排序，这样原始节点的`key`与新节点没有对应关系，所以`diff`算法比较性能更差。一定不要使用`index`作为`key`。
 
-使用稳定值得作为`key`值才是正确的。
+> 使用稳定值得作为`key`值才是正确的。
 
 ## 渲染方式
 
@@ -356,8 +389,8 @@ JSX -> createElement -> 虚拟 DOM(JS 对象) -> 真实的 DOM
 - vue 脚手架: `vue-cli`
 - react 脚手架
   - `create-react-cli` 入门
-  - Codesandbox 在线
-  - Rekit 大型项目
+  - `Codesandbox` 在线
+  - `Rekit` 大型项目
 
 ### 为什么需要脚手架工具
 
@@ -372,17 +405,17 @@ JSX -> createElement -> 虚拟 DOM(JS 对象) -> 真实的 DOM
 
 ![Rekit](./images/rekit.png)
 
-### Online: Codesandbox.io
+### [Codesandbox.io](https://codesandbox.io/)
 
 > 可以在线打包
 
-### create-react-cli
+### create-react-app
 
 - 全局环境安装模块: `npm i -g create-react-app`
 - 查看全局安装模块目录：`npm root -g`
 - 查看模块版本：`create-react-app --version`
 
-### 使用脚手架创建项目
+#### 使用脚手架创建项目
 
 > 项目命名规则：小写字母、数字和特殊字符(横线和下划线)
 
@@ -390,7 +423,7 @@ JSX -> createElement -> 虚拟 DOM(JS 对象) -> 真实的 DOM
 create-react-app my-app
 ```
 
-### 项目结构
+#### 项目结构
 
 - **node_modules** 当前项目中依赖的包
 - **.bin** 本地项目可执行命令，在 package.json 的 scripts 中配置对应的脚本即可
@@ -420,11 +453,11 @@ create-react-app my-app
     - `build`: 项目需要部署到服务器上，先执行 `yarn build`，把项目整体打包（完成后会在项目中生成一个 build 目录，这个目录中包含了所有编译后的内容，把这个上传到服务器即可）；而且在服务器上进行部署的时候，不需要安装任何模块（Webpack 已经打包编译了）
   - **eject**
 
-### 项目开发流程
+#### 项目开发流程
 
 1. `reset.css` 重置样式文件存放到 `public/css` 目录下；打开 `public/index.html` 文件在`head`标签中插入如下代码`<link rel="stylesheet" href="%PUBLIC_URL%/css/reset.min.css">`；此处必须 webpack 编译之后打开页面生效
 
-### 脚手架深入剖析
+#### 脚手架深入剖析
 
 - `create-react-app` 脚手架把安装的`webpack`及配置文件集成在`react-script`模块中，放到了`node_modules`目录中
 - 生产环境项目中，需要在脚手架默认安装的基础上，额外安装一些其他需要的模块，例如：`react-router-dom/axios/less/less-loader`
@@ -495,12 +528,12 @@ const lessModuleRegex = /\.module\.less$/
 ### 为什么需要打包
 
 1. 编译 ES6 语法特性，编译 JSX
-2. 整合资源，例如图片，Less/Sass/Stylus
+2. 整合资源，例如图片，`Less/Sass/Stylus`
 3. 优化代码体积
 
 ### 打包注意事项
 
-1. 设置 Node 环境为 production
+1. 设置 `Node` 环境为 `production`
 2. 禁用开始时专用代码，比如 logger
 3. 设置应用根路径
 
@@ -559,9 +592,6 @@ export default class App extends Component {
             return <span key={age}>{name}</span>;
           })}
           <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
         </header>
       </div>
     );
@@ -610,69 +640,11 @@ export function Toast() {
 
 `import React from 'react'` 每个组件中都要导入 react，因为需要基于它的 createElement 把 JSX 进行解析渲染
 
-### JSX 语法代码
+## 高阶组件和函数作为子组件
 
-```js
-function hello(props) {
-  return <h1>Hello, {props.老大}</h1>;
-}
-```
+> 设计模式
 
-### JSX 转后的 JS 代码
-
-```js
-"use strict";
-function hello(props) {
-  return React.createElement("h1", null, "hello, ", props.老大);
-}
-```
-
-### JSX 基础语法
-
-> View 层语法
-
-- `js` 里直接写 `html`
-- `class` 写成 `className`
-- 变量用`{}`包裹即可
-
-![组件渲染](./images/react-component.png)
-
-![组件渲染效果](./images/react-component-inbroswer.png)
-
-### 组件之间传递数据
-
-> 组件之间用 props 传递数据
-
-- 使用 `<Component data="values">` 的形式传递
-- 组件里使用 `this.props` 获取值
-- 如果组件只有 `render`函数，还可以用函数的形式写组件
-
-![自定义组件间出传递数据](./images/sub-component.png)
-
-![子组件接受传递的数据](./images/import-sub-component.png)
-
-![子组件接受传递的数据渲染结果](./images/component-by-value.png)
-
-函数也可以作为组件
-
-![自定义函数组件](./images/import-qibinglian.png)
-
-![自定义函数组件结果](./images/import-qibinglian-result.png)
-
-## 组件内部 state
-
-> 组件内部通过 state 管理状态
-
-- JSX 本质就是 js,所以直接`数组.map` 渲染列表
-- `Constructor` 设置初始状态，记得执行`super(props)`
-- State 是不可变得对象，使用 `this.state` 获取
-
-![组件内部](./images/state.png)
-![组件内部结果](./images/state-result.png)
-
-### 设计模式 - 高阶组件和函数作为子组件
-
-#### 高阶组件（HoF）
+### 高阶组件(HOC）
 
 > 高阶组件是对已有的组件进行封装形成新的组件，新的组件包含一些自己的应用逻辑，逻辑会产生新的状态，这个状态会传给已有的组件。一般高阶组件不会有自己的 UI 展现，只是为自己封装的组件提供额外的数据
 
@@ -680,7 +652,7 @@ function hello(props) {
 
 三个圈代表三个组件，UI 都是组件树来描述的。绿色组件需要属性的时候，Parent 组件向子组件传递所需属性，同样的绿色组件属相传给子组件。问题：所有的属性由父组件传给过来，父组件需要知道你的组件的所有状态，这时候相隔好几层组件的怎么传递？高阶组件可以解决这个问题。高阶组件自己获取外部资源，做业务处理之后封装组件。此时，这个组件属性来源有两处。一个是父组件，另一个是高阶组件。高阶组件接受组件作为参数，返回新的组件。
 
-#### 函数作为子组件
+### 函数作为子组件
 
 ![函数作为子组件](./images/child-comp.png)
 
@@ -811,55 +783,33 @@ console.log(this.ul.querySelectorAll("li").length); // 比预计的少一个，�
 - **Commit Phase**: 可是使用 DOM，运行副作用，安排更新
 
 - `constructor`
-  - 1.用于初始化内部状态，很少使用
-  - 2.唯一可以直接修改 state 的地方
+  1. 用于初始化内部状态，很少使用
+  2. 唯一可以直接修改 state 的地方
 - `getDerivedStateFromProps`: React 16.3 引入的 API，它从外部的属性去初始化内部的状态
-  - 1.当 `state` 需要从 `props` 初始化时使用
-  - 2.不推荐使用：维护两个状态一致性会增加复杂度
-    - `state` 需要从 `props` 获的，可以从`props`动态得到，不需要单独存储这个状态
-    - 一旦单独存储，意味着始终维护两个状态，容易出现 bugs
-  - 3.每次 `render` 都会调用
-  - 4.典型场景：**表单空间获取默认值**
+  1. 当 `state` 需要从 `props` 初始化时使用
+  2. 不推荐使用：维护两个状态一致性会增加复杂度
+  - 2.1. `state` 需要从 `props` 获的，可以从`props`动态得到，不需要单独存储这个状态
+  - 2.2. 一旦单独存储，意味着始终维护两个状态，容易出现 bugs
+  3. 每次 `render` 都会调用
+  4. 典型场景：**表单空间获取默认值**
 - `render`: 描述 UI DOM 结构，组件必须声明
 - `compnentDidMount`: 可是发起接口请求，定义外部资源，可以运行副作用
-  - 1.UI 渲染完成后调用
-  - 2.只执行一次
-  - 3.典型场景：**获取外部资源**
+  1. UI 渲染完成后调用
+  2. 只执行一次
+  3. 典型场景：**获取外部资源**
 - `componentWillUnmount`
-  - 1.组件移除时被调用
-  - 2.典型场景：资源释放
+  1. 组件移除时被调用
+  2. 典型场景：资源释放
 - `shouldComponentUpdate`: 组件是否需要渲染，可以做性能**优化操作**，即时`state`变化，但是 `UI` 不需要变化
-  - 1.决定 `Virtual DOM` 是否要重绘
-  - 2.一般可以由 `PureComponent` 自动实现
-  - 3.典型场景：**性能优化**
+  1. 决定 `Virtual DOM` 是否要重绘
+  2. 一般可以由 `PureComponent` 自动实现
+  3. 典型场景：**性能优化** 详情页切换到另外一个详情页
 - `getSnapshotBeforeUpdate`: React 16.3 引入的 API
-  - 1.在页面 `render` 之前调用，`state` 已更新
-  - 2.典型场景：获取 `render` 之前的 `DOM` 状态
+  1. 在页面 `render` 之前调用，`state` 已更新
+  2. 典型场景：获取 `render` 之前的 `DOM` 状态
 - `componentDidUpdate`
-  - 1.每次 `UI` 更新时被调用
-  - 2.典型场景：**页面需要根据 `props` 变化重新获取数据**; 文件详情页，根据 id 变化内容也变化
-
-![父组件下达命令](./images/lifecycle-flow.png)
-
-![父组件下达命令](./images/lifecycle-parent.png)
-
-- 父组件: 输入命令并下达作战命令, `refs 属性`可以轻易获取　 DOM 　属性值
-
-![子组件接受命令](./images/lifecycle-child1.png)
-
-![子组件接受命令](./images/lifecycle-child2.png)
-
----
-
-![父组件下达命令](./images/lifecycle-yiying.png)
-
-未下达命令之前：声明周期流程
-
-![父组件下达命令](./images/lifecycle-yiying-result.png)
-
-下达攻击平安县城命令之后：声明周期流程
-
-![组件声明周期各种状态](./images/lifecycle-status.png)
+  1. 每次 `UI` 更新时被调用
+  2. 典型场景：**页面需要根据 `props` 变化重新获取数据**; 文件详情页，根据 id 变化内容也变化
 
 ### 声明调用流程
 
@@ -1046,268 +996,6 @@ if (preProcessor) {
 ```js
 // 隐藏导入样式文件
 // import 'antd-mobile/dist/antd-mobile.css'
-```
-
-## 案例-亮剑
-
-```sh
-# npm i -g create-react-app
-# create-react-app -v
-# create-react-app liangjian
-# cd liangjian && npm start
-```
-
-### 独立团项目
-
-- 独立团逐渐发展，老李发现管不过来了
-
-  - 人少的时候，无论是兵器还是人员的变更，都是`setState`
-  - 发展为千人大团后，老李决定，军事生活分开
-  - 所有状态归赵政委(redux)管理，自己只打仗（view 显示）
-
-- 老赵主要功能
-  - 老赵有一个保险箱(store)所有人的状态，在那里都有记录(state)
-  - 需要改变的时候，需要告诉专员(dispatch)要干什么(action)
-  - 处理变化的人（reducer）拿到 state 和 action ,生成新的记录（state）
-
-### 走马上任
-
-1. 首先通过 reducer 新建 store, 随时通过 store.getState 获取状态
-2. 需要状态变更，store.dispatch(action) 来修改状态
-3. Reducer 函数接受 state 和 action，返回新的 state, 可以用 store.subscribe 监听每次修改
-
-### 安装 redux
-
-```sh
-# npm install redux -S
-# vim src/index.js
-```
-
-```js
-import { createStore } from "redux";
-// 2. 根据老的state 和 action 生成新的state
-function counter($state = 0, action) {
-  switch (action.type) {
-    case "加机关枪":
-      return state + 1;
-    case "减机关枪":
-      return state - 1;
-    default:
-      return 10;
-  }
-}
-
-// 1. 新建 store
-const store = createStore(counter);
-
-// 3. 获取状态
-const init = store.getState();
-console.log(init);
-function listener() {
-  const current = store.getState();
-  console.log(`现在有机枪${current}`);
-}
-// 4. 订阅 listener - 每次dispatch都会触发listener
-store.subscribe(listener);
-
-// 5. 派发事件,传递 action
-store.dispatch({ type: "加机关枪" });
-store.dispatch({ type: "加机关枪" });
-store.dispatch({ type: "减机关枪" });
-```
-
-![redux-demo](./images/redux-demo.png)
-
-![redux-demo-result](./images/redux-demo-result.png)
-
-### Redux 如何和 React 一起用
-
-- 手动连接，老赵怎么管理独立团
-  - 把 store.dispath 方法传递给组件，内部可以调用修改状态
-  - Subscribe 订阅 render 函数，每次修改都重新渲染
-  - Redux 相关内容，移到单独的文件 index.redux.js 单独管理
-
-![redux.index.js](./images/redux-index.png)
-
-![index.js](./images/app-index.png)
-
-![app.js](./images/app-app.png)
-
-### 处理异步、调试工具、更优雅的和 React 结合
-
-- Redux 处理异步，需要 `redux-thunk` 插件
-- 安装调试工具 `npm install redux-devtools-extension` 并且开启
-- 使用 `react-redux` 优雅的链接 react 和 redux
-
-### redux-thunk 插件处理异步
-
-```sh
-# npm i redux-thunk -S
-# npm i redux-logger -S
-
-使用 applyMiddleware 开启thunk中间件
-Action 可以返回函数，使用 dispatch 提交 action
-
-# npm i redux-devtools-extension -S
-# npm i redux-chunk -S
-```
-
-index.js (applyMiddleware 处理中间件)
-
-```js
-import { createStore, applyMiddleware } from "redux";
-const store = createStore(counter, applyMiddleware);
-```
-
-![redux-thunk-index](./images/thunk-index.png)
-
-![redux-thunk-redux](./images/thunk-index-redux.png)
-
-![redux-thunk-app](./images/thunk-index-app.png)
-
-![redux-thunk-result](./images/thunk-result.png)
-
-### 调试工具 redux-devtools-extension 配置
-
-- 新建 `store` 的时候判断 `window.devToolsExtension`
-- 使用 `compose` 结合 `thunk` 和 `window.devToolsExtension`
-- 调试窗的 `redux` 选项卡，实时看到 `state`
-
-```js
-import { createStore, applyMiddleware, compose } from 'redux';
-const store = createStore(counter, compose(
-  applyMiddleware(thunk),
-  window.devToolsExtension ? window.devToolsExtension():f=>f;
-))
-```
-
-### 使用 react-redux
-
-- 老赵能力用起来很麻烦，为了方便管理，使用魏和尚来负责链接
-- `npm i react-redux -S`
-- 忘记 subscribe，记住 reducer，action 和 dispatch 即可
-- React-redux 提供 Provider 和 connect 两个接口来链接
-
-- react-redux 具体使用
-  - Provider 组件在应用最外层，传入 store 即可，只用一次
-  - Connect 负责从外部获取组件需要的参数
-  - Connect 可以用装饰器的方式来写
-    - 使用装饰器优化 connect 代码 `npm run eject` 弹出个性化配置
-
-1. 安装 `npm i babel-plugin-transform-decorators-legacy` 插件
-
-2. Package.json 里 babel 加上 plugins 配置
-
-```js
-"babel": {
-  "presets": [
-    "react-app"
-  ],
-  "plugins": [
-     "transform-decorators-legacy"
-  ]
-}
-```
-
-3. 修改 connect
-
-```js
-const mapStateProps = state => {
-  return { num: state };
-};
-const actionCreator = { addGun, removeGun, addGunAsync };
-// app 组件接受外部参数
-App = connect(
-  mapStateProps,
-  actionCreator
-)(App);
-```
-
-修改为
-
-```js
-@connect(
-  // 要 state 什么属性放到 props
-  state => ({ num: state }),
-  // 要什么方法，放到 props里，自动dispatch
-  { addGun, removeGun, addGunAsync }
-)
-class App extends React.Component {...}
-```
-
-![redux-thunk-result](./images/react-redux-index.png)
-
-![redux-thunk-result](./images/react-redux-app.png)
-
-![redux-thunk-result](./images/react-redux-app2.png)
-
-## Redux-router4
-
-- React 官方推荐路由库，4 是最新版本
-  - Redux-router4 是最新的版本，和之前版本不兼容，浏览器和 RN 均兼容
-  - React 开发单页应用必备，碱性路由即组件的该概念
-  - 核心概念：
-    - 动态路由
-    - BrowserRouter: 浏览器路由
-    - Route: 路由匹配组件渲染
-    - Link: 指定页面跳转地址 to="地址"
-    - Switch: 只渲染第一个 Route
-    - Redirect: 页面跳转到指定位置
-
-### 安装 [react-router](https://reacttraining.com/react-router/)
-
-- `npm i react-router-dom -S`
-- **Router4** 使用 `react-router-dom` 作为浏览器的路由
-- 忘记 **Router2** 的内容，拥抱最新的 Router4
-
-### 组件
-
-- `BrowserRouter` 包括整个应用
-- `Route`r 路由对应渲染的组件，可嵌套
-- `Link` 跳转专用
-
-```js
-// 多页应用
-import { BrowserRouter, Route, Link, Redirect, Switch } from "react-router-dom";
-import App from "./App";
-import Yiying from "./Yiying";
-import Qibinglian from "./Qibinglian";
-import Test from "./Test";
-ReactDOM.render(
-  <Provider store={store}>
-    <BrowserRouter>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">团部</Link>
-          </li>
-          <li>
-            <Link to="/yiying">一营</Link>
-          </li>
-          <li>
-            <Link to="/qibinglian">骑兵连</Link>
-          </li>
-        </ul>
-        <Switch>
-          {/*Switch: 只渲染第一个Route*/}
-          <Route path="/" exact component={App} />
-          <Route path="/yiying" component={Yiying} boss="张大喵" />
-          <Route path="/qibinglian" component={Qibinglian} boss="孙德胜" />
-          <Route path="/:location" component={Test} />
-          {/*不管访问什么页面都会跳转到首页*/}
-          {/* <Redirect to='/'></Redirect> */}
-        </Switch>
-      </nav>
-    </BrowserRouter>
-  </Provider>,
-  document.getElementById("root")
-);
-```
-
-- 跳转到 /
-
-```js
-this.props.history.push("/");
 ```
 
 ### 其他组件

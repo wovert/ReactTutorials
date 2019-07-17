@@ -22,15 +22,19 @@
 
 ## Redux 特性
 
-- 状态管理，和 React 解耦
-- 单一状态，单项数据流, Single Source of Truth
-  - ![redux in MVC](./images/redux-mvc.png)
-  - ![redux in mvvm](./images/redux-mvvm.png)
-- 可预测性
-  - `state + action = new state`
-- 纯函数更新 `Store`
-  - ![纯函数更新 store](./images/redux-feature-func.png)
-  - 纯函数：输出结果依赖输入参数，函数的内部不依赖于任何外部参数和外部资源
+1. 状态管理，和 React 解耦
+2. 单一状态，单项数据流, **Single Source of Truth**
+
+![redux in MVC](./images/redux-mvc.png)
+
+![redux in mvvm](./images/redux-mvvm.png)
+
+3. 可预测性：`state + action = new state`
+4. 纯函数更新 `Store`
+
+![纯函数更新 store](./images/redux-feature-func.png)
+
+> 纯函数：输出结果依赖输入参数，函数的内部不依赖于任何外部参数和外部资源
 
 ## redux 应用场景
 
@@ -69,14 +73,14 @@ Redux 只是 Web 架构的一种解决方案，也可以选择其他解决方案
 
 ![redux-store](./images/redux-store.png)
 
-Redux 提供`createStore`这个函数，用来生成 `Store`。
+> Redux 提供`createStore`这个函数，用来生成 `Store`。
 
 ```js
 import { createStore } from "redux";
 const store = createStore(fn); // 创建store容器
 ```
 
-上面代码中，`createStore`函数接受另一个函数作为参数，返回新生成的 Store 对象
+> 上面代码中，`createStore`函数接受另一个函数作为参数，返回新生成的 Store 对象
 
 ### State
 
@@ -497,6 +501,13 @@ function listerner() {
 
 ![redux-async](./images/redux-async.jpg)
 
+![Redux 异步请求](./images/redux-async-action.png)
+
+### middleware
+
+1. 截获 action
+2. 发出 action
+
 ### 中间件的概念
 
 为了理解中间件，让我们站在框架作者的角度思考问题：如果要添加功能，你会在哪个环节添加？
@@ -824,6 +835,10 @@ const Title = value => <h1>{value}</h1>;
 
 > React-Redux 提供 connect 方法，用于从 UI 组件生成容器组件。connect 的意思，就是将这两种组件连起来。
 
+![connect工作原理](./images/connect.png)
+
+> 组件树状态，connect 之后，组件内部 props 有 state 和 action。右边是 redux 的逻辑
+
 ```js
 import { connect } from 'react-redux
 const VisibleTodoList = connect()(TodoList)
@@ -1101,4 +1116,46 @@ const Root = ({ store }) => (
     </Router>
   </Provider>
 );
+```
+
+## 不可变数据 (immutable data)
+
+![immutable data](./images/immutable-data.png)
+
+### 为何需要不可变数据
+
+1. 性能优化（比较两个 state 引用是相等）
+2. 易于调试和跟踪
+3. 易于推测（是什么引起变化的）
+
+### 如何操作不可变数据
+
+1. 原生写法：`{...}, Object.assign({}, state, { todos:[...state.todos, 'Learn Redux']})`
+2. `immutability-helper`
+3. `immer` 性能比前两个差
+
+```jsx
+import update from "immutability-helper";
+const state = {
+  filter: "completed",
+  todos: ["Learn React"]
+};
+const newState = update(state, {
+  todos: {
+    $push: ["Learn Redux"]
+  }
+});
+```
+
+```jsx
+import produce from "immer";
+
+const state = {
+  filter: "completed",
+  todos: ["Learn React"]
+};
+
+const newState = produce(state, draftState => {
+  draftState.todos.push("Learn Redux.");
+});
 ```
