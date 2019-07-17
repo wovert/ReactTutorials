@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { withRouter, NavLink } from "react-router-dom";
 import { Icon } from "antd";
+
 class NavBottom extends React.Component {
   constructor(props, context) {
     super(props, context);

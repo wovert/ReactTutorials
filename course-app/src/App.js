@@ -15,8 +15,8 @@ import "./static/css/reset.min.css";
 import "./static/css/common.less";
 
 // common component
-import NavTop from "./components/NavTop";
-import NavBottom from "./components/NavBottom";
+import NavTop from "./components/NavTop/NavTop";
+import NavBottom from "./components/NavBottom/NavBottom";
 
 // router component
 import Home from "./routes/Home";
@@ -38,6 +38,7 @@ function App() {
               <Route path="/course" component={Home} />
               <Route path="/person" component={Person} />
               <Route path="/mycourse" component={Mycourse} />
+              {/*以上条件不满足执行跳转/course*/}
               <Redirect to="/course" />
             </Switch>
           </main>
