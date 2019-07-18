@@ -34,7 +34,6 @@ function App() {
           {/*MAIN ROUTE*/}
           <main className="container">
             <Switch>
-              <Route path="/" exact component={Home} />
               <Route path="/course" component={Home} />
               <Route path="/person" component={Person} />
               <Route path="/mycourse" component={Mycourse} />

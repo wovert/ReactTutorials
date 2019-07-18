@@ -1,7 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Carousel, Icon, Button } from "antd";
 import { Link } from "react-router-dom";
+
+import { Carousel, Icon, Button } from "antd";
 import action from "../../store/action";
 
 class List extends React.Component {
@@ -48,11 +49,11 @@ class List extends React.Component {
   loadMore = () => {
     let { queryList, courseData, courseType } = this.props;
 
-    //=>防止重复点击
+    // 防止重复点击
     if (this.state.isLoading) return;
     this.setState({ isLoading: true });
 
-    //=>重新发送新的DISPATCH：PAGE是在当前PAGE的基础上累加1，TYPE一定要沿用当前筛选的TYPE，FLAG点击加载更多，是向REDUX容器中追加新获取的信息
+    // 重新发送新的DISPATCH：PAGE是在当前PAGE的基础上累加1，TYPE一定要沿用当前筛选的TYPE，FLAG点击加载更多，是向REDUX容器中追加新获取的信息
     queryList({
       page: courseData.page + 1,
       type: courseType,
@@ -62,7 +63,7 @@ class List extends React.Component {
 
   render() {
     // let { bannerData, courseType, courseData } = this.props,
-    let { bannerData, courseData } = this.props,
+    const { bannerData, courseData } = this.props,
       { data } = courseData;
 
     return (
@@ -71,7 +72,7 @@ class List extends React.Component {
         {bannerData && bannerData.length !== 0 ? (
           <Carousel autoplay>
             {bannerData.map((item, index) => {
-              let { name, pic } = item;
+              const { name, pic } = item;
               return (
                 <div key={index}>
                   <img src={pic} alt={name} />
@@ -93,7 +94,7 @@ class List extends React.Component {
             <div>
               <ul>
                 {data.map((item, index) => {
-                  let { name, pic, dec, id, time } = item;
+                  const { name, pic, dec, id, time } = item;
                   return (
                     <li key={index}>
                       <Link
