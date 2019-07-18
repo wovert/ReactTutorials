@@ -36,9 +36,9 @@ route.post("/login", (req, res) => {
   });
 
   if (item) {
-    //=>登录成功：把当前登录用户的ID存储到SESSION上（如果SESSION上有用户信息就代表登录成功，反之没有登录）
+    // 登录成功：把当前登录用户的ID存储到SESSION上（如果SESSION上有用户信息就代表登录成功，反之没有登录）
     req.session.personID = parseFloat(item.id);
-    add_temp_store(req, res); //=>把存储到SESSION中的购物信息写入到JSON文件中
+    add_temp_store(req, res); // 把存储到SESSION中的购物信息写入到JSON文件中
     res.send({ code: 0, msg: "OK!" });
     return;
   }
@@ -48,7 +48,9 @@ route.post("/login", (req, res) => {
 // 验证是否登录
 route.get("/login", (req, res) => {
   // 是否登录就看 SESSION 中是否存在（后台服务重启，SESSION 都消失）
+  // 服务端不要使用nodemon，这个会重启服务导致session会丢失
   const personID = req.session.personID;
+  console.log(req.session);
   if (personID) {
     res.send({ code: 0, msg: "OK!" });
     return;

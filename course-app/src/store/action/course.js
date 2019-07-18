@@ -2,6 +2,7 @@ import * as TYPES from "../action-types";
 import { queryBanner, queryList, queryShopCart } from "../../api/course";
 
 let course = {
+  // 轮播图
   queryBanner() {
     return async dispatch => {
       let bannerData = await queryBanner();
@@ -11,6 +12,7 @@ let course = {
       });
     };
   },
+  // 课程列表
   queryList(payload = {}) {
     let { limit = 10, page = 1, type = "all", flag = "push" } = payload;
     return async dispatch => {
@@ -27,6 +29,7 @@ let course = {
       });
     };
   },
+  // 购物车未支付
   queryUnpay() {
     return async dispatch => {
       let result = await queryShopCart(0);
@@ -36,6 +39,7 @@ let course = {
       });
     };
   },
+  // 购物车已支付
   queryPay() {
     return async dispatch => {
       let result = await queryShopCart(1);

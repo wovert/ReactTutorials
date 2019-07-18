@@ -4,8 +4,8 @@ import { connect } from "react-redux";
 import Qs from "qs";
 import { Button } from "antd";
 
-import { queryInfo, addShopCart, removeShopCart } from "../../api/course";
 import action from "../../store/action/index";
+import { queryInfo, addShopCart, removeShopCart } from "../../api/course";
 
 class Info extends React.Component {
   constructor(props, context) {
@@ -18,17 +18,18 @@ class Info extends React.Component {
 
   async componentDidMount() {
     let {
-        location: { search }
-      } = this.props,
-      { courseId = 0 } = Qs.parse(search.substr(1)) || {};
+      location: { search }
+    } = this.props;
+    const { courseId = 0 } = Qs.parse(search.substr(1)) || {};
     this.courseId = courseId; // 挂载到实例上,目的是为了在其它方法中也可以调用
-    let result = await queryInfo(courseId);
+    const result = await queryInfo(courseId);
+
     if (parseFloat(result.code) === 0) {
       // 校验当前的课程是已支付还是未支付，或者还未加入购物车
-      let { pay, unpay } = this.props.shopCart,
-        isShop = -1;
-      // 在REDUX未购买和已购买的集合中筛选是否有当前展示的课程，有的话说明当前课程已经加入到购物车了，没有说明还未加入
+      const { pay, unpay } = this.props.shopCart;
+      let isShop = -1;
 
+      // 在REDUX未购买和已购买的集合中筛选是否有当前展示的课程，有的话说明当前课程已经加入到购物车了，没有说明还未加入
       isShop = unpay.find(item => parseFloat(item.id) === parseFloat(courseId))
         ? 0
         : isShop;
@@ -76,24 +77,19 @@ class Info extends React.Component {
     );
   }
 
-  handleShopCart = async ev => {
+  handleShopCart = async e => {
+    // 还未加入购物车（按钮：加入购物车）
     if (this.state.isShop === -1) {
-      // 还未加入购物车（按钮：加入购物车）
-      let result = await addShopCart(this.courseId);
-
+      const result = await addShopCart(this.courseId);
       if (parseFloat(result.code) === 0) {
-        // DISPATCH派发任务：通知REDUX容器中的购物信息进行更新
-        this.props.queryUnpay();
-
-        // 页面重新展示最新样式
-        this.setState({ isShop: 0 });
+        this.props.queryUnpay(); // DISPATCH派发任务：通知REDUX容器中的购物信息进行更新
+        this.setState({ isShop: 0 }); // 页面重新展示最新样式
       }
       return;
     }
 
     // 已经加入购物车（按钮：移除购物车）
-    let result = await removeShopCart(this.courseId);
-
+    const result = await removeShopCart(this.courseId);
     if (parseFloat(result.code) === 0) {
       this.props.queryUnpay(); // 更新购物车存储的数据
       this.setState({ isShop: -1 });
