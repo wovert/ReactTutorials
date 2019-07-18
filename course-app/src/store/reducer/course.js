@@ -18,7 +18,7 @@ let INIT_STATE = {
 };
 
 export default function course(state = INIT_STATE, action) {
-  // stringify xx装换位字符串，parse 字符串转换为JSON对象
+  // stringify xx转换位字符串，parse 字符串转换为JSON对象
   state = JSON.parse(JSON.stringify(state));
   switch (action.type) {
     // 获取轮播图数据

@@ -45,3 +45,17 @@ yarn server
 2. 每一次加载组件，首先验证 redux 是否存储了展示的信息，如果有，直接从 redux 获取即可。否则，发送一个 dispatch 派发任务，在派发的 action creator 中基于 ajax 获取数据，把获取的数据传递给 reducer，把信息存储到 reducer 中，redux 中的信息更改，那么用到它的组件也会重新渲染
 
 弊端：某些特定的案例中会存在一些问题。需要额外处理，例如（个人中心，A 用户登录成功，进入个人信息页面，首先会把 A 的信息存储到 redux 中，这样只要进入到信息页，展示的都是 A 的信息，不会重新从服务器获取最新的信息，即时 A 的信息已经改变，或者是登录的用户已经变为 B 了，都不会改变）。这种情况，需要在一些其他操作的时候，例如：重新登录、修改用户信息、退出登录等操作），都才需要 redux 中存储的个人信息更新才可以！
+
+3. redux-promise 中间件使用的时，action-creator 返回的 action 对象，传递给 reducer 的 action 数据（从服务器获取的数据，开发返回的是一个 promise）中的属性名必须要是 payload（严格区分大小写），只有这样，当 promise 成功，中间件才会帮我们重新发送一次派发给 reducer，然后把获取的数据信息更新 redux 容器中的状态！**promise 值必须放到 payload 属性名才可以**
+
+```js
+queryBanner() {
+  return async dispatch => {
+    let bannerData = await queryBanner();
+    dispatch({
+      type: TYPES.COURSE_QUERY_BANNER,
+      bannerData
+    });
+  };
+}
+```
