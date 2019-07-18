@@ -22,11 +22,8 @@ class Person extends React.Component {
   }
 
   // 挂载路由组件之前执行
-  async componentWillMount() {
-    // 验证是否登录
-    const result = await checkLogin(); // 异步登录
-    const isLogin = parseFloat(result.code) === 0 ? true : false;
-    this.setState({ isLogin });
+  componentWillMount() {
+    this.LoginAuthentication();
   }
 
   /*
@@ -34,12 +31,16 @@ class Person extends React.Component {
    * 1. 之前渲染其它组件的时候把当前组件彻底从页面中移除了，再次渲染当前组件，走的是第一次挂载的流程（也就是一切从头开始）
    * 2. 如果当前组件之前没有彻底在页面中移除（本组件内容的子组件在切换）,每一次走的是更新的流程，不是重新挂载的流程
    */
-
-  async componentWillReceiveProps() {
-    const result = await checkLogin(),
-      isLogin = parseFloat(result.code) === 0 ? true : false;
-    this.setState({ isLogin });
+  componentWillReceiveProps() {
+    this.LoginAuthentication();
   }
+
+  // 登录验证
+  LoginAuthentication = async () => {
+    const result = await checkLogin(); // 异步登录
+    const isLogin = parseFloat(result.code) === 0 ? true : false;
+    this.setState({ isLogin });
+  };
 
   render() {
     return (

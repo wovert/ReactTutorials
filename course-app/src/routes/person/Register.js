@@ -8,7 +8,7 @@ import action from "../../store/action/index";
 
 const FormItem = Form.Item;
 
-function loginFail() {
+function registerFail() {
   const modal = Modal.error({
     title: "注册失败",
     content: "请稍后重新尝试!"
@@ -22,18 +22,18 @@ class Register extends React.Component {
     this.state = {};
   }
 
-  handleSubmit = ev => {
-    ev.preventDefault();
+  handleSubmit = e => {
+    e.preventDefault();
     this.props.form.validateFieldsAndScroll(async (err, values) => {
       if (!err) {
         values.password = md5(values.password);
-        let result = await register(values);
+        const result = await register(values);
         if (parseFloat(result.code) === 0) {
           this.props.queryBaseInfo();
           this.props.history.push("/person");
           return;
         }
-        loginFail();
+        registerFail();
       }
     });
   };
