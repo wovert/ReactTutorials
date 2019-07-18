@@ -80,6 +80,7 @@ class Info extends React.Component {
     if (this.state.isShop === -1) {
       // 还未加入购物车（按钮：加入购物车）
       let result = await addShopCart(this.courseId);
+
       if (parseFloat(result.code) === 0) {
         // DISPATCH派发任务：通知REDUX容器中的购物信息进行更新
         this.props.queryUnpay();
@@ -89,8 +90,10 @@ class Info extends React.Component {
       }
       return;
     }
+
     // 已经加入购物车（按钮：移除购物车）
     let result = await removeShopCart(this.courseId);
+
     if (parseFloat(result.code) === 0) {
       this.props.queryUnpay(); // 更新购物车存储的数据
       this.setState({ isShop: -1 });
