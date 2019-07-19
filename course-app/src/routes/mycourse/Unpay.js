@@ -57,7 +57,7 @@ class Unpay extends React.Component {
   }
 
   handleRemove = () => {
-    //=>获取所有被选中的课程ID
+    // 获取所有被选中的课程ID
     let selectIDList = [];
     this.props.shopCart.unpay.forEach(item => {
       if (item.check) {
@@ -68,7 +68,7 @@ class Unpay extends React.Component {
       alert("没有要被删除的信息!");
       return;
     }
-    //=>根据ID发送删除的请求：生成每一个AXIOS删除操作的返回PROMISE数组，基于Promise.all验证是否都完成
+    // 根据ID发送删除的请求：生成每一个AXIOS删除操作的返回PROMISE数组，基于Promise.all验证是否都完成
     selectIDList = selectIDList.map(courseID => {
       return removeShopCart(courseID);
     });
@@ -78,14 +78,14 @@ class Unpay extends React.Component {
   };
 
   handlePay = async () => {
-    //=>验证当前是否登录
+    // 验证当前是否登录
     let result = await checkLogin();
     if (parseFloat(result.code) !== 0) {
       alert("请先登录");
       return;
     }
 
-    //=>获取所有被选中的存储ID
+    // 获取所有被选中的存储ID
     let selectIDList = [];
     this.props.shopCart.unpay.forEach(item => {
       if (item.check) {
@@ -96,7 +96,7 @@ class Unpay extends React.Component {
       alert("没有要被删除的信息!");
       return;
     }
-    //=>根据ID发送删除的请求：生成每一个AXIOS删除操作的返回PROMISE数组，基于Promise.all验证是否都完成
+    // 根据ID发送删除的请求：生成每一个AXIOS删除操作的返回PROMISE数组，基于Promise.all验证是否都完成
     selectIDList = selectIDList.map(storeID => {
       return payShopCart(storeID);
     });
