@@ -4,7 +4,7 @@ const express = require("express"),
   PERSONAL_PATH = "./json/personal.json",
   utils = require("../utils/utils");
 
-//=>把临时存储在SESSION中的STORE信息，增加到JSON文件中（登录后）
+// 把临时存储在SESSION中的STORE信息，增加到JSON文件中（登录后）
 function add_temp_store(req, res) {
   let storeList = req.session.storeList || [];
   if (storeList.length === 0) return;
@@ -19,16 +19,16 @@ function add_temp_store(req, res) {
 
 route.post("/login", (req, res) => {
   let { name, password } = req.body || {};
-  //=>把秘密二次加密：因为注册的时候，存储到JSON中的密码是经过二次加密的，所以我们登录验证的时候也需要把密码二次加密，只有这样才会和JSON中的匹配
+  // 把秘密二次加密：因为注册的时候，存储到JSON中的密码是经过二次加密的，所以我们登录验证的时候也需要把密码二次加密，只有这样才会和JSON中的匹配
   password = password
     .substr(4, 24)
     .split("")
     .reverse()
     .join("");
 
-  //=>req.personalDATA 之前读取的PERSONAL中的信息：登录校验就是把用户传递的信息到总数据中查找，找到就代表登录成功...
+  // req.personalDATA 之前读取的PERSONAL中的信息：登录校验就是把用户传递的信息到总数据中查找，找到就代表登录成功...
   const item = req.personalDATA.find(item => {
-    //=>支持用户名传递：姓名、邮箱、电话
+    // 支持用户名传递：姓名、邮箱、电话
     return (
       (item.name === name || item.email === name || item.phone === name) &&
       item.password === password
@@ -59,7 +59,7 @@ route.get("/login", (req, res) => {
 });
 
 route.post("/register", (req, res) => {
-  //=>先准备一套完成的新用户信息模型
+  // 先准备一套完成的新用户信息模型
   let personInfo = {
     id:
       req.personalDATA.length === 0
@@ -70,23 +70,23 @@ route.post("/register", (req, res) => {
     phone: "",
     password: "8376ac810bb9f231d28fcf1f"
   };
-  //=>把用户传递的密码二次加密
+  // 把用户传递的密码二次加密
   req.body.password = req.body.password
     .substr(4, 24)
     .split("")
     .reverse()
     .join("");
 
-  //=>把用户传递的信息替换用户模型中的信息，此时personInfo就是要新增加用户的全部信息
+  // 把用户传递的信息替换用户模型中的信息，此时personInfo就是要新增加用户的全部信息
   personInfo = { ...personInfo, ...req.body };
 
-  //=>先把信息放到原始数据中
+  // 先把信息放到原始数据中
   req.personalDATA.push(personInfo);
 
-  //=>一定要把最新的原始数据，重新写入到JSON文件中，这样才能存储
+  // 一定要把最新的原始数据，重新写入到JSON文件中，这样才能存储
   writeFile(PERSONAL_PATH, req.personalDATA)
     .then(() => {
-      //=>注册成功也代表登录成功，所以需要记录SESSION
+      // 注册成功也代表登录成功，所以需要记录SESSION
       req.session.personID = parseFloat(personInfo.id);
       add_temp_store(req, res);
       res.send({ code: 0, msg: "OK!" });
